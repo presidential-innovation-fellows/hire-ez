@@ -1,0 +1,15 @@
+.nav.nav-tabs.project-subnav
+
+  li.header-li
+    h4= $project->title
+
+
+  li(class="pull-right #{Helper::active_subnav('admin') ? 'active':''}")
+    a(href="#{route('project_admin', array($project->id))}") Collaborators
+  li(class="pull-right #{Helper::active_subnav('comments') ? 'active':''}")
+    a(href="#{route('comments', array($project->id))}") Timeline
+
+  - if ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED):
+    li(class="pull-right #{Helper::active_subnav('review_bids') ? 'active':''}")
+      a(href="#{route('review_bids', array($project->id))}") Applications (#{$project->submitted_bids()->count()})
+  - endif;

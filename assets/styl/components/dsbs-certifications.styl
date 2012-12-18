@@ -1,0 +1,18 @@
+.dsbs-certifications
+  min-height 70px
+  width 100%
+
+  tbody.loading, tbody.no-certs
+    display none
+
+  &.loading, &.no-certs
+    tbody.certs
+      display none
+
+  &.loading
+    tbody.loading
+      display block
+
+  &.no-certs
+    tbody.no-certs
+      display block

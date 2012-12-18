@@ -1,0 +1,56 @@
+.details-inner
+
+  - if ($bid->dismissed()):
+    .alert.alert-danger.dismissed-alert
+      .dismissal-notice #{__('r.bids.partials.bid_details_vendors_view.dismissed')}
+  - elseif (!$bid->awarded_at):
+    .alert.alert-info #{__('r.bids.partials.bid_details_vendors_view.review')}
+  - else:
+    .alert.alert-success
+      | !{__('r.bids.partials.bid_details_vendors_view.won_header')}
+      - if (trim($bid->awarded_message) != ""):
+        | !{__('r.bids.partials.bid_details_vendors_view.won_body', array('message' => $bid->awarded_message))}
+      - endif;
+  - endif;
+
+  h5 Approach
+  p !{$bid->approach}
+
+  h5 Previous Work
+  p !{$bid->previous_work}
+
+  h5 Employee Details
+  p !{$bid->employee_details}
+
+  .row
+    .span6.prices
+      h5 Prices
+      table.table
+        thead
+          tr
+            th Deliverable
+            th Price
+        - if ($bid->prices):
+          - foreach($bid->prices as $deliverable => $price):
+            tr
+              td #{$deliverable}
+              td $#{$price}#{$bid->project->price_type == Project::PRICE_TYPE_HOURLY ? '/hr' : ''}
+        - endif;
+        - if ($bid->project->price_type == Project::PRICE_TYPE_FIXED):
+          tfoot
+            tr.info
+              td Total Price
+              td #{$bid->display_price()}
+        - endif;
+
+    .span6.example-work
+      h5 Example Work
+      .vendor-image-preview-frame
+        img(src="#{$bid->vendor->image_url}")
+
+
+  - if (!$bid->dismissed_at && !$bid->awarded_at):
+    a(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="!{__('r.delete_bid_confirmation')}")
+      | Delete Bid
+  - endif;
+

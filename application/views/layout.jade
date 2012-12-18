@@ -1,0 +1,94 @@
+| <!DOCTYPE html>
+
+| <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+| <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+| <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+| <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+head
+
+  meta(charset="utf-8")
+  meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+  meta(name="description", content="")
+  meta(name="viewport", content="width=device-width")
+
+  title #{Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))}
+
+  | <link href="//fonts.googleapis.com/css?family=Telex" media="all" type="text/css" rel="stylesheet">
+  !{Helper::asset('css/all')}
+
+
+  - if (Auth::guest()):
+    - $body_class = "no-auth";
+    - print "<style>.only-user { display: none; }</style>";
+  - else:
+    - $body_class = "auth " . (Auth::user()->vendor ? "vendor" : "officer");
+    - print "<style>.only-user:not(.only-user-".Auth::user()->id."), .not-user-".Auth::user()->id." { display: none; }</style>";
+  - endif;
+
+  - if (Auth::officer() && Auth::officer()->role == Officer::ROLE_ADMIN):
+    - $body_class .= " admin"
+  - elseif (Auth::officer() && Auth::officer()->role == Officer::ROLE_SUPER_ADMIN):
+    - $body_class .= " super-admin"
+  - endif;
+
+  !{HTML::script('js/modernizr.js')}
+
+  script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js")
+  script
+    | window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
+
+
+
+  !{Helper::asset('js/global')}
+  !{Helper::asset('js/vendor/turbolinks')}
+
+
+body(class="#{$body_class}", data-current-page="#{Section::yield('current_page')}", data-officer-name="#{Auth::officer() ? Auth::officer()->name : ''}", data-officer-id="#{Auth::officer() ? Auth::officer()->id : ''}", data-officer-user-id="#{Auth::officer() ? Auth::officer()->user_id : ''}")
+
+  | <!--[if lt IE 8]>
+  |   <p class="chromeframe"><?= __("r.chromeframe_text") ?></p>
+  | <![endif]-->
+
+
+  #outer-container
+
+    !{View::make('partials.topnav')}
+
+    .container
+
+      - if (Auth::guest()):
+        !{View::make('partials.signin_modal')}
+      - endif;
+
+      - if (Session::has('errors')):
+        .alert.alert-error
+          button(type="button", class="close", data-dismiss="alert") ×
+          ul
+            - foreach(Session::get('errors') as $error):
+              li #{$error}
+      - endif;
+
+      - if (Session::has('notice')):
+        .alert.alert-success.alert-bigger #{Session::get('notice')}
+          button(type="button", class="close", data-dismiss="alert") ×
+      - endif;
+
+      - if (!Section::yield('no_page_header'))
+        h4 #{Section::yield('page_title')}
+          | !{Section::yield('inside_header')}
+
+      !{Section::yield('subnav')}
+
+      !{$content}
+
+
+  !{View::make('partials.footer')}
+
+  - if (Request::is_env('production'))
+    script(src="/js/vendor/google.analytics.js")
+    script(src="/js/vendor/jquery.formtimer.js")
+    script
+      | $(document).on("ready page:load", function() { $("form").formTimer(); });
+
+| </html>

@@ -1,0 +1,34 @@
+- Section::inject('page_title', $project->title)
+- Section::inject('page_action', "Admin")
+- Section::inject('active_subnav', 'admin')
+- Section::inject('no_page_header', true)
+
+!{View::make('projects.partials.toolbar')->with('project', $project)}
+
+.row-fluid
+
+  .span6
+
+    h5 Collaborators
+
+    p #{__("r.projects.admin.collaborators")}
+
+    table.table.collaborators-table(data-project-id="#{$project->id}")
+      thead
+        tr
+          th Email
+          th Owner
+          th Actions
+      tbody#collaborators-tbody
+        :javascript
+          | $(function(){
+          |  new Rfpez.Backbone.CollaboratorPage({project_id: #{$project->id}, owner_id: !{$project->owner()->user->id}, bootstrap: !{$collaborators_json}});
+          | })
+
+      tfoot
+        tr
+          td(colspan="3")
+            form#add-collaborator-form(action="#{route('project_collaborators', array($project->id))}", method="POST")
+              .input-append
+                input(type="text", name="email", placeholder="Email Address", autocomplete="off")
+                button.btn.btn-success Add

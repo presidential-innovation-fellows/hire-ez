@@ -1,0 +1,40 @@
+- if (!isset($officer) && Auth::user() && Auth::user()->officer):
+  - $officer = Input::old('officer') ?: Auth::user()->officer->to_array()
+- endif;
+
+- if (isset($signup) && $signup):
+  .control-group
+    label Email
+    input(type="text", name="user[email]", value="#{$user['email']}")
+
+  .control-group
+    label Password
+    input(type="password", name="user[password]")
+
+- else:
+
+  label.larger #{Auth::user()->email}
+    a.smaller(href="#{route('change_email')}") change email
+
+  label.larger (password hidden)
+    a.smaller(href="#{route('change_password')}") change password
+
+  label.larger Role: #{$officer['role_text']}
+
+- endif;
+
+.control-group
+  label Name
+  input(type="text", name="officer[name]", value="#{$officer['name']}")
+
+.control-group
+  label Title
+  input(type="text", name="officer[title]", value="#{$officer['title']}")
+
+.control-group
+  label Agency
+  input(type="text", name="officer[agency]", value="#{$officer['agency']}")
+
+.control-group
+  label Phone
+  input(type="text", name="officer[phone]", value="#{$officer['phone']}")

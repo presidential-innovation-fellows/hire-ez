@@ -1,0 +1,167 @@
+.new-project-page
+  width 500px
+  margin 0 auto
+
+  #new-project-type-input
+    display block
+
+    &.hide
+      display none
+
+ul.templates-list
+  margin 0
+
+  li
+    list-style none
+
+  li.no-templates
+    width 400px
+    margin 0 auto 30px
+
+  li.show-more
+    text-align center
+
+    .spinner
+      display none
+
+    &.loading-more
+      .show-more-templates-link
+        display none
+
+      .spinner
+        display inline
+
+    &.all-loaded
+      .show-more-templates-link
+        display none
+
+.sections-for-editing-wrapper
+  position relative
+
+.sections-for-editing
+  cursor pointer
+
+  .category
+
+    &.ui-sortable-placeholder
+      background-color #ccc
+      visibility visible !important
+
+    .category-sections
+      .section
+        &.ui-sortable-placeholder
+          background-color #ccc
+          visibility visible !important
+
+        .edit-section-link, .remove-button
+          display none
+
+        &:hover
+          .edit-section-link, .remove-button
+            display inline
+
+.sections-for-editing-cover
+  background rgba(255, 255, 255, 0.6)
+  z-index 2
+  position absolute
+  top 0
+  left 0
+  text-align center
+  padding-top 100px
+  font-size 16px
+  font-weight bold
+
+.timeline-table
+  width 100%
+
+  &.hourly-price
+    th.completion-date, td.completion-date
+      display none
+
+  tfoot
+    background #ddd
+
+.sow-sidebar
+  width 100%
+  margin 0 0 20px
+  border-radius 6px
+  pl 0
+
+  li
+    a
+      display block
+      margin 0 0 -1px
+      padding 8px 14px
+      border 1px solid #E5E5E5
+
+      .icon-chevron-right
+        opacity .5
+        float right
+        mt 2px
+        mr -6px
+
+    &.active
+      .icon-chevron-right
+        opacity 1
+
+#add-edit-section-modal
+  width 700px
+  min-height 500px
+  margin-top -280px
+
+  .modal-body
+    max-height 500px
+
+  .category-controls
+    select
+      width 150px
+
+    input
+      display inline
+      width 180px
+
+  textarea
+    width 100%
+    box-sizing border-box
+    min-height 140px
+
+  .form-actions
+    box-sizing border-box
+    margin 0
+
+.available-sections-table
+  tbody.section
+
+    tr.section-info
+      .preview-link
+        display none
+        color #999
+
+    &:hover
+      tr.section-info
+        .preview-link
+          display block
+
+    tr.preview
+
+      td
+        border 0
+
+    &:nth-child(odd)
+      background-color #f9f9f9
+
+
+.public-status
+  font-weight bold
+  margin-right 20px
+
+.fill-in-blanks
+  input[type=text]
+    padding: 0 3px;
+    width: 100px;
+    margin: 0 0 1px;
+    font-size: 14px;
+    line-height: 20px;
+
+    &.empty
+      background #ffe7a0

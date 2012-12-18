@@ -1,0 +1,5 @@
+- foreach ($applicants as $bid):
+  tr
+    td
+      a(href="#{route('vendor', $bid->vendor->id)}")= $bid->vendor->name
+    td= $bid->total_stars

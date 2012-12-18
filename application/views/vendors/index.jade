@@ -1,0 +1,19 @@
+- Section::inject('page_title', 'All Applicants')
+- Section::inject('no_page_header', true)
+
+- foreach ($projects as $project):
+  .project
+    h4 Top un-hired applicants from #{$project->title}
+
+    table.top-applicant-table.table
+      thead
+        tr
+          th Name
+          th Total Stars
+      tbody
+        | !{View::make('vendors.partials.applicants_trs')->with('applicants', $project->top_unhired_applicants()->take(10)->get())}
+
+
+    .centered
+      - if ($project->top_unhired_applicants()->count() > 10):
+        .btn.btn-primary.load-more-applicants-button(data-project-id="#{$project->id}", data-current-page="2") Load More

@@ -1,0 +1,10 @@
+- Section::inject('page_title', $vendor->name)
+
+.vendor-detail
+  dl
+    dt Name
+    dd= $vendor->name
+
+    dt Projects Applied For
+      - foreach ($vendor->bids as $bid):
+        dd= $bid->project->title

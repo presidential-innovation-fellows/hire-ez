@@ -1,0 +1,32 @@
+- $unread = Auth::user()->unread_notification_for_payload("bid", $bid->id)
+
+tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->name}", data-vendor-email="#{$bid->vendor->user->email}")
+  tr
+    td.bid-notification-td
+      a(class="btn btn-small btn-primary btn-circle mark-as-read") &nbsp;
+      a(class="btn btn-small btn-circle mark-as-unread") &nbsp;
+    td(class="star-td #{$bid->starred ? 'starred' : ''}")
+      a.btn.btn-inverse.btn-mini.unstar-button
+        i.icon-star
+      a.btn.btn-mini.star-button
+        i.icon-star-empty
+    td.bid-vendor-td
+      a(data-toggle="collapse", data-target="#bid#{$bid->id}") #{$bid->vendor->name}
+      - if ($bid->awarded_at):
+        span.label.label-success Winning Applicant!
+      - endif;
+    td
+      - if (!$bid->awarded_at):
+        - if ($bid->dismissed()):
+          a(class="btn btn-info undismiss-button", data-move-to-table="true") Un-reject
+          div
+            em Dismissed
+        - else:
+          a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Reject
+          - if (!$bid->project->winning_bid()):
+            a(class="btn btn-primary show-award-modal", data-move-to-table="true") Hire
+          - endif;
+      - else:
+        | !{__('r.bids.partials.bid_for_review.congrats')}
+      - endif;
+

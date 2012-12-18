@@ -1,0 +1,13 @@
+- if ($project->price_type == Project::PRICE_TYPE_FIXED && ($deliverables = $project->non_blank_deliverables) && count($deliverables) != 0):
+  h5 Timeline
+
+  table.table.timeline-table
+    thead
+      tr
+        th Deliverable
+        th Completion Date
+    tbody
+      - foreach ($deliverables as $deliverable):
+        tr
+          td #{$deliverable->name}
+          td #{$deliverable->date_or_length()}

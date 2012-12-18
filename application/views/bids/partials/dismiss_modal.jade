@@ -1,0 +1,28 @@
+#dismiss-modal.modal.hide(tabindex='-1', role='dialog')
+  form.form-horizontal
+    .modal-header
+      button.close(type='button', data-dismiss='modal') ×
+      h3
+        | Reject
+        span.company-name
+
+    .modal-body
+      .alert.alert-info !{__('r.bids.partials.dismiss_modal.optional_fields')}
+
+      .control-group
+        label.control-label Rejection Reason:
+        .controls
+          select(name='reason')
+            option(value="") -- Select a Reason --
+            - foreach (Bid::dismissal_reasons() as $reason):
+              option(value="#{$reason}") #{$reason}
+            option(value="Other") Other
+          input(type="text", name="reason_other")
+
+      .control-group
+        .controls
+          textarea(name='explanation', placeholder='Dismissal Explanation')
+
+    .modal-footer
+      button.btn(data-dismiss='modal') Cancel
+      button.btn.btn-primary.dismiss-btn(data-loading-text='Dismissing...') Reject

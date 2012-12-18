@@ -1,0 +1,2 @@
+<?php echo SowVariableParser::parse(View::make('projects.partials.background_and_sections')->with('project', $project), $project->variables, "read"); ?>
+<?php echo View::make('projects.partials.timeline')->with('project', $project); ?>

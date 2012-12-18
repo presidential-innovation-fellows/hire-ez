@@ -1,0 +1,12 @@
+- Section::inject('page_title', 'My Projects')
+
+- if ($projects):
+  ul.projects-list.my-projects
+    - foreach($projects as $project):
+      li
+        a.project-title(href="#{ route('review_bids', array($project->id)) }") #{$project->title}
+        - //td #{$project->status_text()}
+        - // td
+        - //a.btn.btn-mini(href="#{ route('project_admin', array($project->id)) }") Admin
+- else:
+  p !{__("r.projects.mine.none", array("url" => route('new_projects')))}

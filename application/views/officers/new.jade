@@ -1,0 +1,11 @@
+- Section::inject('page_title', 'New Officer')
+
+form#new-officer-form(action="#{route('officers')}", method="post")
+
+  <?php $user = Input::get('user'); ?>
+  <?php $officer = Input::get('officer'); ?>
+
+  !{View::make('users.account_officer_fields')->with('officer', Input::old('officer'))->with('user', Input::old('user'))->with('signup', true)}
+
+  .form-actions
+    button.btn.btn-primary(type="submit") Submit

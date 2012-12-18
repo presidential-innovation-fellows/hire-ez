@@ -1,0 +1,41 @@
+.notification-table
+  margin 0
+
+.notification-item
+  list-style none
+  padding 10px 0 10px 30px
+  position relative
+
+  .unread-td
+    width 15px
+    text-align center
+    vertical-align middle
+
+  .line1
+    //
+
+  .line2
+    font-size 13px
+
+  .timestamp
+    font-weight normal
+    font-size 11px
+
+
+  .mark-as-read, .mark-as-unread
+    margin 0 auto
+    display none
+
+  &.unread
+    .line1
+      font-weight bold
+
+    .mark-as-read
+      display block
+
+    .mark-as-unread
+      display none !important
+
+  &:hover
+    .mark-as-unread
+      display block

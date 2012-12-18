@@ -1,0 +1,21 @@
+.dsbs-certifications.loading(data-dsbs-user-id="#{$user_id}", data-defer="#{(isset($defer) && $defer) ? 'true' : 'false'}")
+  table.table.table-bordered
+    tbody.loading
+      tr
+        td(colspan="2") #{__("r.vendors.partials.dsbs_certifications.loading")}
+    tbody.no-certs
+      tr
+        td(colspan="2") #{__("r.vendors.partials.dsbs_certifications.not_found")}
+    tbody.certs
+      tr
+        th vietnam
+        td(data-key="vietnam")
+      tr
+        th dav
+        td(data-key="dav")
+      tr
+        th veteran
+        td(data-key="veteran")
+      tr
+        th women
+        td(data-key="women")

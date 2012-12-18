@@ -1,0 +1,40 @@
+- Section::inject('page_title', $project->title)
+- Section::inject('page_action', "Review Applicants")
+- Section::inject('active_subnav', 'review_bids')
+- Section::inject('no_page_header', true)
+- Section::inject('current_page', 'bid-review')
+
+!{View::make('projects.partials.toolbar')->with('project', $project)}
+
+ul.nav.nav-pills.pull-left
+  li(class="#{!Config::has('review_bids_filter') ? 'active' : ''}")
+    a(href="#{route('review_bids', $project->id)}") All Applicants
+  li(class="#{Config::get('review_bids_filter') == 'hired' ? 'active' : ''}")
+    a(href="#{route('review_bids_filtered', array($project->id, 'hired'))}") Hired
+  li(class="#{Config::get('review_bids_filter') == 'starred' ? 'active' : ''}")
+    a(href="#{route('review_bids_filtered', array($project->id, 'starred'))}") Starred
+  li(class="#{Config::get('review_bids_filter') == 'rejected' ? 'active' : ''}")
+    a(href="#{route('review_bids_filtered', array($project->id, 'rejected'))}") Rejected
+
+
+- if (Input::get('sort')):
+  a.pull-right(href="#{URL::current()}") (Clear sort)
+- endif;
+
+table.table#bids-table
+  thead
+    tr
+      th(width="10%")!= Helper::current_sort_link('unread', 'Unread')
+      th(width="40%")!= Helper::current_sort_link('name', 'Name')
+      th(width="15%")!= Helper::current_sort_link('thumbsups', 'Thumbs-ups', 'desc')
+      th(width="15%")!= Helper::current_sort_link('comments', 'Comments', 'desc')
+      th(width="20%", colspan="3") Actions
+
+  :javascript
+    | $(function(){
+    |  new Rfpez.Backbone.BidPage({project_id: #{$project->id}, bootstrap: !{$bids_json}});
+    | })
+
+
+.pagination-wrapper
+  !{$links}

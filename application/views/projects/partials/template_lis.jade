@@ -1,0 +1,18 @@
+- foreach($templates as $template):
+  li.template.well
+    .row-fluid
+      .span6
+        .title #{$template->title}
+        .author #{$template->owner()->name}
+
+      .span3
+        .forked
+          | Forked #{$template->fork_count} #{Str::plural('time', $template->fork_count)}
+        - if ($template->recommended):
+          .recommended &#9733; Recommended Template
+
+      .span3
+        a.btn.btn-info.preview-button Preview
+        a.btn.btn-success(href="#{route('project_template_post', array($project->id, $template->id))}") Fork
+
+        !{View::make('projects.partials.template_preview_modal')->with('template', $template)}
