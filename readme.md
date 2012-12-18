@@ -9,7 +9,7 @@ HIRE-EZ Is a demonstration application that demonstrates the flexibility of RFP-
 ## Setting up your development environment
 
 ##### 1. Grab the code
-`git clone git://github.com/presidential-innovation-fellows/rfpez.git`
+`git clone git://github.com/presidential-innovation-fellows/hire-ez.git`
 
 ##### 2. Install dependencies
 - Install Composer (http://getcomposer.org/)
@@ -18,7 +18,7 @@ HIRE-EZ Is a demonstration application that demonstrates the flexibility of RFP-
 - In `assets/build`, run `npm install`
 
 ##### 3. Configure your local database
-- Create an empty MySQL database named "rfpez" (or whatever your heart desires)
+- Create an empty MySQL database named "hire-ez" (or whatever your heart desires)
 - Copy the `application/config/local_example` directory to `application/config/local` (which will be .gitignore'd)
 - Enter your database credentials in `application/config/local/database.php`
 - Install the Laravel migrations table: `php artisan migrate:install --env=local`
