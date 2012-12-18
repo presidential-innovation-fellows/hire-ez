@@ -2,15 +2,15 @@
 Rfpez.Backbone.BidCommentsView = Backbone.View.extend({
   tagName: "div",
   className: "comments-list-wrapper",
-  template: _.template(" <div class=\"comments-list\"></div>\n\n<textarea></textarea>\n<button class=\"btn btn-primary btn-small\">Add Comment</button>"),
+  template: _.template("\n<div class=\"comments-list\"></div>\n<div class=\"comments-placeholder centered\"><img src=\"/img/spinner.gif\" /></div>\n\n<textarea></textarea>\n<button class=\"btn btn-primary btn-small\">Add Comment</button>"),
   initialize: function() {
     this.comments = new Rfpez.Backbone.BidCommentList();
     this.comments.bind('reset', this.reset, this);
     this.comments.bind('add', this.addOne, this);
     this.parent_view = this.options.parent_view;
     this.comments.url = "/bids/" + this.options.bid_id + "/comments";
-    this.comments.fetch();
-    return this.$el.html(this.template());
+    this.$el.html(this.template());
+    return this.comments.fetch();
   },
   events: {
     "click button": "newComment"
@@ -18,9 +18,6 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend({
   reset: function() {
     this.$el.find(".comments-list").html('');
     return this.addAll();
-  },
-  fetch: function() {
-    return this.comments.fetch();
   },
   addOne: function(comment) {
     var html, view;
@@ -32,6 +29,7 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend({
     return this.$el.find(".comments-list").append(html);
   },
   addAll: function() {
+    this.$el.find(".comments-placeholder").hide();
     return this.comments.each(this.addOne, this);
   },
   newComment: function() {

@@ -3,7 +3,10 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend
   tagName: "div"
   className: "comments-list-wrapper"
 
-  template: _.template """ <div class="comments-list"></div>
+  template: _.template """
+
+    <div class="comments-list"></div>
+    <div class="comments-placeholder centered"><img src="/img/spinner.gif" /></div>
 
     <textarea></textarea>
     <button class="btn btn-primary btn-small">Add Comment</button>
@@ -18,9 +21,9 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend
 
     @comments.url = "/bids/#{@options.bid_id}/comments"
 
-    @comments.fetch()
-
     @$el.html @template()
+
+    @comments.fetch()
 
   events:
     "click button": "newComment"
@@ -29,15 +32,13 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend
     @$el.find(".comments-list").html('')
     @addAll()
 
-  fetch: ->
-    @comments.fetch()
-
   addOne: (comment) ->
     view = new Rfpez.Backbone.BidCommentView({model: comment, parent_view: @})
     html = view.render().el
     @$el.find(".comments-list").append(html)
 
   addAll: ->
+    @$el.find(".comments-placeholder").hide()
     @comments.each @addOne, @
 
   newComment: ->
