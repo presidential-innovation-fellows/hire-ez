@@ -62,6 +62,8 @@ class Initial_Schema {
       $t->date('awarded_at')->nullable();
       $t->integer('awarded_by')->nullable()->unsigned();
 
+      $t->boolean('anyone_read');
+
       $t->integer('total_stars');
       $t->integer('total_comments');
 

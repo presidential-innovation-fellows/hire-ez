@@ -108,6 +108,11 @@ class Bid extends SoftDeleteModel {
 
     if ($bid_officer->read == $read) return;
 
+    if ($read && !$this->anyone_read) {
+      $this->anyone_read = true;
+      $this->save();
+    }
+
     $bid_officer->read = $read;
   }
 

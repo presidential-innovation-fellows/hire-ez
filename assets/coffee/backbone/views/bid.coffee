@@ -33,6 +33,9 @@ Rfpez.Backbone.BidView = Backbone.View.extend
       <% } else { %>
         <a class="btn btn-small btn-primary btn-circle toggle-read">&nbsp;</a>
       <% } %>
+      <% if (anyone_read == 1) { %>
+        <span class="anyone-read">R</span>
+      <% } %>
     </td>
     <td><a class="vendor-name toggle-details"><%= vendor.name %></a></td>
     <td><%= total_stars %></td>
@@ -84,8 +87,12 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     @$el.find(".main-bid").html @main_bid_template(@model.toJSON())
 
   toggleRead: ->
-    @model.save
+    params =
       read: if @model.attributes.read is "1" then "0" else "1"
+
+    if params.read is "1" and @model.attributes.anyone_read is "0" then params["anyone_read"] = true
+
+    @model.save params
 
   toggleDismissed: ->
     @model.save
