@@ -27,4 +27,12 @@ class BidOfficer extends Eloquent {
 
     return $bid_officer;
   }
+
+  public static function read_for_bid($bid_id) {
+    $bid_officer = self::where_bid_id($bid_id)
+                    ->where_read(true)
+                    ->first();
+
+    return $bid_officer ? true : false;
+  }
 }

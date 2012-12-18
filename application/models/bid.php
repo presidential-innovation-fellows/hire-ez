@@ -103,6 +103,11 @@ class Bid extends SoftDeleteModel {
     return $this->bid_officer = BidOfficer::mine_for_bid($this->id);
   }
 
+  public function has_read_bid_officer() {
+    return BidOfficer::read_for_bid($this->id) ? true : false;
+
+  }
+
   public function set_officer_read($read) {
     $bid_officer = $this->bid_officer();
 
@@ -125,6 +130,12 @@ class Bid extends SoftDeleteModel {
     }
 
     $bid_officer->starred = $starred ? true : false;
+  }
+
+  public function sync_anyone_read($read) {
+    if (!$read && $this->anyone_read && !$this->has_read_bid_officer()) {
+      $this->anyone_read = false;
+    }
   }
 
   public function set_dismissed($dismissed) {

@@ -67,6 +67,7 @@ class Bids_Controller extends Base_Controller {
     $bid->set_awarded($input["awarded_at"]);
 
     $bid->bid_officer()->save();
+    $bid->sync_anyone_read($input["read"]);
     $bid->save();
 
     $bid = Bid::with_officer_fields()
