@@ -1,7 +1,7 @@
 <?php
 
 return array(
-  'url' => 'http://rfpez-staging.presidentialinnovationfellows.org',
+  'url' => 'http://hire-ez.presidentialinnovationfellows.org',
   'key' => getenv('RFPEZ_LARAVEL_KEY'),
   'ssl' => false
 );
