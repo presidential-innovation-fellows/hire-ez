@@ -2,6 +2,37 @@
 
 Class Helper {
 
+  public static function preserve_input($name) {
+    if ($val = Input::get($name)) {
+      return "<input type='hidden' name='$name' value='$val' />";
+    } else {
+      return "";
+    }
+  }
+
+  public static function url_with_query_and_sort_params($url) {
+    $params = $_GET;
+    return $url . "?" . e(http_build_query($params));
+  }
+
+  public static function current_url_without_sort_params() {
+    $params = $_GET;
+
+    unset($params["page"]);
+    unset($params["sort"]);
+    unset($params["order"]);
+
+    return URL::current() . "?" . e(http_build_query($params));
+  }
+
+  public static function current_url_without_search_params() {
+    $params = $_GET;
+
+    unset($params["q"]);
+
+    return URL::current() . "?" . e(http_build_query($params));
+  }
+
   public static function current_sort_link($sort, $title, $default_order = false) {
     $return_str = "<a href='".self::current_sort_url($sort, $default_order)."'>$title</a>";
 

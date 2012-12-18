@@ -18,9 +18,16 @@ class Bids_Controller extends Base_Controller {
     $this->filter('before', 'i_have_not_already_bid')->only(array('new', 'create'));
   }
 
+  public $bid_sort_options = array('thumbsups' => 'total_stars',
+                                   'name' => 'vendors.name',
+                                   'unread' => 'bid_officer.read',
+                                   'comments' => 'total_comments');
+
+
   // review page
   public function action_review($project_id, $filter = "") {
     $view = View::make('bids.review');
+    $view->query = Input::get('q');
     $view->project = Config::get('project');
     if ($filter) Config::set('review_bids_filter', $filter);
 
@@ -30,7 +37,7 @@ class Bids_Controller extends Base_Controller {
                           'comments' => 'total_comments'
                           );
 
-    $sort = @$sort_options[Input::get('sort')] ?: false;
+    $sort = @$this->bid_sort_options[Input::get('sort')] ?: false;
     $order = Input::get('order');
 
     if ($filter == 'hired') {
@@ -41,6 +48,13 @@ class Bids_Controller extends Base_Controller {
       $q = $view->project->dismissed_bids();
     } else {
       $q = $view->project->submitted_bids();
+    }
+
+    if ($view->query) {
+      $q = $q->where(function($q)use($view){
+        $q->or_where('name', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('body', 'LIKE', '%'.$view->query.'%');
+      });
     }
 
     if ($sort) $q = $q->order_by($sort, $order);

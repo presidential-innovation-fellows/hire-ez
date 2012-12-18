@@ -7085,6 +7085,9 @@ body.vendor .no-auth-only {
   position: relative;
   top: 2px;
 }
+.search-subheader {
+  height: 20px;
+}
 .vendor-signup-container {
   margin-top: 35px;
 }

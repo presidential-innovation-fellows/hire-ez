@@ -8,18 +8,35 @@
 
 ul.nav.nav-pills.pull-left
   li(class="#{!Config::has('review_bids_filter') ? 'active' : ''}")
-    a(href="#{route('review_bids', $project->id)}") All Applicants
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids', $project->id))}") All Applicants
   li(class="#{Config::get('review_bids_filter') == 'hired' ? 'active' : ''}")
-    a(href="#{route('review_bids_filtered', array($project->id, 'hired'))}") Hired
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'hired')))}") Hired
   li(class="#{Config::get('review_bids_filter') == 'starred' ? 'active' : ''}")
-    a(href="#{route('review_bids_filtered', array($project->id, 'starred'))}") Starred
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))}") Starred
   li(class="#{Config::get('review_bids_filter') == 'rejected' ? 'active' : ''}")
-    a(href="#{route('review_bids_filtered', array($project->id, 'rejected'))}") Rejected
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'rejected')))}") Rejected
 
+form.form-search.pull-right#search-bids-form(action="#{URL::full()}")
+  | !{Helper::preserve_input('sort')}
+  | !{Helper::preserve_input('order')}
+  .input-append
+    input.search-query(type="text", name="q", value="#{$query}", placeholder="Search Applicants")
+    button.btn.btn-primary Search
 
-- if (Input::get('sort')):
-  a.pull-right(href="#{URL::current()}") (Clear sort)
-- endif;
+.clearfix &nbsp;
+
+.search-subheader
+  - if ($query):
+    | Filtering by "#{$query}"
+  - endif;
+  small
+    - if ($query):
+      a(href="#{Helper::current_url_without_search_params()}") (clear search)
+    - endif;
+    - if (Input::get('sort')):
+      a.clear-sort(href="#{Helper::current_url_without_sort_params()}") (clear sort)
+    - endif;
+
 
 table.table#bids-table
   thead

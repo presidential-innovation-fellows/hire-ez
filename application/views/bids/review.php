@@ -6,21 +6,40 @@
 <?php echo View::make('projects.partials.toolbar')->with('project', $project); ?>
 <ul class="nav nav-pills pull-left">
   <li class="<?php echo e(!Config::has('review_bids_filter') ? 'active' : ''); ?>">
-    <a href="<?php echo e(route('review_bids', $project->id)); ?>">All Applicants</a>
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids', $project->id))); ?>">All Applicants</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'hired' ? 'active' : ''); ?>">
-    <a href="<?php echo e(route('review_bids_filtered', array($project->id, 'hired'))); ?>">Hired</a>
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'hired')))); ?>">Hired</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'starred' ? 'active' : ''); ?>">
-    <a href="<?php echo e(route('review_bids_filtered', array($project->id, 'starred'))); ?>">Starred</a>
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))); ?>">Starred</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'rejected' ? 'active' : ''); ?>">
-    <a href="<?php echo e(route('review_bids_filtered', array($project->id, 'rejected'))); ?>">Rejected</a>
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'rejected')))); ?>">Rejected</a>
   </li>
 </ul>
-<?php if (Input::get('sort')): ?>
-  <a class="pull-right" href="<?php echo e(URL::current()); ?>">(Clear sort)</a>
-<?php endif; ?>
+<form id="search-bids-form" class="form-search pull-right" action="<?php echo e(URL::full()); ?>">
+  <?php echo Helper::preserve_input('sort'); ?>
+  <?php echo Helper::preserve_input('order'); ?>
+  <div class="input-append">
+    <input class="search-query" type="text" name="q" value="<?php echo e($query); ?>" placeholder="Search Applicants" />
+    <button class="btn btn-primary">Search</button>
+  </div>
+</form>
+<div class="clearfix">&nbsp;</div>
+<div class="search-subheader">
+  <?php if ($query): ?>
+    Filtering by "<?php echo e($query); ?>"
+  <?php endif; ?>
+  <small>
+    <?php if ($query): ?>
+      <a href="<?php echo e(Helper::current_url_without_search_params()); ?>">(clear search)</a>
+    <?php endif; ?>
+    <?php if (Input::get('sort')): ?>
+      <a class="clear-sort" href="<?php echo e(Helper::current_url_without_sort_params()); ?>">(clear sort)</a>
+    <?php endif; ?>
+  </small>
+</div>
 <table id="bids-table" class="table">
   <thead>
     <tr>
