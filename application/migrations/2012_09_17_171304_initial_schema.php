@@ -65,6 +65,7 @@ class Initial_Schema {
       $t->boolean('anyone_read');
 
       $t->integer('total_stars');
+      $t->integer('total_thumbs_down');
       $t->integer('total_comments');
 
       $t->timestamps();
@@ -139,6 +140,7 @@ class Initial_Schema {
       $t->integer('bid_id')->unsigned();
       $t->boolean('read');
       $t->boolean('starred');
+      $t->boolean('thumbs_downed');
       $t->timestamps();
     });
 

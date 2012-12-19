@@ -6,7 +6,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     <td>as</td>
   </tr>
   <tr>
-    <td class="bid-details-wrapper" colspan="7">
+    <td class="bid-details-wrapper" colspan="5">
       <div class="collapse">
         <div class="bid-details row-fluid">
           <div class="span6">
@@ -37,29 +37,66 @@ Rfpez.Backbone.BidView = Backbone.View.extend
         <span class="anyone-read">R</span>
       <% } %>
     </td>
-    <td><a class="vendor-name toggle-details"><%= vendor.name %></a></td>
-    <td><%= total_stars %></td>
+    <td>
+      <a class="vendor-name toggle-details">
+        <%= vendor.name %>
+        &nbsp;
+        <% if (awarded_at) { %>
+          <span class="label label-success">Hired</span>
+        <% } %>
+        <% if (dismissed_at) { %>
+          <span class="label label-important">Spam</span>
+        <% } %>
+      </a>
+    </td>
+    <td><%= total_score %></td>
     <td class="comment-count"><%= total_comments %></td>
     <td>
-      <% if (starred == 1) { %>
-        <a class="btn btn-mini btn-primary unstar-button toggle-starred"><i class="icon-thumbs-up"></i></a>
-      <% } else { %>
-        <a class="btn btn-mini unstar-button toggle-starred"><i class="icon-thumbs-up"></i></a>
-      <% } %>
-    </td>
-    <td>
-      <% if (dismissed_at) { %>
-        <a class="btn btn-mini btn-primary unstar-button toggle-dismissed"><i class="icon-trash"></i></a>
-      <% } else { %>
-        <a class="btn btn-mini unstar-button toggle-dismissed"><i class="icon-trash"></i></a>
-      <% } %>
-    </td>
-    <td>
-      <% if (awarded_at) { %>
-      <a class="btn btn-mini award-button btn-primary toggle-awarded">hired!</a>
-      <% } else { %>
-      <a class="btn btn-mini award-button toggle-awarded">hire me!</a>
-      <% } %>
+      <div class="btn-group">
+
+        <% if (starred == 1) { %>
+          <a class="btn btn-mini btn-primary unstar-button toggle-starred"><i class="icon-thumbs-up"></i></a>
+        <% } else { %>
+          <a class="btn btn-mini unstar-button toggle-starred"><i class="icon-thumbs-up"></i></a>
+        <% } %>
+
+        <% if (starred != 1 && thumbs_downed != 1) { %>
+          <a class="btn btn-mini btn-primary toggle-no-vote">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <% } else { %>
+          <a class="btn btn-mini toggle-no-vote">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <% } %>
+
+        <% if (thumbs_downed == 1) { %>
+          <a class="btn btn-mini btn-primary toggle-thumbs-down"><i class="icon-thumbs-down"></i></a>
+        <% } else { %>
+          <a class="btn btn-mini toggle-thumbs-down"><i class="icon-thumbs-down"></i></a>
+        <% } %>
+
+
+      </div>
+
+      &nbsp;
+
+      <div class="btn-group">
+        <a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
+          More
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <% if (awarded_at) { %>
+            <li class="active"><a class="toggle-awarded">hired!</a></li>
+          <% } else { %>
+            <li><a class="toggle-awarded">hire me</a></li>
+          <% } %>
+
+          <% if (dismissed_at) { %>
+            <li class="active"><a class="toggle-dismissed">spam</a></a>
+          <% } else { %>
+            <li><a class="toggle-dismissed">spam</a></li>
+          <% } %>
+        </ul>
+      </div>
+
     </td>
   """
 
@@ -69,6 +106,8 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     "click .toggle-dismissed": "toggleDismissed"
     "click .toggle-awarded": "toggleAwarded"
     "click .toggle-details": "toggleDetails"
+    "click .toggle-thumbs-down": "toggleThumbsDown"
+    "click .toggle-no-vote": "toggleNoVote"
 
   initialize: ->
     @model.bind "create", @render, @
@@ -98,7 +137,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     @model.save
       dismissed_at: if @model.attributes.dismissed_at then false else true
 
-  toggleStarred: ->
+  toggleStarred: (save = true) ->
     attributes = {}
 
     if @model.attributes.starred is "1"
@@ -107,12 +146,40 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     else
       attributes["starred"] = true
       @model.attributes.total_stars++
+      if @model.attributes.thumbs_downed is "1" then @toggleThumbsDown(false)
 
-    @model.save attributes
+    @calculateTotalScore()
+
+    if save
+      @model.save attributes
+    else
+      @model.set attributes
+
+  toggleThumbsDown: (save = true) ->
+    attributes = {}
+
+    if @model.attributes.thumbs_downed is "1"
+      attributes["thumbs_downed"] = false
+      @model.attributes.total_thumbs_down--
+    else
+      attributes["thumbs_downed"] = true
+      @model.attributes.total_thumbs_down++
+      if @model.attributes.starred is "1" then @toggleStarred(false)
+
+    @calculateTotalScore()
+
+    if save
+      @model.save attributes
+    else
+      @model.set attributes
 
   toggleAwarded: ->
     @model.save
       awarded_at: if @model.attributes.awarded_at then false else true
+
+  toggleNoVote: ->
+    @$el.find(".toggle-starred.btn-primary").click()
+    @$el.find(".toggle-thumbs-down.btn-primary").click()
 
   toggleDetails: ->
     if @model.attributes.read isnt "1" and !@$el.find(".bid-details-wrapper .collapse").hasClass('in') then @toggleRead()
@@ -124,6 +191,9 @@ Rfpez.Backbone.BidView = Backbone.View.extend
         bid_id: @model.attributes.id
 
       @$el.find(".comments-wrapper").html(@comments.el)
+
+  calculateTotalScore: ->
+    @model.attributes.total_score = @model.attributes.total_stars - @model.attributes.total_thumbs_down
 
   incrementCommentCount: ->
     @model.attributes.total_comments++

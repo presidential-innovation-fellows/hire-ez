@@ -43,9 +43,9 @@ table.table#bids-table
     tr
       th(width="10%")!= Helper::current_sort_link('unread', 'Unread')
       th(width="40%")!= Helper::current_sort_link('name', 'Name')
-      th(width="15%")!= Helper::current_sort_link('thumbsups', 'Thumbs-ups', 'desc')
+      th(width="15%")!= Helper::current_sort_link('score', 'Score', 'desc')
       th(width="15%")!= Helper::current_sort_link('comments', 'Comments', 'desc')
-      th(width="20%", colspan="3") Actions
+      th(width="20%") Actions
 
   :javascript
     | $(function(){

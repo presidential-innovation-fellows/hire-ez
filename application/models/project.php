@@ -74,7 +74,8 @@ class Project extends Eloquent {
                   ->select(array('*',
                                  'bids.id as id',
                                  'bids.created_at as created_at',
-                                 'bids.updated_at as updated_at',))
+                                 'bids.updated_at as updated_at',
+                                 DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')))
                   ->where_null('bids.deleted_at');
 
     }

@@ -45,9 +45,9 @@
     <tr>
       <th width="10%"><?php echo Jade\Dumper::_html(Helper::current_sort_link('unread', 'Unread')) ?></th>
       <th width="40%"><?php echo Jade\Dumper::_html(Helper::current_sort_link('name', 'Name')) ?></th>
-      <th width="15%"><?php echo Jade\Dumper::_html(Helper::current_sort_link('thumbsups', 'Thumbs-ups', 'desc')) ?></th>
+      <th width="15%"><?php echo Jade\Dumper::_html(Helper::current_sort_link('score', 'Score', 'desc')) ?></th>
       <th width="15%"><?php echo Jade\Dumper::_html(Helper::current_sort_link('comments', 'Comments', 'desc')) ?></th>
-      <th width="20%" colspan="3">Actions</th>
+      <th width="20%">Actions</th>
     </tr>
   </thead>
   <script type="text/javascript">

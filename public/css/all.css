@@ -7071,6 +7071,7 @@ body.vendor .no-auth-only {
   padding-bottom: 10px;
   margin-top: -10px;
   margin-bottom: -10px;
+  text-decoration: none;
 }
 #bids-table .bid-details-wrapper {
   border: 0;
@@ -7084,6 +7085,7 @@ body.vendor .no-auth-only {
   font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
   position: relative;
   top: 2px;
+  font-size: 11px;
 }
 .search-subheader {
   height: 20px;

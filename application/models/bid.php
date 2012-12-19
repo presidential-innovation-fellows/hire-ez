@@ -132,6 +132,17 @@ class Bid extends SoftDeleteModel {
     $bid_officer->starred = $starred ? true : false;
   }
 
+  public function set_officer_thumbs_downed($thumbs_downed) {
+    $bid_officer = $this->bid_officer();
+
+    if ($thumbs_downed !== null && $bid_officer->thumbs_downed != $thumbs_downed) {
+      $this->total_thumbs_down = $this->total_thumbs_down + ($thumbs_downed ? 1 : -1);
+      $this->save();
+    }
+
+    $bid_officer->thumbs_downed = $thumbs_downed ? true : false;
+  }
+
   public function sync_anyone_read($read) {
     if (!$read && $this->anyone_read && !$this->has_read_bid_officer()) {
       $this->anyone_read = false;
@@ -178,7 +189,10 @@ class Bid extends SoftDeleteModel {
                   $query->where_null('bid_officer.officer_id');
                   $query->or_where('bid_officer.officer_id', '=', Auth::officer()->id);
                 })
-                ->select(array('*', 'bids.id as id', 'bids.created_at as created_at', 'bids.updated_at as updated_at'))
+                ->select(array('*',
+                               'bids.id as id', 'bids.created_at as created_at',
+                               'bids.updated_at as updated_at',
+                               DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')))
                 ->where_null('bids.deleted_at');
   }
 

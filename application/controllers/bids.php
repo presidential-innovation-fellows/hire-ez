@@ -18,7 +18,7 @@ class Bids_Controller extends Base_Controller {
     $this->filter('before', 'i_have_not_already_bid')->only(array('new', 'create'));
   }
 
-  public $bid_sort_options = array('thumbsups' => 'total_stars',
+  public $bid_sort_options = array('score' => 'total_score',
                                    'name' => 'vendors.name',
                                    'unread' => 'bid_officer.read',
                                    'comments' => 'total_comments');
@@ -30,12 +30,6 @@ class Bids_Controller extends Base_Controller {
     $view->query = Input::get('q');
     $view->project = Config::get('project');
     if ($filter) Config::set('review_bids_filter', $filter);
-
-    $sort_options = array('thumbsups' => 'total_stars',
-                          'name' => 'vendors.name',
-                          'unread' => 'bid_officer.read',
-                          'comments' => 'total_comments'
-                          );
 
     $sort = @$this->bid_sort_options[Input::get('sort')] ?: false;
     $order = Input::get('order');
@@ -77,6 +71,7 @@ class Bids_Controller extends Base_Controller {
 
     $bid->set_officer_read($input["read"]);
     $bid->set_officer_starred($input["starred"]);
+    $bid->set_officer_thumbs_downed($input["thumbs_downed"]);
     $bid->set_dismissed($input["dismissed_at"]);
     $bid->set_awarded($input["awarded_at"]);
 
