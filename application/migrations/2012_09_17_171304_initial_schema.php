@@ -66,7 +66,6 @@ class Initial_Schema {
 
       $t->integer('total_stars');
       $t->integer('total_thumbs_down');
-      $t->integer('total_comments');
 
       $t->timestamps();
     });
@@ -97,6 +96,8 @@ class Initial_Schema {
       // $t->string('state');
       $t->string('zip');
       $t->text('resume');
+
+      $t->integer('total_comments');
 
       $t->timestamps();
     });

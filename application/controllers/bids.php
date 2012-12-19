@@ -21,7 +21,7 @@ class Bids_Controller extends Base_Controller {
   public $bid_sort_options = array('score' => 'total_score',
                                    'name' => 'vendors.name',
                                    'unread' => 'bid_officer.read',
-                                   'comments' => 'total_comments');
+                                   'comments' => 'vendors.total_comments');
 
 
   // review page

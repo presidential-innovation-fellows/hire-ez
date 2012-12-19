@@ -17,7 +17,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
             <p>Placeholder</p>
           </div>
           <div class="span5 offset1">
-            <strong>Comments</strong>
+            <strong>All comments about <%= vendor.name %></strong>
             <div class="comments-wrapper"></div>
           </div>
         </div>
@@ -50,7 +50,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
       </a>
     </td>
     <td><%= total_score %></td>
-    <td class="comment-count"><%= total_comments %></td>
+    <td class="comment-count"><%= vendor.total_comments %></td>
     <td>
       <div class="btn-group">
 
@@ -188,7 +188,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     if !@comments
       @comments = new Rfpez.Backbone.BidCommentsView
         parent_view: @
-        bid_id: @model.attributes.id
+        vendor_id: @model.attributes.vendor_id
 
       @$el.find(".comments-wrapper").html(@comments.el)
 
@@ -196,9 +196,9 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     @model.attributes.total_score = @model.attributes.total_stars - @model.attributes.total_thumbs_down
 
   incrementCommentCount: ->
-    @model.attributes.total_comments++
+    @model.attributes.vendor.total_comments++
     @renderMainBid()
 
   decrementCommentCount: ->
-    @model.attributes.total_comments--
+    @model.attributes.vendor.total_comments--
     @renderMainBid()

@@ -8,7 +8,7 @@ Rfpez.Backbone.BidComment = Backbone.Model.extend({
   defaults: function() {
     return {
       owner: false,
-      commentable_type: "bid"
+      commentable_type: "vendor"
     };
   },
   clear: function() {

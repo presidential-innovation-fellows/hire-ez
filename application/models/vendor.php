@@ -39,6 +39,24 @@ class Vendor extends Eloquent {
     return $this->has_many('Bid')->where_null('deleted_at');
   }
 
+  public function comments() {
+    return Comment::where_commentable_type("vendor")->where_commentable_id($this->id);
+  }
+
+  public function get_comments() {
+    return $this->comments()->get();
+  }
+
+  public function increment_comment_count() {
+    $this->total_comments = $this->total_comments + 1;
+    $this->save();
+  }
+
+  public function decrement_comment_count() {
+    $this->total_comments = $this->total_comments - 1;
+    $this->save();
+  }
+
   public function ban() {
     $this->user->banned_at = new \DateTime;
     $this->user->save();

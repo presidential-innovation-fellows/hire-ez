@@ -11,11 +11,11 @@ class Comments_Controller extends Base_Controller {
 
     $this->filter('before', 'project_exists')->only(array('index'));
 
-    $this->filter('before', 'bid_exists')->only(array('bid_index', 'bid_create', 'bid_destroy'));
+    $this->filter('before', 'vendor_exists')->only(array('vendor_index', 'vendor_create', 'vendor_destroy'));
 
     // $this->filter('before', 'i_am_collaborator');
 
-    $this->filter('before', 'comment_exists')->only(array('destroy', 'bid_destroy'));
+    $this->filter('before', 'comment_exists')->only(array('destroy', 'vendor_destroy'));
 
     $this->filter('before', 'comment_is_mine')->only(array('destroy'));
   }
@@ -31,19 +31,19 @@ class Comments_Controller extends Base_Controller {
     Auth::user()->view_notification_payload("comment", $comment_ids, "read");
   }
 
-  public function action_bid_index() {
-    $bid = Config::get('bid');
-    return Response::json(Helper::models_to_array($bid->get_comments()));
+  public function action_vendor_index() {
+    $vendor = Config::get('vendor');
+    return Response::json(Helper::models_to_array($vendor->get_comments()));
   }
 
-  public function action_bid_create() {
-    $bid = Config::get('bid');
+  public function action_vendor_create() {
+    $vendor = Config::get('vendor');
 
     $json = Input::json(true);
 
     // @placeholder some sort of check for commentable() actually existing
-    $comment = new Comment(array('commentable_id' => $bid->id,
-                                 'commentable_type' => "bid",
+    $comment = new Comment(array('commentable_id' => $vendor->id,
+                                 'commentable_type' => "vendor",
                                  'officer_id' => Auth::officer()->id,
                                  'body' => $json["body"]));
 
@@ -54,7 +54,7 @@ class Comments_Controller extends Base_Controller {
     return Response::json($comment->to_array());
   }
 
-  public function action_bid_destroy() {
+  public function action_vendor_destroy() {
     $comment = Config::get('comment');
 
     $comment->commentable()->decrement_comment_count();
@@ -99,11 +99,11 @@ Route::filter('project_exists', function() {
   Config::set('project', $project);
 });
 
-Route::filter('bid_exists', function() {
+Route::filter('vendor_exists', function() {
   $id = Request::$route->parameters[0];
-  $bid = Bid::find($id);
-  if (!$bid) return Redirect::to('/');
-  Config::set('bid', $bid);
+  $vendor = Vendor::find($id);
+  if (!$vendor) return Redirect::to('/');
+  Config::set('vendor', $vendor);
 });
 
 Route::filter('i_am_collaborator', function() {

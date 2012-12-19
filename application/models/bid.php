@@ -28,14 +28,6 @@ class Bid extends SoftDeleteModel {
     return $this->belongs_to('Project');
   }
 
-  public function comments() {
-    return Comment::where_commentable_type("bid")->where_commentable_id($this->id);
-  }
-
-  public function get_comments() {
-    return $this->comments()->get();
-  }
-
   public function is_mine() {
     return (Auth::vendor() && ($this->vendor->id == Auth::vendor()->id)) ? true : false;
   }
@@ -169,16 +161,6 @@ class Bid extends SoftDeleteModel {
       $this->awarded_by = null;
     }
 
-    $this->save();
-  }
-
-  public function increment_comment_count() {
-    $this->total_comments = $this->total_comments + 1;
-    $this->save();
-  }
-
-  public function decrement_comment_count() {
-    $this->total_comments = $this->total_comments - 1;
     $this->save();
   }
 

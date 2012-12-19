@@ -8,7 +8,7 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend({
     this.comments.bind('reset', this.reset, this);
     this.comments.bind('add', this.addOne, this);
     this.parent_view = this.options.parent_view;
-    this.comments.url = "/bids/" + this.options.bid_id + "/comments";
+    this.comments.url = "/vendors/" + this.options.vendor_id + "/comments";
     this.$el.html(this.template());
     return this.comments.fetch();
   },

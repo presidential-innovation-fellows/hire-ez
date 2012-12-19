@@ -19,7 +19,7 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend
 
     @parent_view = @options.parent_view
 
-    @comments.url = "/bids/#{@options.bid_id}/comments"
+    @comments.url = "/vendors/#{@options.vendor_id}/comments"
 
     @$el.html @template()
 

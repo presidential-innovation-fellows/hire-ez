@@ -11,13 +11,9 @@ class Comment extends SoftDeleteModel {
   public $includes_in_array = array('formatted_created_at');
 
   public function commentable() {
-    if ($this->commentable_type == "project") {
-      return Project::find($this->commentable_id);
-    }
-
-    if ($this->commentable_type == "bid") {
-      return Bid::find($this->commentable_id);
-    }
+    if ($this->commentable_type == "project") return Project::find($this->commentable_id);
+    if ($this->commentable_type == "vendor") return Vendor::find($this->commentable_id);
+    throw new Exception("Couldn't find that commentable type!");
   }
 
   public function officer() {

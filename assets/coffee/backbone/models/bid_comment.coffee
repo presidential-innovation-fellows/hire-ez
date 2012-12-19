@@ -5,7 +5,7 @@ Rfpez.Backbone.BidComment = Backbone.Model.extend
 
   defaults: ->
     owner: false
-    commentable_type: "bid"
+    commentable_type: "vendor"
 
   clear: ->
     @destroy()

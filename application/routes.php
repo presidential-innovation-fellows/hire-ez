@@ -69,9 +69,9 @@ Route::group(array('https' => true), function(){
   Route::get('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo', 'as' => 'project_post_on_fbo'));
   Route::post('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo_post', 'as' => 'project_post_on_fbo'));
 
-  Route::get('bids/(:num)/comments', array('uses' => 'comments@bid_index'));
-  Route::post('bids/(:num)/comments', array('uses' => 'comments@bid_create'));
-  Route::delete('bids/(:num)/comments/(:num)', array('uses' => 'comments@bid_destroy'));
+  Route::get('vendors/(:num)/comments', array('uses' => 'comments@vendor_index'));
+  Route::post('vendors/(:num)/comments', array('uses' => 'comments@vendor_create'));
+  Route::delete('vendors/(:num)/comments/(:num)', array('uses' => 'comments@vendor_destroy'));
 
   Route::get('projects/(:num)/comments', array('uses' => 'comments@index', 'as' => 'comments'));
   Route::post('projects/(:num)/comments', array('uses' => 'comments@create', 'as' => 'comments'));
