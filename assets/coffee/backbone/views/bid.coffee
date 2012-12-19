@@ -9,7 +9,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     <td class="bid-details-wrapper" colspan="7">
       <div class="collapse">
         <div class="bid-details row-fluid">
-          <div class="span6">
+          <div class="span8 well">
             <strong>Project Statement</strong>
             <p><%= body %></p>
             <strong>General Statement</strong>
@@ -17,8 +17,44 @@ Rfpez.Backbone.BidView = Backbone.View.extend
             <strong>Resume</strong>
             <p><%= resume %></p>
           </div>
-          <div class="span5 offset1">
-            <strong>Comments</strong>
+          <div class="span3 bid-sidebar" >
+            <table>
+              <tr>
+                <td>
+                  <div class="btn-group">
+
+                      <a class="btn btn-mini unstar-button toggle-starred"><i class="icon-thumbs-up"></i></a>
+
+                      <a class="btn btn-mini btn-primary toggle-no-vote">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+
+                      <a class="btn btn-mini toggle-thumbs-down"><i class="icon-thumbs-down"></i></a>
+
+                  </div>
+
+                  &nbsp;
+
+                  <div class="btn-group">
+                    <a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
+                      More
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <% if (awarded_at) { %>
+                        <li class="active"><a class="toggle-awarded">hired!</a></li>
+                      <% } else { %>
+                        <li><a class="toggle-awarded">hire me</a></li>
+                      <% } %>
+
+                      <% if (dismissed_at) { %>
+                        <li class="active"><a class="toggle-dismissed">spam</a></a>
+                      <% } else { %>
+                        <li><a class="toggle-dismissed">spam</a></li>
+                      <% } %>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+             </table>
             <div class="comments-wrapper"></div>
           </div>
         </div>
@@ -41,27 +77,6 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     <td><a class="vendor-name toggle-details"><%= vendor.name %></a></td>
     <td><%= total_stars %></td>
     <td class="comment-count"><%= total_comments %></td>
-    <td>
-      <% if (starred == 1) { %>
-        <a class="btn btn-mini btn-primary unstar-button toggle-starred"><i class="icon-thumbs-up"></i></a>
-      <% } else { %>
-        <a class="btn btn-mini unstar-button toggle-starred"><i class="icon-thumbs-up"></i></a>
-      <% } %>
-    </td>
-    <td>
-      <% if (dismissed_at) { %>
-        <a class="btn btn-mini btn-primary unstar-button toggle-dismissed"><i class="icon-trash"></i></a>
-      <% } else { %>
-        <a class="btn btn-mini unstar-button toggle-dismissed"><i class="icon-trash"></i></a>
-      <% } %>
-    </td>
-    <td>
-      <% if (awarded_at) { %>
-      <a class="btn btn-mini award-button btn-primary toggle-awarded">hired!</a>
-      <% } else { %>
-      <a class="btn btn-mini award-button toggle-awarded">hire me!</a>
-      <% } %>
-    </td>
   """
 
   events:

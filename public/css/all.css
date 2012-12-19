@@ -7061,8 +7061,14 @@ body.vendor .no-auth-only {
 #bids-table tbody {
   border: none;
 }
-#bids-table tbody:hover {
+#bids-table .main-bid:hover {
   background-color: #efefef;
+}
+#bids-table .bid-sidebar {
+  margin-left: 35px;
+}
+#bids-table .bid-sidebar table {
+  width: 100%;
 }
 #bids-table .vendor-name {
   width: 100%;
@@ -7075,9 +7081,15 @@ body.vendor .no-auth-only {
 #bids-table .bid-details-wrapper {
   border: 0;
   padding: 0;
+  background-color: #fff;
 }
 #bids-table .bid-details {
   padding: 8px;
+}
+#bids-table .bid-details h1,
+#bids-table .bid-details h2,
+#bids-table .bid-details h3 {
+  font-size: 1.2em;
 }
 #bids-table .anyone-read {
   color: #aaa;
