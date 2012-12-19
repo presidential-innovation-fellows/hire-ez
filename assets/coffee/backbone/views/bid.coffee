@@ -18,6 +18,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
             <p><%= resume %></p>
           </div>
           <div class="span3 bid-sidebar" >
+
             <table>
               <tr>
                 <td>
@@ -55,7 +56,14 @@ Rfpez.Backbone.BidView = Backbone.View.extend
                 </td>
               </tr>
              </table>
+
+            <div class="projects-applied">
+              <strong>Applied to:</strong>
+              <p>RFP-EZr, Periwinkle Button</p>
+            </div>
+
             <div class="comments-wrapper"></div>
+
           </div>
         </div>
       </div>

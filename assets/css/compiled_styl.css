@@ -215,6 +215,12 @@ body.vendor .no-auth-only {
 #bids-table .bid-details h3 {
   font-size: 1.2em;
 }
+#bids-table .bid-details .projects-applied {
+  border-top: dotted 1px #ccc;
+}
+#bids-table .bid-details .projects-applied p {
+  font-size: 0.8em;
+}
 #bids-table .anyone-read {
   color: #aaa;
   font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
