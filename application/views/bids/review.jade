@@ -10,9 +10,9 @@ ul.nav.nav-pills.pull-left
   li(class="#{!Config::has('review_bids_filter') ? 'active' : ''}")
     a(href="#{Helper::url_with_query_and_sort_params(route('review_bids', $project->id))}") All Applicants
   li(class="#{Config::get('review_bids_filter') == 'starred' ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))}") Starred
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))}") Thumbs Up
   li(class="#{Config::get('review_bids_filter') == 'thumbs-downed' ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))}") Thumbs-Downed
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))}") Thumbs Down
   li(class="#{Config::get('review_bids_filter') == 'hired' ? 'active' : ''}")
     a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'hired')))}") Hired
   li(class="#{Config::get('review_bids_filter') == 'spam' ? 'active' : ''}")

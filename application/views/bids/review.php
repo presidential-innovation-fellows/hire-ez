@@ -9,10 +9,10 @@
     <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids', $project->id))); ?>">All Applicants</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'starred' ? 'active' : ''); ?>">
-    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))); ?>">Starred</a>
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))); ?>">Thumbs Up</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'thumbs-downed' ? 'active' : ''); ?>">
-    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))); ?>">Thumbs-Downed</a>
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))); ?>">Thumbs Down</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'hired' ? 'active' : ''); ?>">
     <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'hired')))); ?>">Hired</a>
