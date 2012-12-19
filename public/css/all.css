@@ -7073,6 +7073,9 @@ body.vendor .no-auth-only {
 #bids-table .bid-sidebar table {
   width: 100%;
 }
+#bids-table .bid-sidebar .tabs-right {
+  border-top: dotted 1px #ccc;
+}
 #bids-table .vendor-name {
   width: 100%;
   display: block;
@@ -7096,19 +7099,32 @@ body.vendor .no-auth-only {
 }
 #bids-table .bid-details .projects-applied {
   border-top: dotted 1px #ccc;
+  padding-top: 8px;
 }
 #bids-table .bid-details .projects-applied p {
   font-size: 0.8em;
 }
 #bids-table .bid-details .well {
   background-color: #fff;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -webkit-box-shadow: inset 0 0 6px #ccc;
-  box-shadow: inset 0 0 6px #ccc;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+}
+#bids-table .bid-details .nav-tabs {
+  float: none;
+  margin-left: -36px;
+}
+#bids-table .bid-details .nav-tabs li a {
+  padding-left: 36px;
+  margin-top: 12px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-decoration: underline;
 }
 #bids-table .bid-details .nav-tabs li.active a {
   background-color: #fff;
+  font-weight: normal;
+  text-decoration: none;
 }
 #bids-table .anyone-read {
   color: #aaa;

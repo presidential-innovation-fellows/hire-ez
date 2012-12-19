@@ -10,12 +10,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
       <div class="collapse">
         <div class="bid-details row-fluid">
           <div class="span8 well">
-            <div class="tabbable"> <!-- Only required for left/right tabs -->
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="#project-statement-<%= bid_id %>" data-toggle="tab">Project Statement</a></li>
-                <li><a href="#overall-statement-<%= bid_id %>" data-toggle="tab">Overall Statement</a></li>
-                <li><a href="#resume-<%= bid_id %>" data-toggle="tab">Résumé</a></li>
-              </ul>
+
               <div class="tab-content">
                 <div class="tab-pane active" id="project-statement-<%= bid_id %>">
                   <p><%= body %></p>
@@ -27,7 +22,6 @@ Rfpez.Backbone.BidView = Backbone.View.extend
                   <p><%= resume %></p>
                 </div>
               </div>
-            </div>
 
           </div>
           <div class="span3 bid-sidebar" >
@@ -69,6 +63,14 @@ Rfpez.Backbone.BidView = Backbone.View.extend
                 </td>
               </tr>
              </table>
+
+            <div class="tabbable tabs-right">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#project-statement-<%= bid_id %>" data-toggle="tab">Project Statement</a></li>
+                <li><a href="#overall-statement-<%= bid_id %>" data-toggle="tab">Overall Statement</a></li>
+                <li><a href="#resume-<%= bid_id %>" data-toggle="tab">Résumé</a></li>
+              </ul>
+            </div>
 
             <div class="projects-applied">
               <strong>Applied to:</strong>
