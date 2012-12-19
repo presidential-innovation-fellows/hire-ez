@@ -11,6 +11,8 @@ class Vendor extends Eloquent {
 
   public $validator = false;
 
+  public $includes_in_array = array('list_names_of_projects_applied_for');
+
   public function validator() {
     if ($this->validator) return $this->validator;
 
@@ -39,6 +41,17 @@ class Vendor extends Eloquent {
     return $this->has_many('Bid')->where_null('deleted_at');
   }
 
+  public function bids_with_project_names() {
+    return $this->has_many('Bid')
+                ->left_join('projects', 'project_id', '=', 'projects.id')
+                ->select(array('*',
+                               'bids.id as id',
+                               'bids.body as body',
+                               'bids.created_at as created_at',
+                               'bids.updated_at as updated_at'))
+                ->where_null('bids.deleted_at');
+  }
+
   public function comments() {
     return Comment::where_commentable_type("vendor")->where_commentable_id($this->id);
   }
@@ -55,6 +68,10 @@ class Vendor extends Eloquent {
   public function decrement_comment_count() {
     $this->total_comments = $this->total_comments - 1;
     $this->save();
+  }
+
+  public function list_names_of_projects_applied_for() {
+    return implode(", ", $this->bids_with_project_names()->lists('title'));
   }
 
   public function ban() {

@@ -19,6 +19,10 @@ Rfpez.Backbone.BidView = Backbone.View.extend
           <div class="span5 offset1">
             <strong>All comments about <%= vendor.name %></strong>
             <div class="comments-wrapper"></div>
+
+            <hr />
+            <strong>Projects applied for</strong>
+            <div><%= vendor.list_names_of_projects_applied_for %></div>
           </div>
         </div>
       </div>
