@@ -22,7 +22,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
 
             <hr />
             <strong>Projects applied for</strong>
-            <div><%= vendor.list_names_of_projects_applied_for %></div>
+            <div><%= vendor.titles_of_projects_applied_for %></div>
           </div>
         </div>
       </div>
@@ -65,9 +65,9 @@ Rfpez.Backbone.BidView = Backbone.View.extend
         <% } %>
 
         <% if (starred != 1 && thumbs_downed != 1) { %>
-          <a class="btn btn-mini btn-primary toggle-no-vote">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+          <a class="btn btn-mini btn-primary toggle-no-vote"><i class="icon-thumbs-sideways"></i></a>
         <% } else { %>
-          <a class="btn btn-mini toggle-no-vote">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+          <a class="btn btn-mini toggle-no-vote"><i class="icon-thumbs-sideways"></i></a>
         <% } %>
 
         <% if (thumbs_downed == 1) { %>
