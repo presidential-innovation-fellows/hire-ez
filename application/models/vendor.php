@@ -11,7 +11,9 @@ class Vendor extends Eloquent {
 
   public $validator = false;
 
-  public $includes_in_array = array('list_names_of_projects_applied_for');
+  public $includes_in_array = array('titles_of_projects_applied_for', 'ids_of_projects_applied_for', 'projects_not_applied_for');
+
+  public $projects_applied_for = false;
 
   public function validator() {
     if ($this->validator) return $this->validator;
@@ -42,14 +44,11 @@ class Vendor extends Eloquent {
   }
 
   public function bids_with_project_names() {
-    return $this->has_many('Bid')
-                ->left_join('projects', 'project_id', '=', 'projects.id')
-                ->select(array('*',
-                               'bids.id as id',
-                               'bids.body as body',
-                               'bids.created_at as created_at',
-                               'bids.updated_at as updated_at'))
-                ->where_null('bids.deleted_at');
+    $project_ids = $this->bids()->lists('project_id');
+
+    return Project::where_in('id', $project_ids)
+                   ->get();
+
   }
 
   public function comments() {
@@ -70,8 +69,21 @@ class Vendor extends Eloquent {
     $this->save();
   }
 
-  public function list_names_of_projects_applied_for() {
-    return implode(", ", $this->bids_with_project_names()->lists('title'));
+  public function projects_applied_for() {
+    if ($this->projects_applied_for !== false) return $this->projects_applied_for;
+    return $this->projects_applied_for = $this->bids_with_project_names();
+  }
+
+  public function projects_not_applied_for() {
+    return Helper::models_to_array(Project::where_not_in('id', $this->ids_of_projects_applied_for())->get());
+  }
+
+  public function titles_of_projects_applied_for() {
+    return array_map(function($m){return $m->title;}, $this->projects_applied_for());
+  }
+
+  public function ids_of_projects_applied_for() {
+    return array_map(function($m){return $m->id;}, $this->projects_applied_for());
   }
 
   public function ban() {

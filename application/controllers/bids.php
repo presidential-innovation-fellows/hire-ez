@@ -9,11 +9,11 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'project_exists')->except(array('mine'));
 
-    $this->filter('before', 'i_am_collaborator')->only(array('review', 'update'));
+    $this->filter('before', 'i_am_collaborator')->only(array('review', 'update', 'transfer'));
 
-    $this->filter('before', 'bid_exists')->only(array('update'));
+    $this->filter('before', 'bid_exists')->only(array('update', 'transfer'));
 
-    $this->filter('before', 'bid_is_submitted_and_not_deleted')->only(array('update'));
+    $this->filter('before', 'bid_is_submitted_and_not_deleted')->only(array('update', 'transfer'));
 
     $this->filter('before', 'i_have_not_already_bid')->only(array('new', 'create'));
   }
@@ -64,6 +64,33 @@ class Bids_Controller extends Base_Controller {
 
     $view->bids_json = eloquent_to_json($view->bids->results);
     $this->layout->content = $view;
+  }
+
+  // "transfer" a bid to another project
+  // doesn't actually remove the bid from your project,
+  // just clones it and adds it to another project.
+  public function action_transfer() {
+    $bid = Config::get('bid');
+    $project = Config::get('project');
+    $from_email = Auth::officer()->user->email;
+    $transfer_to_project = Project::find(Input::get('project_id'));
+
+    if (!$transfer_to_project) {
+      Session::flash('error', "Couldn't find the project that you're trying to transfer this bid to.");
+      return Redirect::to_route('bid', array($project->id, $bid->id));
+    }
+
+    $new_bid = new Bid(array('body' => "Transferred from project $project->title by $from_email.",
+                             'project_id' => $transfer_to_project->id));
+
+    $new_bid->vendor_id = $bid->vendor_id;
+    $new_bid->submitted_at = new \DateTime;
+
+    $new_bid->save();
+
+    Session::flash('notice', "Success! Transferred the bid from ".$bid->vendor->name." to ".$transfer_to_project->title.".");
+    return Redirect::back();
+
   }
 
   // handle updates from backbone

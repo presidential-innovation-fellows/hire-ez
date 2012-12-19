@@ -65,6 +65,7 @@ Route::group(array('https' => true), function(){
 
   Route::get('projects/(:num)/bids', array('uses' => 'bids@review', 'as' => 'review_bids'));
   Route::get('projects/(:num)/bids/(:any)', array('uses' => 'bids@review', 'as' => 'review_bids_filtered'));
+  Route::post('projects/(:num)/bids/(:any)/transfer', array('uses' => 'bids@transfer', 'as' => 'transfer_bid'));
 
   Route::get('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo', 'as' => 'project_post_on_fbo'));
   Route::post('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo_post', 'as' => 'project_post_on_fbo'));

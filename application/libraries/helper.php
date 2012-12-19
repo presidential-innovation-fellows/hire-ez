@@ -12,6 +12,7 @@ Class Helper {
 
   public static function url_with_query_and_sort_params($url) {
     $params = $_GET;
+    unset($params["page"]);
     return $url . "?" . e(http_build_query($params));
   }
 
