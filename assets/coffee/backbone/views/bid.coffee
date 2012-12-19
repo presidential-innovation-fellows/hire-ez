@@ -10,12 +10,25 @@ Rfpez.Backbone.BidView = Backbone.View.extend
       <div class="collapse">
         <div class="bid-details row-fluid">
           <div class="span8 well">
-            <strong>Project Statement</strong>
-            <p><%= body %></p>
-            <strong>General Statement</strong>
-            <p><%= body %></p>
-            <strong>Resume</strong>
-            <p><%= resume %></p>
+            <div class="tabbable"> <!-- Only required for left/right tabs -->
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#project-statement-<%= bid_id %>" data-toggle="tab">Project Statement</a></li>
+                <li><a href="#overall-statement-<%= bid_id %>" data-toggle="tab">Overall Statement</a></li>
+                <li><a href="#resume-<%= bid_id %>" data-toggle="tab">Résumé</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="project-statement-<%= bid_id %>">
+                  <p><%= body %></p>
+                </div>
+                <div class="tab-pane" id="overall-statement-<%= bid_id %>">
+                  <p>Lorem ipsum is so fun. <%= body %></p>
+                </div>
+                <div class="tab-pane" id="resume-<%= bid_id %>">
+                  <p><%= resume %></p>
+                </div>
+              </div>
+            </div>
+
           </div>
           <div class="span3 bid-sidebar" >
 

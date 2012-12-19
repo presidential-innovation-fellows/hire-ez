@@ -185,8 +185,11 @@ body.vendor .no-auth-only {
 #bids-table tbody {
   border: none;
 }
-#bids-table .main-bid:hover {
+#bids-table .main-bid {
   background-color: #efefef;
+}
+#bids-table .main-bid:hover {
+  background-color: #fff;
 }
 #bids-table .bid-sidebar {
   margin-left: 35px;
@@ -220,6 +223,16 @@ body.vendor .no-auth-only {
 }
 #bids-table .bid-details .projects-applied p {
   font-size: 0.8em;
+}
+#bids-table .bid-details .well {
+  background-color: #fff;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 6px #ccc;
+  box-shadow: inset 0 0 6px #ccc;
+}
+#bids-table .bid-details .nav-tabs li.active a {
+  background-color: #fff;
 }
 #bids-table .anyone-read {
   color: #aaa;
