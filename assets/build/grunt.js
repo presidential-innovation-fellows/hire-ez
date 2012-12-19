@@ -88,7 +88,7 @@ module.exports = function(grunt) {
           '../js/vendor/bootstrap-wysihtml5.js',
           '../js/vendor/jquery.sortable.js',
           '../js/vendor/autogrow-input.js',
-          '../js/vendor/jquery.hotkeys.js',
+          '../js/vendor/keymaster.min.js',
 
           // global scripts
           '../js/flash-button.js',

@@ -1,5 +1,6 @@
 Rfpez.Backbone.BidView = Backbone.View.extend
   tagName: "tbody"
+  className: "bid"
 
   template: _.template """
   <tr class="main-bid">

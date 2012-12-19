@@ -7069,7 +7069,7 @@ body.vendor .no-auth-only {
 #bids-table tbody {
   border: none;
 }
-#bids-table tbody:hover {
+#bids-table tbody.selected {
   background-color: #efefef;
 }
 #bids-table .vendor-name {
