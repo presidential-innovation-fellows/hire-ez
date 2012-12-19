@@ -8,15 +8,15 @@
 
 ul.nav.nav-pills.pull-left
   li(class="#{!Config::has('review_bids_filter') ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids', $project->id))}") All Applicants
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids', $project->id))}") All (#{$project->submitted_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'starred' ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))}") Thumbs Up
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))}") My Thumbs Up (#{$project->starred_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'thumbs-downed' ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))}") Thumbs Down
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))}") My Thumbs Down (#{$project->thumbs_downed_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'hired' ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'hired')))}") Hired
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'hired')))}") Hired (#{$project->winning_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'spam' ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'spam')))}") Spam
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'spam')))}") Spam (#{$project->dismissed_bids()->count()})
 
 form.form-search.pull-right#search-bids-form(action="#{URL::full()}")
   | !{Helper::preserve_input('sort')}
