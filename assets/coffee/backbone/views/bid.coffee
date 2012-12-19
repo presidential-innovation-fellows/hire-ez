@@ -10,11 +10,12 @@ Rfpez.Backbone.BidView = Backbone.View.extend
       <div class="collapse">
         <div class="bid-details row-fluid">
           <div class="span6">
-            <strong>Body</strong>
+            <strong>Project Statement</strong>
             <p><%= body %></p>
-
-            <strong>General Application</strong>
-            <p>Placeholder</p>
+            <strong>General Statement</strong>
+            <p><%= body %></p>
+            <strong>Resume</strong>
+            <p><%= resume %></p>
           </div>
           <div class="span5 offset1">
             <strong>Comments</strong>
