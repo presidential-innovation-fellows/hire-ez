@@ -34,7 +34,6 @@ Class Factory {
 
     self::$vendor_count++;
 
-    return $v;
   }
 
   public static function officer() {
@@ -80,11 +79,18 @@ Class Factory {
     return $p;
   }
 
-  public static function bid($attributes = array(), $project_id = false) {
+  public static function bids($vendor) {
+    for ($i = 0; $i < rand(1, 5); $i++) Factory::bid($vendor);
+  }
+
+  public static function bid($vendor) {
     $faker = Faker\Factory::create();
 
-    $p = $project_id ? Project::find($project_id) : Project::order_by(\DB::raw('RAND()'))->first();
-    $v = Vendor::order_by(\DB::raw('RAND()'))->first();
+    $p = Project::order_by(\DB::raw('RAND()'))->first();
+
+    while (in_array($p->id ,$vendor->bids()->lists('id'))) {
+      $p = Project::order_by(\DB::raw('RAND()'))->first();
+    }
 
 
     $b = new Bid(array('project_id' => $p->id,
@@ -92,7 +98,7 @@ Class Factory {
 
 
     $b->starred = rand(0,1);
-    $b->vendor_id = $v->id;
+    $b->vendor_id = $vendor->id;
     $b->save();
 
     if (rand(0,6) === 0) {

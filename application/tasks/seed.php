@@ -4,6 +4,8 @@ class Seed_Task {
 
   public function run() {
 
+    ini_set("memory_limit", -1);
+
     // Create the base data.
     $this->base_data();
     $this->minimal_data();
@@ -11,8 +13,10 @@ class Seed_Task {
 
     // Create a bunch more stuff, just for testin'.
     for ($i = 0; $i < 5; $i++) Factory::project($project->id);
-    for ($i = 0; $i < 300; $i++) Factory::bid();
-    for ($i = 0; $i < 50; $i++) Factory::vendor();
+    for ($i = 0; $i < 300; $i++) Factory::vendor();
+    foreach(Vendor::get() as $vendor) {
+      Factory::bids($vendor);
+    }
   }
 
   public function production() {
