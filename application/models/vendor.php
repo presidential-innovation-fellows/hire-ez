@@ -11,8 +11,6 @@ class Vendor extends Eloquent {
 
   public $validator = false;
 
-  public $includes_in_array = array('titles_of_projects_applied_for', 'ids_of_projects_applied_for', 'projects_not_applied_for');
-
   public $projects_applied_for = false;
 
   public function validator() {

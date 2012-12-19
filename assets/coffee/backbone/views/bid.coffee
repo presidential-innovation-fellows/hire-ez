@@ -23,25 +23,29 @@ Rfpez.Backbone.BidView = Backbone.View.extend
 
             <hr />
 
-            <strong>Projects applied for</strong>
-            <div><%= vendor.titles_of_projects_applied_for.join(", ") %></div>
-
-            <hr />
-
-            <form action="/projects/<%= project_id %>/bids/<%= id %>/transfer" method="POST">
-              <strong>Transfer to</strong>
-              <select name="project_id">
-                <% _.each(vendor.projects_not_applied_for, function(project){ %>
-                  <option value="<%= project.id %>"><%= project.title %></option>
-                <% }); %>
-              </select>
-              <button class="btn btn-small">Send!</button>
-            </form>
+            <div class="transfer-bid-wrapper"></div>
           </div>
         </div>
       </div>
     </td>
   </tr>
+  """
+
+  transfer_bid_template: _.template """
+    <strong>Projects applied for</strong>
+    <div><%= vendor.titles_of_projects_applied_for.join(", ") %></div>
+
+    <hr />
+
+    <form action="/projects/<%= project_id %>/bids/<%= id %>/transfer" method="POST">
+      <strong>Transfer to</strong>
+      <select name="project_id">
+        <% _.each(vendor.projects_not_applied_for, function(project){ %>
+          <option value="<%= project.id %>"><%= project.title %></option>
+        <% }); %>
+      </select>
+      <button class="btn btn-small">Send!</button>
+    </form>
   """
 
   main_bid_template: _.template """
@@ -143,6 +147,9 @@ Rfpez.Backbone.BidView = Backbone.View.extend
   renderMainBid: ->
     @$el.find(".main-bid").html @main_bid_template(@model.toJSON())
 
+  renderTransferBid: ->
+    @$el.find(".transfer-bid-wrapper").html @transfer_bid_template(@model.toJSON())
+
   toggleRead: ->
     params =
       read: if @model.attributes.read is "1" then "0" else "1"
@@ -209,6 +216,11 @@ Rfpez.Backbone.BidView = Backbone.View.extend
         vendor_id: @model.attributes.vendor_id
 
       @$el.find(".comments-wrapper").html(@comments.el)
+
+    if @$el.find(".transfer-bid-wrapper div").length is 0
+      @model.fetch
+        success: =>
+          @renderTransferBid()
 
   calculateTotalScore: ->
     @model.attributes.total_score = @model.attributes.total_stars - @model.attributes.total_thumbs_down

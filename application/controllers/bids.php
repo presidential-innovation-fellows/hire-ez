@@ -9,11 +9,11 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'project_exists')->except(array('mine'));
 
-    $this->filter('before', 'i_am_collaborator')->only(array('review', 'update', 'transfer'));
+    $this->filter('before', 'i_am_collaborator')->only(array('review', 'update', 'transfer', 'show'));
 
-    $this->filter('before', 'bid_exists')->only(array('update', 'transfer'));
+    $this->filter('before', 'bid_exists')->only(array('update', 'transfer', 'show'));
 
-    $this->filter('before', 'bid_is_submitted_and_not_deleted')->only(array('update', 'transfer'));
+    $this->filter('before', 'bid_is_submitted_and_not_deleted')->only(array('update', 'transfer', 'show'));
 
     $this->filter('before', 'i_have_not_already_bid')->only(array('new', 'create'));
   }
@@ -111,6 +111,20 @@ class Bids_Controller extends Base_Controller {
     $bid = Bid::with_officer_fields()
               ->where('bids.id', '=', $bid->id)
               ->first();
+
+    return Response::json($bid->to_array());
+  }
+
+  // handle updates from backbone
+  public function action_show() {
+    $bid = Config::get('bid');
+
+    $bid = Bid::with_officer_fields()
+              ->where('bids.id', '=', $bid->id)
+              ->first();
+
+    $bid->vendor->includes_in_array = array('titles_of_projects_applied_for', 'ids_of_projects_applied_for', 'projects_not_applied_for');
+
 
     return Response::json($bid->to_array());
   }
