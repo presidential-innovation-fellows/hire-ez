@@ -38,7 +38,9 @@ class Bids_Controller extends Base_Controller {
       $q = $view->project->winning_bids();
     } elseif ($filter == 'starred') {
       $q = $view->project->starred_bids();
-    } elseif ($filter == 'rejected') {
+    } elseif ($filter == 'thumbs-downed') {
+      $q = $view->project->thumbs_downed_bids();
+    } elseif ($filter == 'spam') {
       $q = $view->project->dismissed_bids();
     } else {
       $q = $view->project->submitted_bids();

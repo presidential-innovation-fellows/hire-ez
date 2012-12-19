@@ -86,7 +86,11 @@ class Project extends Eloquent {
   }
 
   public function starred_bids() {
-    return $this->bids()->where('total_stars', '>', 0);
+    return $this->bids()->where('bid_officer.starred', '>', 0);
+  }
+
+  public function thumbs_downed_bids() {
+    return $this->bids()->where('bid_officer.thumbs_downed', '>', 0);
   }
 
   public function is_mine() {
