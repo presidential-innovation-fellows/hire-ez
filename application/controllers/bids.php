@@ -59,7 +59,7 @@ class Bids_Controller extends Base_Controller {
     if (Input::get('sort')) $appends["sort"] = Input::get('sort');
     if (Input::get('order')) $appends["order"] = Input::get('order');
 
-    $view->bids = $q->paginate(10);
+    $view->bids = $q->paginate(50);
     $view->links = $view->bids->appends($appends)->links();
 
     $view->bids_json = eloquent_to_json($view->bids->results);
