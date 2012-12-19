@@ -7014,6 +7014,18 @@ body.super-admin .super-admin-only {
   -ms-transform: rotate(70deg);
   transform: rotate(70deg);
 }
+.dl-no-margin dt,
+.dl-no-margin dd {
+  margin-bottom: 5px;
+}
+.dl-no-margin dt {
+  float: left;
+  width: auto;
+}
+.dl-no-margin dd {
+  float: left;
+  margin-left: 10px;
+}
 @media (max-width: 979px) {
   .hero-unit h1 small {
     display: block;

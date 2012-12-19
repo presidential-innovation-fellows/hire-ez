@@ -1,15 +1,3 @@
-######## HOTKEYS ########
-
-#   Key           Description
-#
-#   k             move selection up
-#   j             move selection down
-#   a             mark as unread
-#   d             thumbs up selection
-#   f             thumbs down selection
-#   o, return     open selection
-#   cmd+del       mark as spam
-
 on_mouseover_select = true
 mouseover_select_timeout = false
 
@@ -35,6 +23,9 @@ keep_bid_in_view = (bid, scrollTo) ->
   mouseover_select_timeout = setTimeout ->
     on_mouseover_select = true
   , 200
+
+Rfpez.toggle_keyboard_shortcuts = ->
+  $("#keyboard-shortcuts-modal").modal('toggle')
 
 Rfpez.select_bid = (bid, scrollTo) ->
   $(".bid").removeClass('selected')
@@ -66,6 +57,10 @@ thumbs_down_selection = ->
   selected_bid = $(".bid.selected:eq(0)")
   selected_bid.find(".toggle-thumbs-down").click()
 
+no_vote_selection = ->
+  selected_bid = $(".bid.selected:eq(0)")
+  selected_bid.find(".toggle-no-vote").click()
+
 open_selection = ->
   selected_bid = $(".bid.selected:eq(0)")
   selected_bid.find(".vendor-name").click()
@@ -85,12 +80,15 @@ key 'k', ->
 key 'j', ->
   Rfpez.move_bid_selection("down")
 
-key 'd', thumbs_up_selection
+key 's', thumbs_up_selection
 key 'f', thumbs_down_selection
-key 'return', open_selection
-key 'o', open_selection
+key 'd', no_vote_selection
+key 'return, o', open_selection
 key '⌘+backspace, ctrl+backspace, ⌘+delete, ctrl+delete', mark_as_spam
 key 'a', toggle_unread_selection
+
+
+key '/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts
 
 $(document).on "ready page:load", ->
   if Rfpez.current_page("bid-review")

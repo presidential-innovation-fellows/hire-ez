@@ -6,6 +6,8 @@
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
+!{View::make('bids.partials.keyboard_shortcuts_modal')}
+
 ul.nav.nav-pills.pull-left
   li(class="#{!Config::has('review_bids_filter') ? 'active' : ''}")
     a(href="#{Helper::url_with_query_and_sort_params(route('review_bids', $project->id))}") All (#{$project->submitted_bids()->count()})
@@ -31,6 +33,7 @@ form.form-search.pull-right#search-bids-form(action="#{URL::full()}")
   - if ($query):
     | Filtering by "#{$query}"
   - endif;
+
   small
     - if ($query):
       a(href="#{Helper::current_url_without_search_params()}") (clear search)
@@ -39,6 +42,9 @@ form.form-search.pull-right#search-bids-form(action="#{URL::full()}")
       a.clear-sort(href="#{Helper::current_url_without_sort_params()}") (clear sort)
     - endif;
 
+  small.pull-right
+    a(href="#keyboard-shortcuts-modal", data-toggle='modal')
+      | Keyboard shortcuts available<i class="icon-thumbs-up" style="margin-left: 3px;"></i>
 
 table.table#bids-table
   thead

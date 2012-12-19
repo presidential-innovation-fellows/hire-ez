@@ -1,4 +1,4 @@
-var keep_bid_in_view, mark_as_spam, mouseover_select_timeout, on_mouseover_select, open_selection, thumbs_down_selection, thumbs_up_selection, toggle_unread_selection;
+var keep_bid_in_view, mark_as_spam, mouseover_select_timeout, no_vote_selection, on_mouseover_select, open_selection, thumbs_down_selection, thumbs_up_selection, toggle_unread_selection;
 
 on_mouseover_select = true;
 
@@ -25,6 +25,10 @@ keep_bid_in_view = function(bid, scrollTo) {
   return mouseover_select_timeout = setTimeout(function() {
     return on_mouseover_select = true;
   }, 200);
+};
+
+Rfpez.toggle_keyboard_shortcuts = function() {
+  return $("#keyboard-shortcuts-modal").modal('toggle');
 };
 
 Rfpez.select_bid = function(bid, scrollTo) {
@@ -69,6 +73,12 @@ thumbs_down_selection = function() {
   return selected_bid.find(".toggle-thumbs-down").click();
 };
 
+no_vote_selection = function() {
+  var selected_bid;
+  selected_bid = $(".bid.selected:eq(0)");
+  return selected_bid.find(".toggle-no-vote").click();
+};
+
 open_selection = function() {
   var selected_bid;
   selected_bid = $(".bid.selected:eq(0)");
@@ -96,17 +106,19 @@ key('j', function() {
   return Rfpez.move_bid_selection("down");
 });
 
-key('d', thumbs_up_selection);
+key('s', thumbs_up_selection);
 
 key('f', thumbs_down_selection);
 
-key('return', open_selection);
+key('d', no_vote_selection);
 
-key('o', open_selection);
+key('return, o', open_selection);
 
 key('⌘+backspace, ctrl+backspace, ⌘+delete, ctrl+delete', mark_as_spam);
 
 key('a', toggle_unread_selection);
+
+key('/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts);
 
 $(document).on("ready page:load", function() {
   if (Rfpez.current_page("bid-review")) {

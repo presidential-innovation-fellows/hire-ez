@@ -4,6 +4,7 @@
 <?php Section::inject('no_page_header', true) ?>
 <?php Section::inject('current_page', 'bid-review') ?>
 <?php echo View::make('projects.partials.toolbar')->with('project', $project); ?>
+<?php echo View::make('bids.partials.keyboard_shortcuts_modal'); ?>
 <ul class="nav nav-pills pull-left">
   <li class="<?php echo e(!Config::has('review_bids_filter') ? 'active' : ''); ?>">
     <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids', $project->id))); ?>">All (<?php echo e($project->submitted_bids()->count()); ?>)</a>
@@ -41,6 +42,11 @@
     <?php if (Input::get('sort')): ?>
       <a class="clear-sort" href="<?php echo e(Helper::current_url_without_sort_params()); ?>">(clear sort)</a>
     <?php endif; ?>
+  </small>
+  <small class="pull-right">
+    <a href="#keyboard-shortcuts-modal" data-toggle="modal">
+      Keyboard shortcuts available<i class="icon-thumbs-up" style="margin-left: 3px;"></i>
+    </a>
   </small>
 </div>
 <table id="bids-table" class="table">
