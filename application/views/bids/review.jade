@@ -49,6 +49,9 @@ form.form-search.pull-right#search-bids-form(action="#{URL::full()}")
   #bid-review-pagination-wrapper.pull-right(data-href="#{URL::current()}", data-filter="#{Config::get('review_bids_filter')}", data-skip="#{$skip}", data-sort="#{$sort}", data-query="#{$query}", data-total="#{$paginator['total']}")
     .pagination.pagination-right
       span.pagination-text
+        small
+          a(href="#keyboard-shortcuts-modal", data-toggle='modal') Keyboard shortcuts available<i class="icon-thumbs-up" style="margin-left: 3px;"></i>
+        | &nbsp;&nbsp;
         | <strong>#{$paginator["display_range"]}</strong> of <strong>#{$paginator["total"]}</strong>
       ul
         li(class="#{$paginator['showingFirstResult'] ? 'disabled' : ''}")

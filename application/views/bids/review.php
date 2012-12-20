@@ -49,6 +49,10 @@
   <div id="bid-review-pagination-wrapper" class="pull-right" data-href="<?php echo e(URL::current()); ?>" data-filter="<?php echo e(Config::get('review_bids_filter')); ?>" data-skip="<?php echo e($skip); ?>" data-sort="<?php echo e($sort); ?>" data-query="<?php echo e($query); ?>" data-total="<?php echo e($paginator['total']); ?>">
     <div class="pagination pagination-right">
       <span class="pagination-text">
+        <small>
+          <a href="#keyboard-shortcuts-modal" data-toggle="modal">Keyboard shortcuts available<i class="icon-thumbs-up" style="margin-left: 3px;"></i></a>
+        </small>
+        &nbsp;&nbsp;
         <strong><?php echo e($paginator["display_range"]); ?></strong> of <strong><?php echo e($paginator["total"]); ?></strong>
       </span>
       <ul>
