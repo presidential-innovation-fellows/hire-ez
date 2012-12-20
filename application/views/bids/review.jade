@@ -9,12 +9,14 @@
 !{View::make('bids.partials.keyboard_shortcuts_modal')}
 
 ul.nav.nav-pills.pull-left
+  li(class="#{Config::get('review_bids_filter') == 'unread' ? 'active' : ''}")
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'unread')))}") Unread (#{$project->unread_bids()->count()})
   li(class="#{!Config::has('review_bids_filter') ? 'active' : ''}")
     a(href="#{Helper::url_with_query_and_sort_params(route('review_bids', $project->id))}") All (#{$project->submitted_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'starred' ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))}") My Thumbs Up (#{$project->starred_bids()->count()})
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))}") My <i class="icon-thumbs-up"></i> (#{$project->starred_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'thumbs-downed' ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))}") My Thumbs Down (#{$project->thumbs_downed_bids()->count()})
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))}") My <i class="icon-thumbs-down"></i> (#{$project->thumbs_downed_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'hired' ? 'active' : ''}")
     a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'hired')))}") Hired (#{$project->winning_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'spam' ? 'active' : ''}")
@@ -29,6 +31,7 @@ form.form-search.pull-right#search-bids-form(action="#{URL::full()}")
 
 .clearfix &nbsp;
 
+
 .search-subheader
   - if ($query):
     | Filtering by "#{$query}"
@@ -42,9 +45,17 @@ form.form-search.pull-right#search-bids-form(action="#{URL::full()}")
       a.clear-sort(href="#{Helper::current_url_without_sort_params()}") (clear sort)
     - endif;
 
-  small.pull-right
-    a(href="#keyboard-shortcuts-modal", data-toggle='modal')
-      | Keyboard shortcuts available<i class="icon-thumbs-up" style="margin-left: 3px;"></i>
+
+  #bid-review-pagination-wrapper.pull-right(data-href="#{URL::current()}", data-filter="#{Config::get('review_bids_filter')}", data-skip="#{$skip}", data-sort="#{$sort}", data-query="#{$query}", data-total="#{$paginator['total']}")
+    .pagination.pagination-right
+      span.pagination-text
+        | <strong>#{$paginator["display_range"]}</strong> of <strong>#{$paginator["total"]}</strong>
+      ul
+        li(class="#{$paginator['showingFirstResult'] ? 'disabled' : ''}")
+          a.previous «
+        li(class="#{$paginator['showingLastResult'] ? 'disabled' : ''}")
+          a.next »
+
 
 table.table#bids-table
   thead
@@ -60,6 +71,3 @@ table.table#bids-table
     |  new Rfpez.Backbone.BidPage({project_id: #{$project->id}, bootstrap: !{$bids_json}});
     | })
 
-
-.pagination-wrapper
-  !{$links}

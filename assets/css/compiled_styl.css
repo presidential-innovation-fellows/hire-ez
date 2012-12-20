@@ -138,6 +138,11 @@ body.super-admin .super-admin-only {
   -ms-transform: rotate(70deg);
   transform: rotate(70deg);
 }
+.pagination .pagination-text {
+  position: relative;
+  top: -9px;
+  right: 5px;
+}
 .dl-no-margin dt,
 .dl-no-margin dd {
   margin-bottom: 5px;
@@ -230,6 +235,9 @@ body.vendor .no-auth-only {
   position: relative;
   top: 2px;
   font-size: 11px;
+}
+#bid-review-pagination-wrapper .pagination {
+  margin: 0;
 }
 .search-subheader {
   height: 20px;

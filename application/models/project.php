@@ -179,6 +179,11 @@ class Project extends Eloquent {
                 ->where_not_null('submitted_at');
   }
 
+  public function unread_bids() {
+    return $this->bids()
+                ->where('bid_officer.read', '=', false);
+  }
+
   public function open_bids() {
     return $this->submitted_bids()
                 ->where_null('dismissed_at')

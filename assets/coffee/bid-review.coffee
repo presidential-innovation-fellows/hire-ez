@@ -1,3 +1,46 @@
+$(document).on "click", "#bid-review-pagination-wrapper li:not(.disabled) a", (e) ->
+  e.preventDefault()
+  $wrapper = $("#bid-review-pagination-wrapper")
+  forwardDirection = if $(this).hasClass('previous') then false else true
+  total = $wrapper.data('total')
+  href = $wrapper.data('href')
+  filter = $wrapper.data('filter') || false
+
+  params =
+    skip: parseInt($wrapper.data('skip') || 0)
+    sort: $wrapper.data('sort')
+    query: $wrapper.data('query')
+
+  if forwardDirection
+    # get the number of bids that are currently visible
+    # but would no longer be included in the filter results
+    no_longer_visible_count = 0
+
+    Rfpez.Backbone.Bids.each (b) ->
+      if filter is "unread"
+        if b.attributes.read is "1" then no_longer_visible_count++
+      else if filter is "starred"
+        if !b.attributes.starred || b.attributes.starred is "0" then no_longer_visible_count++
+      else if filter is "thumbs-downed"
+        if !b.attributes.thumbs_downed || b.attributes.thumbs_downed is "0" then no_longer_visible_count++
+      else if filter is "hired"
+        if !b.attributes.awarded_at || b.attributes.awarded_at is "0" then no_longer_visible_count++
+      else if filter is "spam"
+        if !b.attributes.dismissed_at || b.attributes.dismissed_at is "0" then no_longer_visible_count++
+
+    params.skip = (params.skip - no_longer_visible_count + 10) # perPage = 10
+
+  else
+    params.skip = params.skip - 10
+
+  if params.skip < 1 then params.skip = false
+
+  for i, val of params
+    delete params[i] unless val
+
+  Turbolinks.visit "#{href}?#{$.param(params)}"
+
+
 on_mouseover_select = true
 mouseover_select_timeout = false
 

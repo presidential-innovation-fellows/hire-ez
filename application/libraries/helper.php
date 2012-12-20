@@ -2,6 +2,20 @@
 
 Class Helper {
 
+  public static function get_bid_paginator($skip, $per_page, $total) {
+    $firstResult = $skip + 1;
+    $lastResult = $firstResult + $per_page - 1;
+    if ($lastResult > $total) $lastResult = $total;
+    if ($lastResult == 0) $firstResult = 0;
+    return array(
+      'display_range' => $firstResult."-".$lastResult,
+      'total' => $total,
+      'lastResult' => $lastResult,
+      'showingLastResult' => $lastResult == $total,
+      'showingFirstResult' => ($firstResult < 2)
+    );
+  }
+
   public static function preserve_input($name) {
     if ($val = Input::get($name)) {
       return "<input type='hidden' name='$name' value='$val' />";
@@ -11,27 +25,24 @@ Class Helper {
   }
 
   public static function url_with_query_and_sort_params($url) {
-    $params = $_GET;
-    unset($params["page"]);
-    return $url . "?" . e(http_build_query($params));
+    return self::current_url_without_params("skip", $url);
   }
 
   public static function current_url_without_sort_params() {
-    $params = $_GET;
-
-    unset($params["page"]);
-    unset($params["sort"]);
-    unset($params["order"]);
-
-    return URL::current() . "?" . e(http_build_query($params));
+    return self::current_url_without_params(array('skip', 'sort', 'order'));
   }
 
   public static function current_url_without_search_params() {
-    $params = $_GET;
+    return self::current_url_without_params('q');
+  }
 
-    unset($params["q"]);
-
-    return URL::current() . "?" . e(http_build_query($params));
+  public static function current_url_without_params($params, $url = false) {
+    if (!$url) $url = URL::current();
+    if (!is_array($params)) $params = array($params);
+    $url_params = $_GET;
+    foreach ($params as $param) { unset($url_params[$param]); }
+    if (!$url_params) return $url;
+    return $url . "?" . e(http_build_query($url_params));
   }
 
   public static function current_sort_link($sort, $title, $default_order = false) {

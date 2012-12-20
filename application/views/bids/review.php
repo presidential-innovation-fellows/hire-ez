@@ -6,14 +6,17 @@
 <?php echo View::make('projects.partials.toolbar')->with('project', $project); ?>
 <?php echo View::make('bids.partials.keyboard_shortcuts_modal'); ?>
 <ul class="nav nav-pills pull-left">
+  <li class="<?php echo e(Config::get('review_bids_filter') == 'unread' ? 'active' : ''); ?>">
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'unread')))); ?>">Unread (<?php echo e($project->unread_bids()->count()); ?>)</a>
+  </li>
   <li class="<?php echo e(!Config::has('review_bids_filter') ? 'active' : ''); ?>">
     <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids', $project->id))); ?>">All (<?php echo e($project->submitted_bids()->count()); ?>)</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'starred' ? 'active' : ''); ?>">
-    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))); ?>">My Thumbs Up (<?php echo e($project->starred_bids()->count()); ?>)</a>
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))); ?>">My <i class="icon-thumbs-up"></i> (<?php echo e($project->starred_bids()->count()); ?>)</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'thumbs-downed' ? 'active' : ''); ?>">
-    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))); ?>">My Thumbs Down (<?php echo e($project->thumbs_downed_bids()->count()); ?>)</a>
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))); ?>">My <i class="icon-thumbs-down"></i> (<?php echo e($project->thumbs_downed_bids()->count()); ?>)</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'hired' ? 'active' : ''); ?>">
     <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'hired')))); ?>">Hired (<?php echo e($project->winning_bids()->count()); ?>)</a>
@@ -43,11 +46,21 @@
       <a class="clear-sort" href="<?php echo e(Helper::current_url_without_sort_params()); ?>">(clear sort)</a>
     <?php endif; ?>
   </small>
-  <small class="pull-right">
-    <a href="#keyboard-shortcuts-modal" data-toggle="modal">
-      Keyboard shortcuts available<i class="icon-thumbs-up" style="margin-left: 3px;"></i>
-    </a>
-  </small>
+  <div id="bid-review-pagination-wrapper" class="pull-right" data-href="<?php echo e(URL::current()); ?>" data-filter="<?php echo e(Config::get('review_bids_filter')); ?>" data-skip="<?php echo e($skip); ?>" data-sort="<?php echo e($sort); ?>" data-query="<?php echo e($query); ?>" data-total="<?php echo e($paginator['total']); ?>">
+    <div class="pagination pagination-right">
+      <span class="pagination-text">
+        <strong><?php echo e($paginator["display_range"]); ?></strong> of <strong><?php echo e($paginator["total"]); ?></strong>
+      </span>
+      <ul>
+        <li class="<?php echo e($paginator['showingFirstResult'] ? 'disabled' : ''); ?>">
+          <a class="previous">«</a>
+        </li>
+        <li class="<?php echo e($paginator['showingLastResult'] ? 'disabled' : ''); ?>">
+          <a class="next">»</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 <table id="bids-table" class="table">
   <thead>
@@ -65,6 +78,3 @@
     })
   </script>
 </table>
-<div class="pagination-wrapper">
-  <?php echo $links; ?>
-</div>

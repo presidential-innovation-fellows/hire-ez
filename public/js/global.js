@@ -10198,6 +10198,60 @@ $(document).on("submit", "#add-comment-form", function(e) {
 
 var keep_bid_in_view, mark_as_spam, mouseover_select_timeout, no_vote_selection, on_mouseover_select, open_selection, thumbs_down_selection, thumbs_up_selection, toggle_unread_selection;
 
+$(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", function(e) {
+  var $wrapper, filter, forwardDirection, href, i, no_longer_visible_count, params, total, val;
+  e.preventDefault();
+  $wrapper = $("#bid-review-pagination-wrapper");
+  forwardDirection = $(this).hasClass('previous') ? false : true;
+  total = $wrapper.data('total');
+  href = $wrapper.data('href');
+  filter = $wrapper.data('filter') || false;
+  params = {
+    skip: parseInt($wrapper.data('skip') || 0),
+    sort: $wrapper.data('sort'),
+    query: $wrapper.data('query')
+  };
+  if (forwardDirection) {
+    no_longer_visible_count = 0;
+    Rfpez.Backbone.Bids.each(function(b) {
+      if (filter === "unread") {
+        if (b.attributes.read === "1") {
+          return no_longer_visible_count++;
+        }
+      } else if (filter === "starred") {
+        if (!b.attributes.starred || b.attributes.starred === "0") {
+          return no_longer_visible_count++;
+        }
+      } else if (filter === "thumbs-downed") {
+        if (!b.attributes.thumbs_downed || b.attributes.thumbs_downed === "0") {
+          return no_longer_visible_count++;
+        }
+      } else if (filter === "hired") {
+        if (!b.attributes.awarded_at || b.attributes.awarded_at === "0") {
+          return no_longer_visible_count++;
+        }
+      } else if (filter === "spam") {
+        if (!b.attributes.dismissed_at || b.attributes.dismissed_at === "0") {
+          return no_longer_visible_count++;
+        }
+      }
+    });
+    params.skip = params.skip - no_longer_visible_count + 10;
+  } else {
+    params.skip = params.skip - 10;
+  }
+  if (params.skip < 1) {
+    params.skip = false;
+  }
+  for (i in params) {
+    val = params[i];
+    if (!val) {
+      delete params[i];
+    }
+  }
+  return Turbolinks.visit("" + href + "?" + ($.param(params)));
+});
+
 on_mouseover_select = true;
 
 mouseover_select_timeout = false;

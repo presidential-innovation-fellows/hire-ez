@@ -34,7 +34,9 @@ class Bids_Controller extends Base_Controller {
     $sort = @$this->bid_sort_options[Input::get('sort')] ?: false;
     $order = Input::get('order');
 
-    if ($filter == 'hired') {
+    if ($filter == 'unread') {
+      $q = $view->project->unread_bids();
+    } elseif ($filter == 'hired') {
       $q = $view->project->winning_bids();
     } elseif ($filter == 'starred') {
       $q = $view->project->starred_bids();
@@ -53,16 +55,17 @@ class Bids_Controller extends Base_Controller {
       });
     }
 
+    $total = $q->count();
     if ($sort) $q = $q->order_by($sort, $order);
 
-    $appends = array();
-    if (Input::get('sort')) $appends["sort"] = Input::get('sort');
-    if (Input::get('order')) $appends["order"] = Input::get('order');
+    $per_page = 10;
+    $view->skip = Input::get('skip', 0);
+    $view->sort = Input::get('sort');
+    $bids = $q->take($per_page)->skip($view->skip)->get();
 
-    $view->bids = $q->paginate(50);
-    $view->links = $view->bids->appends($appends)->links();
+    $view->paginator = Helper::get_bid_paginator($view->skip, $per_page, $total);
 
-    $view->bids_json = eloquent_to_json($view->bids->results);
+    $view->bids_json = eloquent_to_json($bids);
     $this->layout->content = $view;
   }
 
