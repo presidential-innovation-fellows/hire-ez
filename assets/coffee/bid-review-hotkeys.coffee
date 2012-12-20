@@ -90,6 +90,15 @@ key 'a', toggle_unread_selection
 
 key '/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts
 
+key 'up, down', ->
+  on_mouseover_select = false
+  clearTimeout(mouseover_select_timeout)
+
+  mouseover_select_timeout = setTimeout ->
+    on_mouseover_select = true
+  , 200
+
+
 $(document).on "ready page:load", ->
   if Rfpez.current_page("bid-review")
     Rfpez.move_bid_selection("down")

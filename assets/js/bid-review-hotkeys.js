@@ -120,6 +120,14 @@ key('a', toggle_unread_selection);
 
 key('/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts);
 
+key('up, down', function() {
+  on_mouseover_select = false;
+  clearTimeout(mouseover_select_timeout);
+  return mouseover_select_timeout = setTimeout(function() {
+    return on_mouseover_select = true;
+  }, 200);
+});
+
 $(document).on("ready page:load", function() {
   if (Rfpez.current_page("bid-review")) {
     return Rfpez.move_bid_selection("down");
