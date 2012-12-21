@@ -6,8 +6,6 @@ class Bid extends SoftDeleteModel {
 
   public $includes = array('vendor', 'vendor.user');
 
-  public $bid_officer = false;
-
   public static $accessible = array('project_id', 'body'); // @placeholder
 
   public function validator() {
@@ -91,8 +89,7 @@ class Bid extends SoftDeleteModel {
   }
 
   public function bid_officer() {
-    if ($this->bid_officer !== false) return $this->bid_officer;
-    return $this->bid_officer = BidOfficer::mine_for_bid($this->id);
+    return BidOfficer::mine_for_bid($this->id);
   }
 
   public function has_read_bid_officer() {
@@ -100,39 +97,37 @@ class Bid extends SoftDeleteModel {
 
   }
 
-  public function set_officer_read($read) {
+  public function assign_officer_read($read) {
     $bid_officer = $this->bid_officer();
 
     if ($bid_officer->read == $read) return;
 
     if ($read && !$this->anyone_read) {
       $this->anyone_read = true;
-      $this->save();
     }
 
     $bid_officer->read = $read;
+    $bid_officer->save();
   }
 
-  public function set_officer_starred($starred) {
+  public function assign_officer_starred($starred) {
     $bid_officer = $this->bid_officer();
 
-    if ($starred !== null && $bid_officer->starred != $starred) {
-      $this->total_stars = $this->total_stars + ($starred ? 1 : -1);
-      $this->save();
-    }
+    if ($bid_officer->starred == $starred) return;
 
-    $bid_officer->starred = $starred ? true : false;
+    $bid_officer->starred = $starred;
+    $bid_officer->save();
+    if ($starred) $this->assign_officer_thumbs_downed(false);
   }
 
-  public function set_officer_thumbs_downed($thumbs_downed) {
+  public function assign_officer_thumbs_downed($thumbs_downed) {
     $bid_officer = $this->bid_officer();
 
-    if ($thumbs_downed !== null && $bid_officer->thumbs_downed != $thumbs_downed) {
-      $this->total_thumbs_down = $this->total_thumbs_down + ($thumbs_downed ? 1 : -1);
-      $this->save();
-    }
+    if ($bid_officer->thumbs_downed == $thumbs_downed) return;
 
-    $bid_officer->thumbs_downed = $thumbs_downed ? true : false;
+    $bid_officer->thumbs_downed = $thumbs_downed;
+    $bid_officer->save();
+    if ($thumbs_downed) $this->assign_officer_starred(false);
   }
 
   public function sync_anyone_read($read) {
@@ -141,15 +136,14 @@ class Bid extends SoftDeleteModel {
     }
   }
 
-  public function set_dismissed($dismissed) {
+  public function assign_dismissed($dismissed) {
     if ($this->dismissed_at && $dismissed) return;
     if (!$this->dismissed_at && !$dismissed) return;
 
     $this->dismissed_at = $dismissed ? new \DateTime : null;
-    $this->save();
   }
 
-  public function set_awarded($awarded) {
+  public function assign_awarded($awarded) {
     if ($this->awarded_at && $awarded) return;
     if (!$this->awarded_at && !$awarded) return;
 
@@ -160,8 +154,11 @@ class Bid extends SoftDeleteModel {
       $this->awarded_at = null;
       $this->awarded_by = null;
     }
+  }
 
-    $this->save();
+  public function calculate_total_scores() {
+    $this->total_stars = BidOfficer::where_bid_id($this->id)->where_starred(true)->count();
+    $this->total_thumbs_down = BidOfficer::where_bid_id($this->id)->where_thumbs_downed(true)->count();
   }
 
   public static function with_officer_fields() {

@@ -101,14 +101,15 @@ class Bids_Controller extends Base_Controller {
     $bid = Config::get('bid');
     $input = Input::json(true);
 
-    $bid->set_officer_read($input["read"]);
-    $bid->set_officer_starred($input["starred"]);
-    $bid->set_officer_thumbs_downed($input["thumbs_downed"]);
-    $bid->set_dismissed($input["dismissed_at"]);
-    $bid->set_awarded($input["awarded_at"]);
+    $bid->assign_officer_read($input["read"]);
+    $bid->assign_officer_starred($input["starred"]);
+    $bid->assign_officer_thumbs_downed($input["thumbs_downed"]);
+    $bid->assign_dismissed($input["dismissed_at"]);
+    $bid->assign_awarded($input["awarded_at"]);
 
-    $bid->bid_officer()->save();
     $bid->sync_anyone_read($input["read"]);
+
+    $bid->calculate_total_scores();
     $bid->save();
 
     $bid = Bid::with_officer_fields()

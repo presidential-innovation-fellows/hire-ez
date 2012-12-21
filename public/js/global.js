@@ -9580,6 +9580,12 @@ Rfpez.Backbone.Bid = Backbone.Model.extend({
       return errors;
     }
   },
+  defaults: function() {
+    return {
+      thumbs_downed: false,
+      starred: false
+    };
+  },
   clear: function() {
     return this.destroy();
   }

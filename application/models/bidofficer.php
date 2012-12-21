@@ -22,7 +22,7 @@ class BidOfficer extends Eloquent {
                     ->first();
 
     if (!$bid_officer) {
-      $bid_officer = new self(array('bid_id' => $bid_id, 'officer_id' => Auth::officer()->id));
+      $bid_officer = self::create(array('bid_id' => $bid_id, 'officer_id' => Auth::officer()->id));
     }
 
     return $bid_officer;

@@ -5,8 +5,9 @@ Rfpez.Backbone.Bid = Backbone.Model.extend
     if errors.length > 0
       return errors
 
-  # defaults: ->
-  #   owner: false
+  defaults: ->
+    thumbs_downed: false
+    starred: false
 
   clear: ->
     @destroy()
