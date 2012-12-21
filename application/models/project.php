@@ -208,9 +208,14 @@ class Project extends Eloquent {
 
   public function stream_json($json = true) {
     $comments = array_map(function($m) { return $m->to_array(); }, $this->get_comments());
-    $notifications = array_map(function($m) { return $m->to_array(); }, $this->stream_notifications());
+    $notifications = array_map(function($m) {
+      $array = $m->to_array();
+      $array["id"] = "notification-".$array["id"];
+      return $array;
+    }, $this->stream_notifications());
 
     $return_array = array_merge($comments, $notifications);
+    Log::info(print_r($return_array, true));
 
     usort($return_array, function($a, $b){
       // oldest first
