@@ -266,6 +266,7 @@ class Projects_Controller extends Base_Controller {
 
   public function action_mine() {
     $view = View::make('projects.mine');
+    $view->count = Auth::user()->unread_notification_count();
     $view->projects = Auth::officer()->projects;
     $this->layout->content = $view;
   }
@@ -327,9 +328,7 @@ class Projects_Controller extends Base_Controller {
 
     $project->officers()->attach($user->officer->id);
 
-    Notification::send("ProjectCollaboratorAdded", array("project" => $project,
-                                                         "officer" => $user->officer,
-                                                         "actor_id" => Auth::user()->id), $send_email);
+    Notification::send("CollaboratorAdded", array("project" => $project, "officer" => $user->officer), $send_email);
 
     return Response::json($user->officer->to_array());
   }

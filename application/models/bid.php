@@ -4,7 +4,7 @@ class Bid extends SoftDeleteModel {
 
   public static $timestamps = true;
 
-  public $includes = array('vendor', 'vendor.user');
+  public $includes = array('vendor', 'vendor.user', 'project');
 
   public static $accessible = array('project_id', 'body'); // @placeholder
 
@@ -30,19 +30,6 @@ class Bid extends SoftDeleteModel {
     return (Auth::vendor() && ($this->vendor->id == Auth::vendor()->id)) ? true : false;
   }
 
-  public function dismiss($reason = false, $explanation = false) {
-    $this->dismissed_at = new \DateTime;
-    $this->save();
-
-    Notification::send('Dismissal', array('bid' => $this, 'actor_id' => Auth::user() ? Auth::user()->id : null));
-  }
-
-  public function undismiss() {
-    $this->dismissed_at = NULL;
-    $this->save();
-    Notification::send('Undismissal', array('bid' => $this, 'actor_id' => Auth::user() ? Auth::user()->id : null));
-  }
-
   public function dismissed() {
     return $this->dismissed_at ? true : false;
   }
@@ -62,24 +49,12 @@ class Bid extends SoftDeleteModel {
   public function submit() {
     $this->submitted_at = new \DateTime;
     $this->save();
-
-    foreach ($this->project->officers as $officer) {
-      Notification::send('BidSubmit', array('bid' => $this, 'target_id' => $officer->user_id));
-    }
   }
 
   public function award() {
     $this->awarded_at = new \DateTime;
     $this->awarded_by = Auth::officer()->id;
-    $this->save();
-
-    Notification::send("Award", array('actor_id' => Auth::user()->id, 'bid' => $this));
-
-    // Dismiss all the other bids.
-    foreach ($this->project->bids as $bid) {
-      if ($bid->id != $this->id && !$bid->dismissed_at)
-        $bid->dismiss();
-    }
+    Notification::send("ApplicantHired", array('bid' => $this));
   }
 
   public function delete_by_vendor() {
@@ -148,8 +123,7 @@ class Bid extends SoftDeleteModel {
     if (!$this->awarded_at && !$awarded) return;
 
     if ($awarded) {
-      $this->awarded_at = new \DateTime;
-      $this->awarded_by = Auth::officer()->id;
+      $this->award();
     } else {
       $this->awarded_at = null;
       $this->awarded_by = null;

@@ -199,23 +199,16 @@ class Project extends Eloquent {
   }
 
   public function notifications() {
-    // notifications that are about this project, its bids,
-    // or its collaborators.
-    $project = $this;
+    return $this->has_many('Notification');
+  }
 
-    return Notification::where(function($query){
-                    $query->where('payload_type', '=', 'bid');
-                    $query->where_in('payload_id', $this->bids()->lists('id') ?: array(''));
-                })->or_where(function($query)use($project){
-                  $query->where('payload_type', '=', 'project');
-                  $query->where('payload_id', '=', $project->id);
-                })
-                ->get();
+  public function stream_notifications() {
+    return $this->notifications()->where('payload_type', '!=', 'comment')->get();
   }
 
   public function stream_json($json = true) {
     $comments = array_map(function($m) { return $m->to_array(); }, $this->get_comments());
-    $notifications = array_map(function($m) { return $m->to_array(); }, $this->notifications());
+    $notifications = array_map(function($m) { return $m->to_array(); }, $this->stream_notifications());
 
     $return_array = array_merge($comments, $notifications);
 

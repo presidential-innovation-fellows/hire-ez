@@ -38,17 +38,24 @@ class User extends Eloquent {
   }
 
   public function unread_notifications() {
-    if ($this->unread_notifications !== false) return $this->unread_notifications;
-    return $this->unread_notifications = $this->notifications_received()->where_read(false)->get();
+    return $this->notifications_received()->where_read(false);
+  }
+
+  public function get_unread_notifications() {
+    return $this->unread_notifications()->get();
   }
 
   public function unread_notification_count() {
-    if ($this->unread_notification_count !== false) return $this->unread_notification_count;
-    return $this->unread_notification_count = $this->notifications_received()->where_read(false)->count();
+    return $this->unread_notifications()->count();
   }
 
   public function notifications_received() {
-    return $this->has_many('Notification', 'target_id');
+    if ($this->vendor) {
+      return Notification::where_target_id($this->id);
+    } else { //officer
+      $project_ids = $this->officer->projects()->lists('id');
+      return Notification::where_in('project_id', $project_ids);
+    }
   }
 
   public function notifications_sent() {
@@ -63,24 +70,24 @@ class User extends Eloquent {
   }
 
   public function view_notification_payload($key, $val, $mark_as) {
-    $query = $this->notifications_received()->where_payload_type($key);
+    // $query = $this->notifications_received()->where_payload_type($key);
 
-    if (is_array($val)) {
-      if (empty($val)) return;
-      $query = $query->where_in('payload_id', $val);
-    } else {
-      $query = $query->where_payload_id($val);
-    }
+    // if (is_array($val)) {
+    //   if (empty($val)) return;
+    //   $query = $query->where_in('payload_id', $val);
+    // } else {
+    //   $query = $query->where_payload_id($val);
+    // }
 
-    $notifications = $query->get();
+    // $notifications = $query->get();
 
-    if (count($notifications) == 0) return;
+    // if (count($notifications) == 0) return;
 
-    if ($mark_as == "read") {
-      foreach($notifications as $notification) $notification->mark_as_read();
-    } else {
-      foreach($notifications as $notification) $notification->mark_as_unread();
-    }
+    // if ($mark_as == "read") {
+    //   foreach($notifications as $notification) $notification->mark_as_read();
+    // } else {
+    //   foreach($notifications as $notification) $notification->mark_as_unread();
+    // }
   }
 
   public function account_type() {

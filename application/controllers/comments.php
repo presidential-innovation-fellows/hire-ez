@@ -49,6 +49,12 @@ class Comments_Controller extends Base_Controller {
 
     $comment->save();
 
+    $bids = $vendor->bids()->where_not_null('submitted_at')->get();
+
+    foreach ($bids as $bid) {
+      Notification::send("ApplicantComment", array('bid' => $bid, 'comment' => $comment, 'officer' => $comment->officer, 'project_id' => $bid->project_id));
+    }
+
     $comment->commentable()->increment_comment_count();
 
     return Response::json($comment->to_array());
@@ -74,11 +80,7 @@ class Comments_Controller extends Base_Controller {
     $comment->save();
 
 
-    foreach($comment->commentable()->officers as $officer) {
-      if (Auth::officer()->id != $officer->id)
-        Notification::send("Comment", array('comment' => $comment,
-                                            'target_id' => $officer->user->id));
-    }
+    Notification::send("ProjectComment", array('comment' => $comment, 'officer' => $comment->officer, 'project' => $comment->commentable()));
 
     return Response::json($comment->to_array());
 

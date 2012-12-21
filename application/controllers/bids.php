@@ -91,6 +91,8 @@ class Bids_Controller extends Base_Controller {
 
     $new_bid->save();
 
+    Notification::send("ApplicantForwarded", array('bid' => $new_bid, 'from_project' => $project, 'project' => $transfer_to_project));
+
     Session::flash('notice', "Success! Transferred the bid from ".$bid->vendor->name." to ".$transfer_to_project->title.".");
     return Redirect::back();
 

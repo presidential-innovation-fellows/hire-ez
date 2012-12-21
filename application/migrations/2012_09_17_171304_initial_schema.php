@@ -117,13 +117,14 @@ class Initial_Schema {
 
     Schema::create('notifications', function($t){
       $t->increments('id');
-      $t->integer('target_id')->unsigned();
+      $t->integer('target_id')->nullable()->unsigned();
       $t->integer('actor_id')->nullable()->unsigned();
       $t->string('notification_type');
       $t->text('payload');
       $t->boolean('read');
       $t->integer('payload_id')->nullable();
       $t->string('payload_type')->nullable();
+      $t->integer('project_id')->nullable()->unsigned();
       $t->timestamps();
     });
 
@@ -161,6 +162,7 @@ class Initial_Schema {
     Schema::table('notifications', function($t){
       $t->foreign('target_id')->references('id')->on('users')->on_delete('CASCADE');
       $t->foreign('actor_id')->references('id')->on('users')->on_delete('CASCADE');
+      $t->foreign('project_id')->references('id')->on('projects')->on_delete('CASCADE');
     });
 
     Schema::table('vendors', function($t){
