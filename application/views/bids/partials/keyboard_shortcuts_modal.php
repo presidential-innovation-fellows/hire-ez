@@ -44,6 +44,14 @@
         <code>?</code>
       </dt>
       <dd>show help</dd>
+      <dt>
+        <code>&rarr;</code>
+      </dt>
+      <dd>next page</dd>
+      <dt>
+        <code>&larr;</code>
+      </dt>
+      <dd>previous page</dd>
     </dl>
   </div>
 </div>

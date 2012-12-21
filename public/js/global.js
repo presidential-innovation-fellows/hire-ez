@@ -10196,7 +10196,7 @@ $(document).on("submit", "#add-comment-form", function(e) {
   return $(this).resetForm();
 });
 
-var keep_bid_in_view, mark_as_spam, mouseover_select_timeout, no_vote_selection, on_mouseover_select, open_selection, thumbs_down_selection, thumbs_up_selection, toggle_unread_selection;
+var keep_bid_in_view, mark_as_spam, mouseover_select_timeout, next_page, no_vote_selection, on_mouseover_select, open_selection, previous_page, thumbs_down_selection, thumbs_up_selection, toggle_unread_selection;
 
 $(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", function(e) {
   var $wrapper, filter, forwardDirection, href, i, no_longer_visible_count, params, total, val;
@@ -10350,6 +10350,14 @@ toggle_unread_selection = function() {
   return selected_bid.find(".toggle-read").click();
 };
 
+next_page = function() {
+  return $("#bid-review-pagination-wrapper .next").click();
+};
+
+previous_page = function() {
+  return $("#bid-review-pagination-wrapper .previous").click();
+};
+
 key('k', function() {
   return Rfpez.move_bid_selection("up");
 });
@@ -10369,6 +10377,10 @@ key('return, o', open_selection);
 key('⌘+backspace, ctrl+backspace, ⌘+delete, ctrl+delete', mark_as_spam);
 
 key('a', toggle_unread_selection);
+
+key('right', next_page);
+
+key('left', previous_page);
 
 key('/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts);
 

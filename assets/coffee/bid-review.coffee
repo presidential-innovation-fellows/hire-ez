@@ -117,6 +117,12 @@ toggle_unread_selection = ->
   selected_bid = $(".bid.selected:eq(0)")
   selected_bid.find(".toggle-read").click()
 
+next_page = ->
+  $("#bid-review-pagination-wrapper .next").click()
+
+previous_page = ->
+  $("#bid-review-pagination-wrapper .previous").click()
+
 key 'k', ->
   Rfpez.move_bid_selection("up")
 
@@ -129,6 +135,8 @@ key 'd', no_vote_selection
 key 'return, o', open_selection
 key '⌘+backspace, ctrl+backspace, ⌘+delete, ctrl+delete', mark_as_spam
 key 'a', toggle_unread_selection
+key 'right', next_page
+key 'left', previous_page
 
 
 key '/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts
