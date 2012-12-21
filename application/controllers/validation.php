@@ -3,10 +3,11 @@
 class Validation_Controller extends Base_Controller {
 
   public function action_email() {
-    $user_input = Input::get('user');
-    $user = User::where_email($user_input["email"])->first();
+    $email = Input::get('user.email') ?: Input::get('vendor.email');
+    $user = User::where_email($email)->first();
+    if (!$user) $user = Vendor::where_email($email)->first();
     if ($user) {
-      return Response::json("Sorry, that email address is already registered.");
+      return Response::json("Sorry, we've already received an application from that email address.");
     } else {
       return Response::json(true);
     }

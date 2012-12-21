@@ -3257,7 +3257,7 @@ $.format = $.validator.format;
 
       // change the highlight function to highlight the proper parent object
           highlight: function (element, errorClass, validClas) {
-                  $(element).parents("div[class='control-group']").addClass("error");
+                  $(element).parents("div[class*='control-group']").addClass("error");
           },
 
       // change the unhilight function to unhighlight the proper parent object
@@ -10587,6 +10587,12 @@ $.validator.addMethod('urladdhttp', function(value, element) {
   }
 }, 'Please enter a valid URL.');
 
+$.validator.addMethod("maxwords", function(value, element, max) {
+  var length;
+  length = $.trim(value).split(/\s+/).length;
+  return length <= max;
+}, "Only 150 words allowed.");
+
 $(document).on("ready page:load", function() {
   $("#change-password-form").validate_rfpez({
     rules: {
@@ -10608,29 +10614,6 @@ $(document).on("ready page:load", function() {
       "password": {
         required: true,
         minlength: 8
-      }
-    }
-  });
-  $("#new-project-form, #update-project-form").validate_rfpez({
-    rules: {
-      "project[title]": {
-        required: true
-      },
-      "project[project_type_id]": {
-        required: true
-      }
-    }
-  });
-  $(".new-bid-form").validate_rfpez({
-    rules: {
-      "bid[approach]": {
-        required: true
-      },
-      "bid[previous_work]": {
-        required: true
-      },
-      "bid[employee_details]": {
-        required: true
       }
     }
   });
@@ -10658,56 +10641,43 @@ $(document).on("ready page:load", function() {
   });
   return $("#new-vendor-form, .account-form-vendor").validate_rfpez({
     rules: {
-      "vendor[more_info]": {
+      "vendor[name]": {
         required: true
       },
-      "vendor[homepage_url]": {
-        required: true,
-        urladdhttp: true
-      },
-      "vendor[portfolio_url]": {
-        urladdhttp: true
-      },
-      "vendor[sourcecode_url]": {
-        urladdhttp: true
-      },
-      "vendor[image_url]": {
-        required: true,
-        urladdhttp: true
-      },
-      "user[email]": {
+      "vendor[email]": {
         required: true,
         email: true,
         remote: "/validation/email"
       },
-      "user[password]": {
-        required: true,
-        minlength: 8
-      },
-      "vendor[company_name]": {
-        required: true
-      },
-      "vendor[contact_name]": {
-        required: true
-      },
-      "vendor[address]": {
-        required: true
-      },
-      "vendor[city]": {
-        required: true
-      },
-      "vendor[state]": {
+      "vendor[phone]": {
         required: true
       },
       "vendor[zip]": {
         required: true,
         digits: true
+      },
+      "vendor[general_paragraph]": {
+        required: true,
+        maxwords: 150
       }
     }
   });
 });
 
+var count_words;
 
 $(document).on("change", "input.project-application-check", function() {
   return $(this).closest('.project').find('.why-great').collapse('toggle');
 });
+
+count_words = function() {
+  var count, max, value;
+  value = $(".why-great-fellow textarea").val();
+  count = $.trim(value).split(/\s+/).length;
+  max = 150;
+  return $("#words-remaining").text(max - count);
+};
+
+$(document).on("input", ".why-great-fellow textarea", count_words);
+
+$(document).on("ready page:load", count_words);

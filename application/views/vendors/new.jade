@@ -3,7 +3,79 @@
 
 form#new-vendor-form(action="#{route('vendors')}", method="POST")
 
-  !{View::make('users.account_vendor_fields')->with('vendor', Input::old('vendor'))->with('user', Input::old('user'))->with('signup', true)->with('projects', $projects)}
+  - $vendor = Input::old('vendor');
+
+  //- @placeholder
+
+  .row.vendor-signup-container
+
+    fieldset.span5
+
+      h5 Contact Info
+
+      .control-group
+        label Name
+        input(type="text", name="vendor[name]", value="#{$vendor['name']}")
+
+      .control-group
+        label Email
+        input(type="text", name="vendor[email]")
+
+      .control-group
+        label Phone
+        input(type="text", name="vendor[phone]")
+
+      //- .control-group
+      //-   label Address
+      //-   input(type="text", name="vendor[address]", value="#{ $vendor['address'] }")
+
+      //- .control-group
+      //-   label City
+      //-   input(type="text", name="vendor[city]", value="#{ $vendor['city'] }")
+
+      //- .control-group
+      //-   label State
+      //-   select(name="vendor[state]")
+      //-     - foreach(Helper::all_us_states() as $code => $state):
+      //-       <option value="#{ $code }" #{ ($vendor['state'] == $code) ? "selected" : "" }> #{$state} </option>
+
+      .control-group
+        label Zip
+        input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")
+
+    fieldset.span5
+
+      h5 Why would you make a great fellow?
+
+      .control-group.why-great-fellow
+        textarea.span4(name="vendor[general_paragraph]")
+        .help-block.pull-right
+          | <code id="words-remaining">150</code>
+          | words left.
+        .clearfix &nbsp;
+
+      h5 Projects
+        span.smaller check each you're applying for
+
+      - foreach($projects as $project):
+        .project
+          .control-group
+            .control-label
+              label.checkbox
+                .controls
+                  input.project-application-check(type='checkbox', data-projectid='#{$project->id}', name='apply[project-#{$project->id}]')
+                | #{$project->title}
+          .control-group.why-great.collapse
+            .control-label
+              label Why are you great for this project?
+            controls
+              textarea.span4(data-projectid='#{$project->id}', name='whygood[project-#{$project->id}]')
+  hr
+  .resume
+    label
+      h5 Résumé (copy and paste)
+    .wysiwyg-wrapper
+      textarea.wysihtml5(name="vendor[resume]")
 
   .form-actions
     button.btn.btn-warning(type="submit") Submit Application

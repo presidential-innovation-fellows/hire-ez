@@ -18,6 +18,7 @@ class Vendor extends Eloquent {
 
     $rules = array('name' => 'required',
                    'email' => 'required',
+                   'general_paragraph' => 'required',
                    'resume' => 'required',
                    'phone' => 'required',
                    // 'address' => 'required',

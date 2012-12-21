@@ -12,6 +12,11 @@ $.validator.addMethod 'urladdhttp', (value, element) ->
     return /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value)
 , 'Please enter a valid URL.'
 
+$.validator.addMethod "maxwords", (value, element, max) ->
+  length = $.trim(value).split(/\s+/).length
+  return length <= max
+
+, "Only 150 words allowed."
 
 $(document).on "ready page:load", ->
 
@@ -33,25 +38,6 @@ $(document).on "ready page:load", ->
       "password":
         required: true
         minlength: 8
-
-  $("#new-project-form, #update-project-form").validate_rfpez
-    rules:
-      "project[title]":
-        required: true
-
-      "project[project_type_id]":
-        required: true
-
-  $(".new-bid-form").validate_rfpez
-    rules:
-      "bid[approach]":
-        required: true
-
-      "bid[previous_work]":
-        required: true
-
-      "bid[employee_details]":
-        required: true
 
   $("#new-officer-form, .account-form-officer").validate_rfpez
     rules:
@@ -75,47 +61,21 @@ $(document).on "ready page:load", ->
 
   $("#new-vendor-form, .account-form-vendor").validate_rfpez
     rules:
-      "vendor[more_info]":
+      "vendor[name]":
         required: true
 
-      "vendor[homepage_url]":
-        required: true
-        urladdhttp: true
-
-      "vendor[portfolio_url]":
-        urladdhttp: true
-
-      "vendor[sourcecode_url]":
-        urladdhttp: true
-
-      "vendor[image_url]":
-        required: true
-        urladdhttp: true
-
-      "user[email]":
+      "vendor[email]":
         required: true
         email: true
         remote: "/validation/email"
 
-      "user[password]":
-        required: true
-        minlength: 8
-
-      "vendor[company_name]":
-        required: true
-
-      "vendor[contact_name]":
-        required: true
-
-      "vendor[address]":
-        required: true
-
-      "vendor[city]":
-        required: true
-
-      "vendor[state]":
+      "vendor[phone]":
         required: true
 
       "vendor[zip]":
         required: true
         digits: true
+
+      "vendor[general_paragraph]":
+        required: true
+        maxwords: 150

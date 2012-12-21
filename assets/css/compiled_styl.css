@@ -479,6 +479,16 @@ footer.footer ul li:last-child:after {
   box-sizing: border-box;
   min-height: 250px;
 }
+#new-vendor-form .why-great-fellow {
+  padding-bottom: 5px;
+}
+#new-vendor-form .why-great-fellow textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 85px;
+  width: 100%;
+}
 #new-vendor-form .project {
   padding: 10px;
 }
@@ -486,7 +496,9 @@ footer.footer ul li:last-child:after {
   font-weight: bold;
 }
 #new-vendor-form .project textarea {
-  border-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   min-height: 85px;
   width: 345px;
 }
