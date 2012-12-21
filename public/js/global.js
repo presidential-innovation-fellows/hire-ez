@@ -10671,11 +10671,12 @@ $(document).on("change", "input.project-application-check", function() {
 });
 
 count_words = function() {
-  var count, max, value;
+  var count, max, remaining, value;
   value = $(".why-great-fellow textarea").val();
   count = $.trim(value).split(/\s+/).length;
   max = 150;
-  return $("#words-remaining").text(max - count);
+  remaining = !value ? 150 : max - count;
+  return $("#words-remaining").text(remaining);
 };
 
 $(document).on("input", ".why-great-fellow textarea", count_words);
