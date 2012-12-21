@@ -82,15 +82,15 @@ class Project extends Eloquent {
   }
 
   public function winning_bids() {
-    return $this->submitted_bids()->where_not_null('awarded_at');
+    return $this->submitted_bids()->where_null('dismissed_at')->where_not_null('awarded_at');
   }
 
   public function starred_bids() {
-    return $this->submitted_bids()->where('bid_officer.starred', '>', 0);
+    return $this->submitted_bids()->where_null('dismissed_at')->where('bid_officer.starred', '>', 0);
   }
 
   public function thumbs_downed_bids() {
-    return $this->submitted_bids()->where('bid_officer.thumbs_downed', '>', 0);
+    return $this->submitted_bids()->where_null('dismissed_at')->where('bid_officer.thumbs_downed', '>', 0);
   }
 
   public function is_mine() {
@@ -179,8 +179,13 @@ class Project extends Eloquent {
                 ->where_not_null('submitted_at');
   }
 
+  public function all_bids() {
+    return $this->submitted_bids()->where_null('dismissed_at');
+  }
+
   public function unread_bids() {
     return $this->submitted_bids()
+                ->where_null('dismissed_at')
                 ->where(function($q){
                   $q->or_where('bid_officer.read', '=', false);
                   $q->or_where_null('bid_officer.read');

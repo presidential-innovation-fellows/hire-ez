@@ -45,7 +45,7 @@ class Bids_Controller extends Base_Controller {
     } elseif ($filter == 'spam') {
       $q = $view->project->dismissed_bids();
     } else {
-      $q = $view->project->submitted_bids();
+      $q = $view->project->all_bids();
     }
 
     if ($view->query) {

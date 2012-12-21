@@ -17,23 +17,27 @@ $(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", fu
     no_longer_visible_count = 0;
     Rfpez.Backbone.Bids.each(function(b) {
       if (filter === "unread") {
-        if (b.attributes.read === "1") {
+        if (b.attributes.read === "1" || b.attributes.dismissed_at) {
           return no_longer_visible_count++;
         }
       } else if (filter === "starred") {
-        if (!b.attributes.starred || b.attributes.starred === "0") {
+        if (!b.attributes.starred || b.attributes.starred === "0" || b.attributes.dismissed_at) {
           return no_longer_visible_count++;
         }
       } else if (filter === "thumbs-downed") {
-        if (!b.attributes.thumbs_downed || b.attributes.thumbs_downed === "0") {
+        if (!b.attributes.thumbs_downed || b.attributes.thumbs_downed === "0" || b.attributes.dismissed_at) {
           return no_longer_visible_count++;
         }
       } else if (filter === "hired") {
-        if (!b.attributes.awarded_at || b.attributes.awarded_at === "0") {
+        if (!b.attributes.awarded_at || b.attributes.awarded_at === "0" || b.attributes.dismissed_at) {
           return no_longer_visible_count++;
         }
       } else if (filter === "spam") {
         if (!b.attributes.dismissed_at || b.attributes.dismissed_at === "0") {
+          return no_longer_visible_count++;
+        }
+      } else {
+        if (b.attributes.dismissed_at) {
           return no_longer_visible_count++;
         }
       }

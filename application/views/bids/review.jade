@@ -12,7 +12,7 @@ ul.nav.nav-pills.pull-left
   li(class="#{Config::get('review_bids_filter') == 'unread' ? 'active' : ''}")
     a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'unread')))}") Unread (#{$project->unread_bids()->count()})
   li(class="#{!Config::has('review_bids_filter') ? 'active' : ''}")
-    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids', $project->id))}") All (#{$project->submitted_bids()->count()})
+    a(href="#{Helper::url_with_query_and_sort_params(route('review_bids', $project->id))}") All (#{$project->all_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'starred' ? 'active' : ''}")
     a(href="#{Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))}") My <i class="icon-thumbs-up"></i> (#{$project->starred_bids()->count()})
   li(class="#{Config::get('review_bids_filter') == 'thumbs-downed' ? 'active' : ''}")

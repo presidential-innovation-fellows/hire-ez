@@ -18,15 +18,17 @@ $(document).on "click", "#bid-review-pagination-wrapper li:not(.disabled) a", (e
 
     Rfpez.Backbone.Bids.each (b) ->
       if filter is "unread"
-        if b.attributes.read is "1" then no_longer_visible_count++
+        if b.attributes.read is "1" || b.attributes.dismissed_at then no_longer_visible_count++
       else if filter is "starred"
-        if !b.attributes.starred || b.attributes.starred is "0" then no_longer_visible_count++
+        if !b.attributes.starred || b.attributes.starred is "0" || b.attributes.dismissed_at then no_longer_visible_count++
       else if filter is "thumbs-downed"
-        if !b.attributes.thumbs_downed || b.attributes.thumbs_downed is "0" then no_longer_visible_count++
+        if !b.attributes.thumbs_downed || b.attributes.thumbs_downed is "0" || b.attributes.dismissed_at then no_longer_visible_count++
       else if filter is "hired"
-        if !b.attributes.awarded_at || b.attributes.awarded_at is "0" then no_longer_visible_count++
+        if !b.attributes.awarded_at || b.attributes.awarded_at is "0" || b.attributes.dismissed_at then no_longer_visible_count++
       else if filter is "spam"
         if !b.attributes.dismissed_at || b.attributes.dismissed_at is "0" then no_longer_visible_count++
+      else
+        if b.attributes.dismissed_at then no_longer_visible_count++
 
     params.skip = (params.skip - no_longer_visible_count + 10) # perPage = 10
 

@@ -10,7 +10,7 @@
     <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'unread')))); ?>">Unread (<?php echo e($project->unread_bids()->count()); ?>)</a>
   </li>
   <li class="<?php echo e(!Config::has('review_bids_filter') ? 'active' : ''); ?>">
-    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids', $project->id))); ?>">All (<?php echo e($project->submitted_bids()->count()); ?>)</a>
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids', $project->id))); ?>">All (<?php echo e($project->all_bids()->count()); ?>)</a>
   </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'starred' ? 'active' : ''); ?>">
     <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'starred')))); ?>">My <i class="icon-thumbs-up"></i> (<?php echo e($project->starred_bids()->count()); ?>)</a>
