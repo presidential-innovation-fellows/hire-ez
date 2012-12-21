@@ -121,7 +121,6 @@ class Initial_Schema {
       $t->integer('actor_id')->nullable()->unsigned();
       $t->string('notification_type');
       $t->text('payload');
-      $t->boolean('read');
       $t->integer('payload_id')->nullable();
       $t->string('payload_type')->nullable();
       $t->integer('project_id')->nullable()->unsigned();
@@ -146,6 +145,14 @@ class Initial_Schema {
       $t->timestamps();
     });
 
+    Schema::create('notification_officer', function($t){
+      $t->increments('id');
+      $t->integer('officer_id')->unsigned();
+      $t->integer('notification_id')->unsigned();
+      $t->boolean('read');
+      $t->timestamps();
+    });
+
     ////////////// FOREIGN KEYS //////////////////
 
 
@@ -157,6 +164,11 @@ class Initial_Schema {
     Schema::table('bid_officer', function($t){
       $t->foreign('officer_id')->references('id')->on('officers')->on_delete('CASCADE');
       $t->foreign('bid_id')->references('id')->on('bids')->on_delete('CASCADE');
+    });
+
+    Schema::table('notification_officer', function($t){
+      $t->foreign('officer_id')->references('id')->on('officers')->on_delete('CASCADE');
+      $t->foreign('notification_id')->references('id')->on('notifications')->on_delete('CASCADE');
     });
 
     Schema::table('notifications', function($t){

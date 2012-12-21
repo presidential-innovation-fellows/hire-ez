@@ -111,9 +111,7 @@ Class Factory {
 
         // Dismiss 1/3 of the bids
         if (rand(0,2) === 0) {
-          $b->dismiss();
-          // Un-dismiss 1/2 of these
-          if (rand(0,1) === 0) $b->undismiss();
+          $b->dismissed_at = new \DateTime;
         }
       }
     }

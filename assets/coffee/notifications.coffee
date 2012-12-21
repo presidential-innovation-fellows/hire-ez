@@ -25,7 +25,7 @@ Rfpez.view_notification_payload = (key, val, mark_as) ->
 
 render_notification = (notification) ->
   """
-  <li class="notification #{if notification.object.read is '0' then 'unread' else 'read'}">
+  <li class="notification #{if notification.object.read is '1' then 'read' else 'unread'}">
     <a href="#{notification.parsed.link}">
       <span class="line1">#{notification.parsed.subject}</span>
       <span class="timeago" title="#{notification.parsed.timestamp}"></span>
@@ -55,6 +55,7 @@ $(document).on "click", ".notification-item .mark-as-read, .notification-item .m
     success: (data) ->
       if data.status is "success"
         new_notification_item = $(data.html)
+        new_notification_item.find(".timeago").timeago()
         notification_item.replaceWith(new_notification_item)
         Rfpez.update_notification_badge(data.unread_count)
 

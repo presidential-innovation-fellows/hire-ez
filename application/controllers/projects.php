@@ -212,7 +212,7 @@ class Projects_Controller extends Base_Controller {
     $view = View::make('projects.show');
     $view->project = Config::get('project');
     $this->layout->content = $view;
-    if (Auth::user()) Auth::user()->view_notification_payload('project', $view->project->id, "read");
+    // if (Auth::user()) Auth::user()->view_notification_payload('project', $view->project->id, "read");
   }
 
   public function action_update() {
@@ -276,6 +276,7 @@ class Projects_Controller extends Base_Controller {
     $view->project = Config::get('project');
     $view->collaborators_json = eloquent_to_json($view->project->officers()->get());
     $this->layout->content = $view;
+    Auth::user()->view_project_notifications_for_notification_type($view->project->id, "CollaboratorAdded");
   }
 
   public function action_toggle_public() {

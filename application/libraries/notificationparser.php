@@ -10,7 +10,7 @@ Class NotificationParser {
       $return_array["subject"] = $bid["vendor"]["name"]." has been hired for ".$bid["project"]["title"]."!";
       $return_array["line1"] = $bid["vendor"]["name"]." has been hired for ".
                                HTML::link(route('bid', array($bid["project_id"], $bid["id"])), $bid["project"]["title"])."!";
-      $return_array["link"] = route('bid', array($bid["project_id"]), $bid["id"]);
+      $return_array["link"] = route('bid', array($bid["project_id"], $bid["id"]));
 
     } elseif ($notification->notification_type == "ApplicantComment") {
       $comment = $notification->payload["comment"];
@@ -34,14 +34,14 @@ Class NotificationParser {
       $from_project = $notification->payload["from_project"];
       $return_array["subject"] = $from_project["title"]." has forwarded an applicant to ".$project["title"].".";
       $return_array["line1"] = $from_project["title"]." has forwarded an applicant to ".HTML::link(route('project', $project["id"]), $project["title"]).".";
-      $return_array["link"] = route('project', $project["id"]);
+      $return_array["link"] = route('bid', array($project["id"], $bid["id"]));
 
     } elseif ($notification->notification_type == "CollaboratorAdded") {
       $officer = $notification->payload["officer"];
       $project = $notification->payload["project"];
       $return_array["subject"] = ($officer["name"] ?: $officer["user"]["email"])." has been added as a collaborator on ".$project["title"].".";
-      $return_array["line1"] = ($officer["name"] ?: $officer["user"]["email"])." has been added as a collaborator on ".HTML::link(route('project', $project["id"]), $project["title"]).".";
-      $return_array["link"] = route('project', $project["id"]);
+      $return_array["line1"] = ($officer["name"] ?: $officer["user"]["email"])." has been added as a collaborator on ".HTML::link(route('project_admin', $project["id"]), $project["title"]).".";
+      $return_array["link"] = route('project_admin', $project["id"]);
     }
 
     $return_array["timestamp"] = date('c', is_object($notification->created_at) ? $notification->created_at->getTimestamp() : strtotime($notification->created_at));

@@ -7260,6 +7260,9 @@ body.vendor .no-auth-only {
 #notifications-dropdown.none li.no-notifications {
   display: block;
 }
+#notifications-dropdown li .line1 {
+  font-weight: normal;
+}
 #notifications-dropdown li.no-notifications {
   display: none;
   color: #444;
@@ -7392,6 +7395,7 @@ footer.footer ul li:last-child:after {
   list-style: none;
   padding: 10px 0 10px 30px;
   position: relative;
+  border-width: 1px !important;
 }
 .notification-item .unread-td {
   width: 15px;

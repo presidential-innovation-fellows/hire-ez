@@ -36,7 +36,7 @@ Rfpez.view_notification_payload = function(key, val, mark_as) {
 };
 
 render_notification = function(notification) {
-  return "<li class=\"notification " + (notification.object.read === '0' ? 'unread' : 'read') + "\">\n  <a href=\"" + notification.parsed.link + "\">\n    <span class=\"line1\">" + notification.parsed.subject + "</span>\n    <span class=\"timeago\" title=\"" + notification.parsed.timestamp + "\"></span>\n  </a>\n</li>";
+  return "<li class=\"notification " + (notification.object.read === '1' ? 'read' : 'unread') + "\">\n  <a href=\"" + notification.parsed.link + "\">\n    <span class=\"line1\">" + notification.parsed.subject + "</span>\n    <span class=\"timeago\" title=\"" + notification.parsed.timestamp + "\"></span>\n  </a>\n</li>";
 };
 
 notifications_loaded = false;
@@ -64,6 +64,7 @@ $(document).on("click", ".notification-item .mark-as-read, .notification-item .m
       var new_notification_item;
       if (data.status === "success") {
         new_notification_item = $(data.html);
+        new_notification_item.find(".timeago").timeago();
         notification_item.replaceWith(new_notification_item);
         return Rfpez.update_notification_badge(data.unread_count);
       }

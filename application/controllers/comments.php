@@ -26,9 +26,7 @@ class Comments_Controller extends Base_Controller {
     $view->stream_json = $view->project->stream_json();
     $this->layout->content = $view;
 
-    $comment_ids = array();
-    foreach($view->project->get_comments() as $comment) $comment_ids[] = $comment->id;
-    Auth::user()->view_notification_payload("comment", $comment_ids, "read");
+    Auth::user()->view_project_notifications_for_notification_type($view->project->id, "ProjectComment");
   }
 
   public function action_vendor_index() {

@@ -77,6 +77,7 @@ class Vendors_Controller extends Base_Controller {
     $view = View::make('vendors.show');
     $view->vendor = Config::get('vendor');
     $this->layout->content = $view;
+    Auth::user()->view_notification_payload("vendor", $view->vendor->id);
   }
 
 }

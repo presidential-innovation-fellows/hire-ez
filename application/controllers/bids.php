@@ -131,8 +131,14 @@ class Bids_Controller extends Base_Controller {
 
     $bid->vendor->includes_in_array = array('titles_of_projects_applied_for', 'ids_of_projects_applied_for', 'projects_not_applied_for');
 
+    if (Request::ajax()) {
+      return Response::json($bid->to_array());
 
-    return Response::json($bid->to_array());
+    } else {
+      Auth::user()->view_notification_payload("bid", $bid->id);
+      // placeholder
+      return "bid page";
+    }
   }
 
   // new bid page
@@ -208,7 +214,7 @@ Route::filter('bid_exists', function() {
             ->where('bids.id', '=', $id)
             ->first();
 
-  if (!$bid) return $id;
+  if (!$bid) return "doesn't exist id " . $id;
   Config::set('bid', $bid);
 });
 

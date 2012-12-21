@@ -136,12 +136,11 @@ class Bid extends SoftDeleteModel {
   }
 
   public static function with_officer_fields() {
-    return self::left_join('bid_officer', 'bid_id', '=', 'bids.id')
-               ->left_join('vendors', 'vendor_id', '=', 'vendors.id')
-                ->where(function($query){
-                  $query->where_null('bid_officer.officer_id');
-                  $query->or_where('bid_officer.officer_id', '=', Auth::officer()->id);
+    return self::left_join('bid_officer', function($join){
+                    $join->on('bid_id', '=', 'bids.id');
+                    $join->on('bid_officer.officer_id', '=', DB::raw(Auth::officer()->id));
                 })
+                ->left_join('vendors', 'vendor_id', '=', 'vendors.id')
                 ->select(array('*',
                                'bids.id as id', 'bids.created_at as created_at',
                                'bids.updated_at as updated_at',

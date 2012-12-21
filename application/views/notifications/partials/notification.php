@@ -7,8 +7,7 @@
       <a class="btn btn-small btn-circle mark-as-unread">&nbsp;</a>
     </td>
     <td>
-      <div class="line1"><?= $parsed["line1"] ?></div>
-      <div class="line2"><?= $parsed["line2"] ?></div>
+      <div class="line1"><a href="<?= $parsed["link"] ?>"><?= $parsed["subject"] ?></a></div>
       <div class="timestamp"><?= Helper::timeago($notification->created_at) ?></div>
     </td>
   </tr>

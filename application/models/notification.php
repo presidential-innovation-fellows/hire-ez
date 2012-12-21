@@ -14,6 +14,10 @@ class Notification extends Eloquent {
     return $this->belongs_to('User', 'actor_id');
   }
 
+  public function notification_officer() {
+    return NotificationOfficer::mine_for_notification($this->id);
+  }
+
   public function get_payload() {
     return json_decode($this->attributes['payload'], true);
   }
@@ -23,13 +27,16 @@ class Notification extends Eloquent {
   }
 
   public function mark_as_read() {
-    $this->read = true;
-    $this->save();
+    Log::info('mark as read');
+    $notification_officer = $this->notification_officer();
+    $notification_officer->read = true;
+    $notification_officer->save();
   }
 
   public function mark_as_unread() {
-    $this->read = false;
-    $this->save();
+    $notification_officer = $this->notification_officer();
+    $notification_officer->read = false;
+    $notification_officer->save();
   }
 
   public function parsed() {
@@ -91,5 +98,18 @@ class Notification extends Eloquent {
     $notification->save();
     if ($send_email) Mailer::send("Notification", array('notification' => $notification));
   }
+
+
+  public static function with_officer_fields() {
+    return self::left_join('notification_officer', function($join){
+                  $join->on('notification_id', '=', 'notifications.id');
+                  $join->on('notification_officer.officer_id', '=', DB::raw(Auth::officer()->id));
+                })
+                ->select(array('*',
+                               'notifications.id as id',
+                               'notifications.created_at as created_at',
+                               'notifications.updated_at as updated_at'));
+  }
+
 
 }
