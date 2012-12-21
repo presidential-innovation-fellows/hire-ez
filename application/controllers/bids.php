@@ -118,6 +118,8 @@ class Bids_Controller extends Base_Controller {
               ->where('bids.id', '=', $bid->id)
               ->first();
 
+    $bid->vendor->includes_in_array = array('titles_of_projects_applied_for', 'ids_of_projects_applied_for', 'projects_not_applied_for');
+
     return Response::json($bid->to_array());
   }
 

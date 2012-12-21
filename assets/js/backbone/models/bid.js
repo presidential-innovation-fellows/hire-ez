@@ -15,5 +15,13 @@ Rfpez.Backbone.Bid = Backbone.Model.extend({
   },
   clear: function() {
     return this.destroy();
+  },
+  fetchDetails: function(cb) {
+    var _this = this;
+    return $.getJSON(this.url(), function(data) {
+      _this.attributes.vendor = data.vendor;
+      _this.change();
+      return cb();
+    });
   }
 });

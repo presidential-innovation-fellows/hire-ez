@@ -218,9 +218,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
       @$el.find(".comments-wrapper").html(@comments.el)
 
     if @$el.find(".transfer-bid-wrapper div").length is 0
-      @model.fetch
-        success: =>
-          @renderTransferBid()
+      @model.fetchDetails( => @renderTransferBid() )
 
   calculateTotalScore: ->
     @model.attributes.total_score = @model.attributes.total_stars - @model.attributes.total_thumbs_down

@@ -11,3 +11,9 @@ Rfpez.Backbone.Bid = Backbone.Model.extend
 
   clear: ->
     @destroy()
+
+  fetchDetails: (cb) ->
+    $.getJSON @url(), (data) =>
+      @attributes.vendor = data.vendor
+      @change()
+      cb()

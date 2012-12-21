@@ -9588,6 +9588,14 @@ Rfpez.Backbone.Bid = Backbone.Model.extend({
   },
   clear: function() {
     return this.destroy();
+  },
+  fetchDetails: function(cb) {
+    var _this = this;
+    return $.getJSON(this.url(), function(data) {
+      _this.attributes.vendor = data.vendor;
+      _this.change();
+      return cb();
+    });
   }
 });
 
@@ -9884,10 +9892,8 @@ Rfpez.Backbone.BidView = Backbone.View.extend({
       this.$el.find(".comments-wrapper").html(this.comments.el);
     }
     if (this.$el.find(".transfer-bid-wrapper div").length === 0) {
-      return this.model.fetch({
-        success: function() {
-          return _this.renderTransferBid();
-        }
+      return this.model.fetchDetails(function() {
+        return _this.renderTransferBid();
       });
     }
   },
