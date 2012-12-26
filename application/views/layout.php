@@ -25,7 +25,9 @@
     <?php $body_class .= " super-admin" ?>
   <?php endif; ?>
   <?php echo HTML::script('js/modernizr.js'); ?>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <?php if (!Request::is_env('local')): ?>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <?php endif; ?>
   <script>
     window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
   </script>
