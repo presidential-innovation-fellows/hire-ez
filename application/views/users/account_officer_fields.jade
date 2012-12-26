@@ -21,6 +21,10 @@
 
   label.larger Role: #{$officer['role_text']}
 
+  label.checkbox
+    | <input type="checkbox" name="user[send_emails]" #{Auth::user()->send_emails ? 'checked' : ''} />
+    | Yes, send #{__('r.app_name')} notifications to my email.
+
 - endif;
 
 .control-group

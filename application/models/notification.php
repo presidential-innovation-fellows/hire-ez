@@ -96,7 +96,27 @@ class Notification extends Eloquent {
     }
 
     $notification->save();
-    if ($send_email) Mailer::send("Notification", array('notification' => $notification));
+    if ($send_email) {
+      $officer_ids = ProjectCollaborator::where_project_id($notification->project_id)->lists('officer_id');
+      if (!$officer_ids) return;
+
+      $officers = Officer::left_join('users', 'user_id', '=', 'users.id')
+                         ->where_in('officers.id', $officer_ids)
+                         ->where('users.send_emails', '=', true)
+                         ->select(array('*', 'officers.id as id'))
+                         ->get();
+
+      Log::info(count($officers));
+
+      foreach ($officers as $officer) {
+
+        if ($officer->user->id == $notification->actor_id) continue;
+        if ($notification->payload_type == "officer" && $notification->payload_id == $officer->id) continue;
+
+        Mailer::send("Notification", array('notification' => $notification, 'officer' => $officer));
+
+      }
+    }
   }
 
 

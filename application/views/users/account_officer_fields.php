@@ -20,6 +20,10 @@
     <a class="smaller" href="<?php echo e(route('change_password')); ?>">change password</a>
   </label>
   <label class="larger">Role: <?php echo e($officer['role_text']); ?></label>
+  <label class="checkbox">
+    <input type="checkbox" name="user[send_emails]" <?php echo e(Auth::user()->send_emails ? 'checked' : ''); ?> />
+    Yes, send <?php echo e(__('r.app_name')); ?> notifications to my email.
+  </label>
 <?php endif; ?>
 <div class="control-group">
   <label>Name</label>

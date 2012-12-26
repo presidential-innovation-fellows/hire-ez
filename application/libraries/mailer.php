@@ -4,18 +4,16 @@ Class Mailer {
 
   public static function send($template_name, $attributes = array()) {
 
-    $transport = Config::get('mailer.transport');
-    if (!$transport) return;
-    $mailer = Swift_Mailer::newInstance($transport);
     $message = Swift_Message::newInstance();
     $message->setFrom(array(Config::get('mailer.from.email')=>Config::get('mailer.from.name')));
 
     if ($template_name == "Notification") {
       $notification = $attributes["notification"];
+      $officer = $attributes["officer"];
       $parsed = $notification->parsed();
 
       $message->setSubject($parsed["subject"])
-              ->setTo($notification->target->email)
+              ->setTo($officer->user->email)
               ->addPart(View::make('mailer.notification_text')->with('notification', $notification), 'text/plain')
               ->setBody(View::make('mailer.notification_html')->with('notification', $notification), 'text/html');
 
@@ -82,10 +80,14 @@ Class Mailer {
       $message->setTo(Config::get('mailer.send_all_to'));
     }
 
-    $mailer->send($message);
-
-    Log::info("MESSAGE SENT:");
+    Log::info("SENDING EMAIL:");
     Log::info(print_r($message_display_array, true));
+
+    $transport = Config::get('mailer.transport');
+    if (!$transport) return;
+    $mailer = Swift_Mailer::newInstance($transport);
+
+    $mailer->send($message);
 
   }
 
