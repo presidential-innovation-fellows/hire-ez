@@ -1,5 +1,9 @@
 <?php
 
 return array(
-  'transport' => false
+  'transport' => false,
+  'from' => array(
+    'name' => "PIF '13",
+    'email' => 'test@example.com'
+  )
 );

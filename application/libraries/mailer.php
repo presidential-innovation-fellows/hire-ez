@@ -8,8 +8,7 @@ Class Mailer {
     if (!$transport) return;
     $mailer = Swift_Mailer::newInstance($transport);
     $message = Swift_Message::newInstance();
-    $message->setFrom(array('noreply@sba.gov'=>__('r.app_name')));
-
+    $message->setFrom(array(Config::get('mailer.from.email')=>Config::get('mailer.from.name')));
 
     if ($template_name == "Notification") {
       $notification = $attributes["notification"];
@@ -36,22 +35,6 @@ Class Mailer {
                 ->with('invited_by', $invited_by)
                 ->with('project', $project), 'text/html');
 
-    } elseif ($template_name == "BidAwarded") {
-      $bid = $attributes["bid"];
-
-      $message->setSubject("Message from ".$bid->project->agency." about \"".$bid->project->title."\"")
-              ->setTo($bid->vendor->user->email)
-              ->addPart(View::make('mailer.bid_awarded_text')->with('bid', $bid), 'text/plain')
-              ->setBody(View::make('mailer.bid_awarded_html')->with('bid', $bid), 'text/html');
-
-    } elseif ($template_name == "NewVendorRegistered") {
-      $user = $attributes["user"];
-
-      $message->setSubject("Thanks for signing up on " . __('r.app_name') . "!")
-              ->setTo($user->email)
-              ->addPart(View::make('mailer.new_vendor_registered_text')->with('user', $user), 'text/plain')
-              ->setBody(View::make('mailer.new_vendor_registered_html')->with('user', $user), 'text/html');
-
     } elseif ($template_name == "FinishOfficerRegistration") {
       $user = $attributes["user"];
 
@@ -68,9 +51,28 @@ Class Mailer {
               ->addPart(View::make('mailer.forgot_password_text')->with('user', $user), 'text/plain')
               ->setBody(View::make('mailer.forgot_password_html')->with('user', $user), 'text/html');
 
+    } elseif ($template_name == "ApplicationReceived") {
+      $vendor = $attributes["vendor"];
+
+      $message->setSubject("Your application has been received.")
+              ->setTo($vendor->email)
+              ->addPart(View::make('mailer.application_received_text')->with('vendor', $vendor), 'text/plain')
+              ->setBody(View::make('mailer.application_received_html')->with('vendor', $vendor), 'text/html');
+
     } else {
       throw new \Exception("Can't find the template you specified.");
     }
+
+    foreach ($message->getChildren() as $child) {
+      if ($child->getContentType() == 'text/plain') {
+        $text_part = $child;
+      }
+    }
+
+    $message_display_array = array('to' => "".$message->getHeaders()->get('To'),
+                                   'subject' => $message->getSubject(),
+                                   'html' => "".$message->getBody(),
+                                   'text' => "".$text_part);
 
 
     // If mailer.send_all_to is set in the config files, ignore the original
@@ -81,6 +83,9 @@ Class Mailer {
     }
 
     $mailer->send($message);
+
+    Log::info("MESSAGE SENT:");
+    Log::info(print_r($message_display_array, true));
 
   }
 
