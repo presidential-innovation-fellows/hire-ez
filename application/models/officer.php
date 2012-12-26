@@ -40,6 +40,12 @@ class Officer extends Eloquent {
     return $this->role >= $role;
   }
 
+  public function approve() {
+    if ($this->role > self::ROLE_NOT_APPROVED) return;
+    $this->role = self::ROLE_APPROVED;
+    $this->save();
+  }
+
   public function role_text() {
     switch ($this->role) {
       case self::ROLE_NOT_APPROVED:

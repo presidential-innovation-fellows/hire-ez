@@ -329,6 +329,8 @@ class Projects_Controller extends Base_Controller {
 
     $project->officers()->attach($user->officer->id);
 
+    $user->officer->approve();
+
     Notification::send("CollaboratorAdded", array("project" => $project, "officer" => $user->officer), $send_email);
 
     return Response::json($user->officer->to_array());
