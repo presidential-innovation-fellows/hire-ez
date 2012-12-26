@@ -211,6 +211,13 @@ Event::listen('laravel.language.loader', function(){
 
 if (Config::get('application.log_queries')){
   Event::listen('laravel.query', function($sql, $bindings, $time) {
+    foreach ($bindings as $binding)
+      {
+
+        $sql = preg_replace('/\?/', $binding, $sql, 1);
+        $sql = htmlspecialchars($sql);
+      }
+
     Log::info($sql);
   });
 }
