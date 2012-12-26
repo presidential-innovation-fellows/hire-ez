@@ -6,9 +6,9 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Gender</th>
-      <th># Applicants</th>
-      <th>%</th>
+      <th width="50%">Gender</th>
+      <th width="25%"># Applicants</th>
+      <th width="25%">%</th>
     </tr>
   </thead>
   <tbody>
@@ -32,9 +32,9 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Race</th>
-      <th># Applicants</th>
-      <th>%</th>
+      <th width="50%">Race</th>
+      <th width="25%"># Applicants</th>
+      <th width="25%">%</th>
     </tr>
   </thead>
   <tbody>
