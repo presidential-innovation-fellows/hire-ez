@@ -54,7 +54,7 @@ class Vendors_Controller extends Base_Controller {
 
   public function action_index() {
     $view = View::make('vendors.index');
-    $view->projects = Project::get();
+    $view->projects = Project::where_not_null('released_applicants_at')->get();
     $this->layout->content = $view;
   }
 

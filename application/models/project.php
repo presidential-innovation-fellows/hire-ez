@@ -231,6 +231,12 @@ class Project extends Eloquent {
     return $json ? json_encode($return_array) : $return_array;
   }
 
+  public function release_applicants() {
+    if ($this->released_applicants_at) return;
+    $this->released_applicants_at = new \DateTime;
+    $this->save();
+  }
+
   //////////// STATIC FUNCTIONS ////////////
 
   public static function open_projects() {

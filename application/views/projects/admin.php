@@ -36,4 +36,20 @@
       </tfoot>
     </table>
   </div>
+  <div class="span6">
+    <h5>Done hiring?</h5>
+    <p>
+      Once you know who you're hiring, you can help out the other projects by "releasing" your unhired applicants to the pool.
+      This lets the other projects see if you had any talented applicants that could be right for them, too.
+    </p>
+    <form action="<?php echo e(route('project_release_applicants', $project->id)); ?>" method="POST">
+      <div class="form-actions">
+        <?php if (!$project->released_applicants_at): ?>
+          <button class="btn btn-primary btn-xlarge">Release Unhired Applicants to Applicant Pool</button>
+        <?php else: ?>
+          <p>Thanks for releasing your applicants!</p>
+        <?php endif; ?>
+      </div>
+    </form>
+  </div>
 </div>

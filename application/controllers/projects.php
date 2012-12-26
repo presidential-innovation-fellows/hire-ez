@@ -347,29 +347,10 @@ class Projects_Controller extends Base_Controller {
     return Response::json(array("status" => "success"));
   }
 
-  public function action_post_on_fbo() {
-    $view = View::make('projects.post_on_fbo');
-    $view->project = Config::get('project');
-    $this->layout->content = $view;
-  }
-
-  public function action_post_on_fbo_post() {
+  public function action_release_applicants() {
     $project = Config::get('project');
-
-    if (!Auth::officer()->is_role_or_higher(Officer::ROLE_CONTRACTING_OFFICER)) {
-      // @todo add instructions for contacting admin to get verified
-      Helper::flash_errors("Sorry, you haven't been verified as a contracting officer on EasyBid.");
-      return Redirect::to_route('project_post_on_fbo', array($project->id));
-    }
-
-    $project->posted_to_fbo_at = new \DateTime;
-    $project->save();
-
-    // They posted it, make it public!
-    if (!$project->public)
-      $project->toggle_public();
-
-    return Redirect::to_route('project', array($project->id));
+    $project->release_applicants();
+    return Redirect::back();
   }
 
 }
