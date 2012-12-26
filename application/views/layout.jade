@@ -35,13 +35,7 @@ head
   - endif;
 
   !{HTML::script('js/modernizr.js')}
-
-  - if (!Request::is_env('local')):
-    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js")
-  - endif;
-  script
-    | window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
-
+  !{HTML::script('js/vendor/jquery-1.8.1.min.js')}
   !{Helper::asset('js/global')}
   !{Helper::asset('js/vendor/turbolinks')}
 
