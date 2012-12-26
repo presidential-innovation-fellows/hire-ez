@@ -33,7 +33,7 @@
       </div>
       <h5>
         Projects
-        <span class="smaller">check each you're applying for</span>
+        <span class="smaller">check each project you are interested in serving on</span>
       </h5>
       <?php foreach($projects as $project): ?>
         <div class="project">
