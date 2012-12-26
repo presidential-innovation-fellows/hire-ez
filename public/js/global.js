@@ -3252,12 +3252,13 @@ $.format = $.validator.format;
 })(jQuery);
 
 (function($) {
+  $.validator.setDefaults({ ignore: '' })
   $.fn.validate_rfpez = function( options ) {
     var options = $.extend( options, {
 
       // change the highlight function to highlight the proper parent object
           highlight: function (element, errorClass, validClas) {
-                  $(element).parents("div[class*='control-group']").addClass("error");
+                  $(element).parents("div[class*='control-group'], .wysiwyg-wrapper").addClass("error");
           },
 
       // change the unhilight function to unhighlight the proper parent object
@@ -9581,9 +9582,6 @@ $(document).on("ready page:load", function() {
   $("[data-onload-focus]:eq(0)").focus();
   $("span.timeago").timeago();
   $('input, textarea').placeholder();
-  $('.wysihtml5').wysihtml5({
-    image: false
-  });
   if ($("body").hasClass('officer')) {
     $('.datepicker-wrapper').datepicker();
   }
@@ -10689,6 +10687,9 @@ $(document).on("ready page:load", function() {
       "vendor[general_paragraph]": {
         required: true,
         maxwords: 150
+      },
+      "vendor[resume]": {
+        required: true
       }
     }
   });
@@ -10711,4 +10712,9 @@ count_words = function() {
 
 $(document).on("input", ".why-great-fellow textarea", count_words);
 
-$(document).on("ready page:load", count_words);
+$(document).on("ready page:load", function() {
+  var editor;
+  return editor = $('.wysihtml5').wysihtml5({
+    image: false
+  });
+});

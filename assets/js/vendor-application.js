@@ -15,4 +15,9 @@ count_words = function() {
 
 $(document).on("input", ".why-great-fellow textarea", count_words);
 
-$(document).on("ready page:load", count_words);
+$(document).on("ready page:load", function() {
+  var editor;
+  return editor = $('.wysihtml5').wysihtml5({
+    image: false
+  });
+});

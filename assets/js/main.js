@@ -67,9 +67,6 @@ $(document).on("ready page:load", function() {
   $("[data-onload-focus]:eq(0)").focus();
   $("span.timeago").timeago();
   $('input, textarea').placeholder();
-  $('.wysihtml5').wysihtml5({
-    image: false
-  });
   if ($("body").hasClass('officer')) {
     $('.datepicker-wrapper').datepicker();
   }

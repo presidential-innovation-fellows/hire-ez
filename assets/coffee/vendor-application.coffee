@@ -10,4 +10,5 @@ count_words = ->
 
 $(document).on "input", ".why-great-fellow textarea", count_words
 
-$(document).on "ready page:load", count_words
+$(document).on "ready page:load", ->
+  editor = $('.wysihtml5').wysihtml5({image: false})

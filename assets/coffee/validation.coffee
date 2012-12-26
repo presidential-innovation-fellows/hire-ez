@@ -79,3 +79,6 @@ $(document).on "ready page:load", ->
       "vendor[general_paragraph]":
         required: true
         maxwords: 150
+
+      "vendor[resume]":
+        required: true

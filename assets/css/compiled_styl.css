@@ -505,6 +505,12 @@ footer.footer ul li:last-child:after {
 #new-vendor-form .project:hover {
   background-color: #fbfbea;
 }
+#new-vendor-form .wysiwyg-wrapper .help-inline {
+  color: #b94a48;
+}
+#new-vendor-form .wysiwyg-wrapper.error {
+  border: 1px solid #b94a48;
+}
 .new-bid-form .section {
   padding: 5px 0;
 }
