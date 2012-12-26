@@ -19,13 +19,11 @@ class Vendor extends Eloquent {
     if ($this->validator) return $this->validator;
 
     $rules = array('name' => 'required',
-                   'email' => 'required',
+                   'email' => $this->id ? 'required|email|unique:vendors,email,'.$this->id : 'required|email|unique:vendors',
                    'general_paragraph' => 'required',
                    'resume' => 'required',
                    'phone' => 'required',
                    'zip' => 'required|numeric');
-
-    $rules = array();
 
     $validator = Validator::make($this->attributes, $rules);
     $validator->passes(); // hack to populate error messages
