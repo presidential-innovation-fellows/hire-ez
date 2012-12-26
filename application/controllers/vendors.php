@@ -42,8 +42,8 @@ class Vendors_Controller extends Base_Controller {
           }
         }
       }
-      //@placeholder
-      //Mailer::send("NewVendorRegistered", array("user" => $user));
+
+      Mailer::send("ApplicationReceived", array("vendor" => $vendor));
       return Redirect::to_route('vendor_applied', $vendor->demographic_survey_key);
     } else {
       Session::flash('errors', $vendor->validator()->errors->all());
