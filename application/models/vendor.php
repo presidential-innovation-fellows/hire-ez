@@ -9,6 +9,8 @@ class Vendor extends Eloquent {
   //                                   'latitude', 'longitude', 'ballpark_price', 'more_info', 'homepage_url',
   //                                   'image_url', 'portfolio_url', 'sourcecode_url', 'duns');
 
+  public static $hidden = array('demographic_survey_key', 'gender', 'race_1', 'race_2');
+
   public $validator = false;
 
   public $projects_applied_for = false;
