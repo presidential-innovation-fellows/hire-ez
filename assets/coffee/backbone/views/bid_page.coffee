@@ -5,8 +5,11 @@ Rfpez.Backbone.BidPage = Backbone.View.extend
     Rfpez.Backbone.Bids.bind 'reset', @reset, @
     Rfpez.Backbone.Bids.bind 'all', @render, @
 
+    @expanded = @options.expanded
+
     Rfpez.Backbone.Bids.url = "/projects/#{@options.project_id}/bids"
     Rfpez.Backbone.Bids.reset(@options.bootstrap)
+
 
   reset: ->
     $("#bids-table tbody").after('')
@@ -16,9 +19,9 @@ Rfpez.Backbone.BidPage = Backbone.View.extend
     #
 
   addOne: (bid) ->
-    view = new Rfpez.Backbone.BidView({model: bid})
+    view = new Rfpez.Backbone.BidView({model: bid, expanded: @expanded})
     html = view.render().el
-    $("#bids-table").append(html);
+    $("#bids-table").append(html)
 
   addAll: ->
-    Rfpez.Backbone.Bids.each @addOne
+    Rfpez.Backbone.Bids.each @addOne, @

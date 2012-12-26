@@ -127,19 +127,34 @@ class Bids_Controller extends Base_Controller {
   public function action_show() {
     $bid = Config::get('bid');
 
-    $bid = Bid::with_officer_fields()
-              ->where('bids.id', '=', $bid->id)
-              ->first();
-
-    $bid->vendor->includes_in_array = array('titles_of_projects_applied_for', 'ids_of_projects_applied_for', 'projects_not_applied_for');
-
     if (Request::ajax()) {
+      Auth::user()->view_notification_payload("bid", $bid->id);
+
+      $bid = Bid::with_officer_fields()
+                ->where('bids.id', '=', $bid->id)
+                ->first();
+
+      $bid->vendor->includes_in_array = array('titles_of_projects_applied_for', 'ids_of_projects_applied_for', 'projects_not_applied_for');
+
       return Response::json($bid->to_array());
 
     } else {
-      Auth::user()->view_notification_payload("bid", $bid->id);
       // placeholder
-      return "bid page";
+      if (!$bid->read) $bid->assign_officer_read(true);
+
+      Auth::user()->view_notification_payload("bid", $bid->id);
+
+      $bid = Bid::with_officer_fields()
+                ->where('bids.id', '=', $bid->id)
+                ->first();
+
+      $bid->vendor->includes_in_array = array('titles_of_projects_applied_for', 'ids_of_projects_applied_for', 'projects_not_applied_for');
+
+      $view = View::make('bids.show');
+      $view->project = Config::get('project');
+      $view->bid = $bid;
+      $view->bid_json = json_encode($bid->to_array());
+      $this->layout->content = $view;
     }
   }
 

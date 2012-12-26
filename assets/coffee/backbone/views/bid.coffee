@@ -136,16 +136,31 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     @model.bind "change", @renderMainBid, @
     @model.bind "destroy", @remove, @
 
+    @expanded = @options.expanded
+
   render: ->
     @comments = false
     detailsOpen = if @$el.find(".bid-details-wrapper .collapse").hasClass('in') then true else false
     @$el.html @template(@model.toJSON())
     @renderMainBid()
     if detailsOpen then @$el.find(".bid-details-wrapper .collapse").addClass('in')
+
+    if @expanded
+      @renderComments()
+      @renderTransferBid()
+      @$el.find(".collapse").addClass('in')
+
     return @
 
   renderMainBid: ->
     @$el.find(".main-bid").html @main_bid_template(@model.toJSON())
+
+  renderComments: ->
+    @comments = new Rfpez.Backbone.BidCommentsView
+      parent_view: @
+      vendor_id: @model.attributes.vendor_id
+
+    @$el.find(".comments-wrapper").html(@comments.el)
 
   renderTransferBid: ->
     @$el.find(".transfer-bid-wrapper").html @transfer_bid_template(@model.toJSON())
@@ -210,12 +225,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     if @model.attributes.read isnt "1" and !@$el.find(".bid-details-wrapper .collapse").hasClass('in') then @toggleRead()
     @$el.find(".bid-details-wrapper .collapse").collapse('toggle')
 
-    if !@comments
-      @comments = new Rfpez.Backbone.BidCommentsView
-        parent_view: @
-        vendor_id: @model.attributes.vendor_id
-
-      @$el.find(".comments-wrapper").html(@comments.el)
+    if !@comments then @renderComments()
 
     if @$el.find(".transfer-bid-wrapper div").length is 0
       @model.fetchDetails( => @renderTransferBid() )

@@ -9789,7 +9789,8 @@ Rfpez.Backbone.BidView = Backbone.View.extend({
   initialize: function() {
     this.model.bind("create", this.render, this);
     this.model.bind("change", this.renderMainBid, this);
-    return this.model.bind("destroy", this.remove, this);
+    this.model.bind("destroy", this.remove, this);
+    return this.expanded = this.options.expanded;
   },
   render: function() {
     var detailsOpen;
@@ -9800,10 +9801,22 @@ Rfpez.Backbone.BidView = Backbone.View.extend({
     if (detailsOpen) {
       this.$el.find(".bid-details-wrapper .collapse").addClass('in');
     }
+    if (this.expanded) {
+      this.renderComments();
+      this.renderTransferBid();
+      this.$el.find(".collapse").addClass('in');
+    }
     return this;
   },
   renderMainBid: function() {
     return this.$el.find(".main-bid").html(this.main_bid_template(this.model.toJSON()));
+  },
+  renderComments: function() {
+    this.comments = new Rfpez.Backbone.BidCommentsView({
+      parent_view: this,
+      vendor_id: this.model.attributes.vendor_id
+    });
+    return this.$el.find(".comments-wrapper").html(this.comments.el);
   },
   renderTransferBid: function() {
     return this.$el.find(".transfer-bid-wrapper").html(this.transfer_bid_template(this.model.toJSON()));
@@ -9885,11 +9898,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend({
     }
     this.$el.find(".bid-details-wrapper .collapse").collapse('toggle');
     if (!this.comments) {
-      this.comments = new Rfpez.Backbone.BidCommentsView({
-        parent_view: this,
-        vendor_id: this.model.attributes.vendor_id
-      });
-      this.$el.find(".comments-wrapper").html(this.comments.el);
+      this.renderComments();
     }
     if (this.$el.find(".transfer-bid-wrapper div").length === 0) {
       return this.model.fetchDetails(function() {
@@ -9988,6 +9997,7 @@ Rfpez.Backbone.BidPage = Backbone.View.extend({
     Rfpez.Backbone.Bids = new Rfpez.Backbone.BidList();
     Rfpez.Backbone.Bids.bind('reset', this.reset, this);
     Rfpez.Backbone.Bids.bind('all', this.render, this);
+    this.expanded = this.options.expanded;
     Rfpez.Backbone.Bids.url = "/projects/" + this.options.project_id + "/bids";
     return Rfpez.Backbone.Bids.reset(this.options.bootstrap);
   },
@@ -9999,13 +10009,14 @@ Rfpez.Backbone.BidPage = Backbone.View.extend({
   addOne: function(bid) {
     var html, view;
     view = new Rfpez.Backbone.BidView({
-      model: bid
+      model: bid,
+      expanded: this.expanded
     });
     html = view.render().el;
     return $("#bids-table").append(html);
   },
   addAll: function() {
-    return Rfpez.Backbone.Bids.each(this.addOne);
+    return Rfpez.Backbone.Bids.each(this.addOne, this);
   }
 });
 

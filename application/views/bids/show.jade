@@ -1,0 +1,23 @@
+- Section::inject('page_title', $project->title)
+- Section::inject('page_action', $bid->vendor->name)
+- Section::inject('active_subnav', 'review_bids')
+- Section::inject('no_page_header', true)
+
+!{View::make('projects.partials.toolbar')->with('project', $project)}
+
+a(href="#{route('review_bids', $project->id)}") &larr; Back to list
+
+table.table#bids-table
+  thead
+    tr
+      th(width="10%")!= Helper::current_sort_link('unread', 'Unread')
+      th(width="40%")!= Helper::current_sort_link('name', 'Name')
+      th(width="15%")!= Helper::current_sort_link('score', 'Score', 'desc')
+      th(width="15%")!= Helper::current_sort_link('comments', 'Comments', 'desc')
+      th(width="20%") Actions
+
+  :javascript
+    | $(function(){
+    |  new Rfpez.Backbone.BidPage({project_id: #{$project->id}, bootstrap: !{$bid_json}, expanded: true});
+    | })
+
