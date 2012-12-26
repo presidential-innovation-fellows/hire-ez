@@ -14,7 +14,9 @@ head
 
   title #{Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))}
 
-  | <link href="//fonts.googleapis.com/css?family=Telex" media="all" type="text/css" rel="stylesheet">
+  - if (!Config::get('application.dont_load_fonts')):
+    | <link href="//fonts.googleapis.com/css?family=Telex" media="all" type="text/css" rel="stylesheet">
+  - endif;
   !{Helper::asset('css/all')}
 
 

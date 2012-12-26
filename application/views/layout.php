@@ -8,9 +8,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width" />
-  <title><?php echo e(Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))); ?>
-</title>
-  <link href="//fonts.googleapis.com/css?family=Telex" media="all" type="text/css" rel="stylesheet">
+  <title><?php echo e(Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))); ?></title>
+  <?php if (!Config::get('application.dont_load_fonts')): ?>
+    <link href="//fonts.googleapis.com/css?family=Telex" media="all" type="text/css" rel="stylesheet">
+  <?php endif; ?>
   <?php echo Helper::asset('css/all'); ?>
   <?php if (Auth::guest()): ?>
     <?php $body_class = "no-auth"; ?>
