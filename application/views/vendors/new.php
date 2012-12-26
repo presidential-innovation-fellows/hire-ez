@@ -32,7 +32,7 @@
         <div class="clearfix">&nbsp;</div>
       </div>
       <h5>
-        Projects
+        Projects <br />
         <span class="smaller">check each project you are interested in serving on</span>
       </h5>
       <?php foreach($projects as $project): ?>
