@@ -8,6 +8,25 @@ Rfpez.current_page = (str) ->
   else
     false
 
+$(document).on "click", "input[data-checkbox-group]", (e) ->
+  max = if $(this).data('checkbox-max') then parseInt($(this).data('checkbox-max')) else false
+  numCheckedInputs = $("input[data-checkbox-group=#{$(@).data('checkbox-group')}]").filter(":checked").length
+
+  if $(this).is(":checked")
+    # if we're checking, and this is the second checkbox we've checked,
+    # disable the other checkboxes in this group
+    if max and (numCheckedInputs >= max)
+      $("input[data-checkbox-group=#{$(@).data('checkbox-group')}]").filter(":not(:checked)").attr('disabled', true)
+
+    $("input[data-checkbox-group!=#{$(@).data('checkbox-group')}]").removeAttr('checked').attr('disabled', true)
+
+  else
+    if max and (numCheckedInputs < max)
+      $("input[data-checkbox-group=#{$(@).data('checkbox-group')}]").filter(":not(:checked)").removeAttr('disabled')
+
+    if numCheckedInputs is 0
+      $("input[data-checkbox-group!=#{$(@).data('checkbox-group')}]").removeAttr('disabled')
+
 $(document).on 'shown', '#signinModal', ->
   $("#signinModal #email").focus()
 

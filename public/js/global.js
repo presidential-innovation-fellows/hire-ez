@@ -9525,6 +9525,25 @@ Rfpez.current_page = function(str) {
   }
 };
 
+$(document).on("click", "input[data-checkbox-group]", function(e) {
+  var max, numCheckedInputs;
+  max = $(this).data('checkbox-max') ? parseInt($(this).data('checkbox-max')) : false;
+  numCheckedInputs = $("input[data-checkbox-group=" + ($(this).data('checkbox-group')) + "]").filter(":checked").length;
+  if ($(this).is(":checked")) {
+    if (max && (numCheckedInputs >= max)) {
+      $("input[data-checkbox-group=" + ($(this).data('checkbox-group')) + "]").filter(":not(:checked)").attr('disabled', true);
+    }
+    return $("input[data-checkbox-group!=" + ($(this).data('checkbox-group')) + "]").removeAttr('checked').attr('disabled', true);
+  } else {
+    if (max && (numCheckedInputs < max)) {
+      $("input[data-checkbox-group=" + ($(this).data('checkbox-group')) + "]").filter(":not(:checked)").removeAttr('disabled');
+    }
+    if (numCheckedInputs === 0) {
+      return $("input[data-checkbox-group!=" + ($(this).data('checkbox-group')) + "]").removeAttr('disabled');
+    }
+  }
+});
+
 $(document).on('shown', '#signinModal', function() {
   return $("#signinModal #email").focus();
 });

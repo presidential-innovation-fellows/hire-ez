@@ -8,6 +8,7 @@ class Vendors_Controller extends Base_Controller {
     $this->filter('before', 'no_auth')->only(array('new', 'create'));
     $this->filter('before', 'officer_only')->only(array('index', 'show', 'get_more'));
     $this->filter('before', 'vendor_exists')->only(array('show'));
+    $this->filter('before', 'survey_key_exists')->only(array('applied', 'applied_post'));
   }
 
   public function action_new() {
@@ -20,6 +21,7 @@ class Vendors_Controller extends Base_Controller {
     $vendor = new Vendor(Input::get('vendor'));
     $vendor->general_paragraph = nl2br(Input::get('vendor.general_paragraph'));
     if ($vendor->validator()->passes()) {
+      $vendor->demographic_survey_key = Str::random(12);
       $vendor->save();
       $applications = Input::get('apply');
       $whygood = Input::get('whygood');
@@ -43,7 +45,7 @@ class Vendors_Controller extends Base_Controller {
       }
       //@placeholder
       //Mailer::send("NewVendorRegistered", array("user" => $user));
-      return Redirect::to_route('vendor_applied');
+      return Redirect::to_route('vendor_applied', $vendor->demographic_survey_key);
     } else {
       Session::flash('errors', $vendor->validator()->errors->all());
       return Redirect::to_route('new_vendors')->with_input();
@@ -56,8 +58,29 @@ class Vendors_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
-  public function action_applied() {
+  public function action_applied($key) {
     $view = View::make('vendors.applied');
+    $view->vendor = Config::get('vendor');
+    $this->layout->content = $view;
+  }
+
+  public function action_applied_post($key) {
+    $vendor = Config::get('vendor');
+
+    $race_input = Input::get('race');
+
+    $vendor->demographic_survey_key = null;
+    $vendor->gender = Input::get('gender');
+    $vendor->race_1 = @$race_input[0];
+    $vendor->race_2 = @$race_input[1];
+
+    $vendor->save();
+
+    return Redirect::to_route('survey_thanks');
+  }
+
+  public function action_survey_thanks() {
+    $view = View::make('vendors.survey_thanks');
     $this->layout->content = $view;
   }
 
@@ -82,6 +105,14 @@ class Vendors_Controller extends Base_Controller {
   }
 
 }
+
+Route::filter('survey_key_exists', function(){
+  $key = Request::$route->parameters[0];
+  if (!$key) return Response::error('404');
+  $vendor = Vendor::where_demographic_survey_key($key)->first();
+  if (!$vendor) return Response::error('404');
+  Config::set('vendor', $vendor);
+});
 
 Route::filter('vendor_exists', function() {
   $id = Request::$route->parameters[0];
