@@ -82,3 +82,12 @@ $(document).on "ready page:load", ->
 
       "vendor[resume]":
         required: true
+
+      "vendor[link_1]":
+        urladdhttp: true
+
+      "vendor[link_2]":
+        urladdhttp: true
+
+      "vendor[link_3]":
+        urladdhttp: true

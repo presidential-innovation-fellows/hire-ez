@@ -25,23 +25,24 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
         label Phone
         input(type="text", name="vendor[phone]")
 
-      //- .control-group
-      //-   label Address
-      //-   input(type="text", name="vendor[address]", value="#{ $vendor['address'] }")
-
-      //- .control-group
-      //-   label City
-      //-   input(type="text", name="vendor[city]", value="#{ $vendor['city'] }")
-
-      //- .control-group
-      //-   label State
-      //-   select(name="vendor[state]")
-      //-     - foreach(Helper::all_us_states() as $code => $state):
-      //-       <option value="#{ $code }" #{ ($vendor['state'] == $code) ? "selected" : "" }> #{$state} </option>
-
       .control-group
         label Zip
         input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")
+
+      h5 Where can we find you online?<br />
+        span.smaller Add up to 3 links
+
+      .control-group
+        label Link #1
+        input(type="text", name="vendor[link_1]", value="#{$vendor['link_1']}")
+
+      .control-group
+        label Link #2
+        input(type="text", name="vendor[link_2]", value="#{$vendor['link_2']}")
+
+      .control-group
+        label Link #3
+        input(type="text", name="vendor[link_3]", value="#{$vendor['link_3']}")
 
     fieldset.span5
 

@@ -18,6 +18,7 @@ class Vendors_Controller extends Base_Controller {
   }
 
   public function action_create() {
+    // @placeholder mass-assignment vulnerable
     $vendor = new Vendor(Input::get('vendor'));
     $vendor->general_paragraph = nl2br(Input::get('vendor.general_paragraph'));
     if ($vendor->validator()->passes()) {

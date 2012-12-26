@@ -20,6 +20,22 @@
         <label>Zip</label>
         <input type="text" name="vendor[zip]" value="<?php echo e( $vendor['zip'] ); ?>" />
       </div>
+      <h5>
+        Where can we find you online?<br />
+        <span class="smaller">Add up to 3 links</span>
+      </h5>
+      <div class="control-group">
+        <label>Link #1</label>
+        <input type="text" name="vendor[link_1]" value="<?php echo e($vendor['link_1']); ?>" />
+      </div>
+      <div class="control-group">
+        <label>Link #2</label>
+        <input type="text" name="vendor[link_2]" value="<?php echo e($vendor['link_2']); ?>" />
+      </div>
+      <div class="control-group">
+        <label>Link #3</label>
+        <input type="text" name="vendor[link_3]" value="<?php echo e($vendor['link_3']); ?>" />
+      </div>
     </fieldset>
     <fieldset class="span5">
       <h5>Why would you make a great fellow?</h5>

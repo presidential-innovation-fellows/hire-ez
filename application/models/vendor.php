@@ -23,9 +23,6 @@ class Vendor extends Eloquent {
                    'general_paragraph' => 'required',
                    'resume' => 'required',
                    'phone' => 'required',
-                   // 'address' => 'required',
-                   // 'city' => 'required',
-                   // 'state' => 'required|max:2',
                    'zip' => 'required|numeric');
 
     $rules = array();
