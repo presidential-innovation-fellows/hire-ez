@@ -1,5 +1,9 @@
 <?php Section::inject('page_title', 'All Applicants') ?>
 <?php Section::inject('no_page_header', true) ?>
+<p>
+  <a href="<?php echo e(route('vendor_demographics')); ?>">Applicant Demographics</a>
+</p>
+<hr />
 <?php foreach ($projects as $project): ?>
   <div class="project">
     <h4>Top un-hired applicants from <?php echo e($project->title); ?></h4>

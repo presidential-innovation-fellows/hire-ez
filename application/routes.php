@@ -30,6 +30,7 @@ Route::group(array('https' => true), function(){
 
   Route::resourceful('vendors', array('new', 'create', 'index', 'show'));
   Route::get('vendors/get_more', array('uses' => 'vendors@get_more'));
+  Route::get('vendors/demographics', array('uses' => 'vendors@demographics', 'as' => 'vendor_demographics'));
   Route::get('applythanks/(:any)', array('uses' => 'vendors@applied', 'as' => 'vendor_applied'));
   Route::post('applythanks/(:any)', array('uses' => 'vendors@applied_post'));
   Route::get('surveythanks', array('uses' => 'vendors@survey_thanks', 'as' => 'survey_thanks'));

@@ -2,6 +2,10 @@
 
 Class Helper {
 
+  public static function demographic_percentage($num) {
+    return round($num*100, 2)."%";
+  }
+
   public static function get_bid_paginator($skip, $per_page, $total) {
     $firstResult = $skip + 1;
     $lastResult = $firstResult + $per_page - 1;

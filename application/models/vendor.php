@@ -94,4 +94,17 @@ class Vendor extends Eloquent {
     }
   }
 
+  public static function surveyed() {
+    return self::where_null('demographic_survey_key');
+  }
+
+  public static function search_race($q) {
+    return self::where('race_1', '=', $q)->or_where('race_2', '=', $q);
+  }
+
 }
+
+Event::listen('eloquent.created: Vendor', function($model) {
+  $model->demographic_survey_key = Str::random(12);
+  $model->save();
+});

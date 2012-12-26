@@ -25,7 +25,7 @@ class Add_Demographic_Info_To_Vendors {
 	public function down()
 	{
 		Schema::table('vendors', function($t){
-			$t->string('demographic_survey_key');
+			$t->drop_column('demographic_survey_key');
 			$t->drop_column('gender');
 			$t->drop_column('race_1');
 			$t->drop_column('race_2');

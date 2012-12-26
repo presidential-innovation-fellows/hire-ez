@@ -6,7 +6,7 @@ class Vendors_Controller extends Base_Controller {
     parent::__construct();
 
     $this->filter('before', 'no_auth')->only(array('new', 'create'));
-    $this->filter('before', 'officer_only')->only(array('index', 'show', 'get_more'));
+    $this->filter('before', 'officer_only')->only(array('index', 'show', 'get_more', 'demographics'));
     $this->filter('before', 'vendor_exists')->only(array('show'));
     $this->filter('before', 'survey_key_exists')->only(array('applied', 'applied_post'));
   }
@@ -21,7 +21,6 @@ class Vendors_Controller extends Base_Controller {
     $vendor = new Vendor(Input::get('vendor'));
     $vendor->general_paragraph = nl2br(Input::get('vendor.general_paragraph'));
     if ($vendor->validator()->passes()) {
-      $vendor->demographic_survey_key = Str::random(12);
       $vendor->save();
       $applications = Input::get('apply');
       $whygood = Input::get('whygood');
@@ -55,6 +54,26 @@ class Vendors_Controller extends Base_Controller {
   public function action_index() {
     $view = View::make('vendors.index');
     $view->projects = Project::get();
+    $this->layout->content = $view;
+  }
+
+  public function action_demographics() {
+    $view = View::make('vendors.demographics');
+
+    $view->male = Vendor::where_gender("Male")->count();
+    $view->female = Vendor::where_gender("Female")->count();
+    $view->other = Vendor::where_gender("Other")->count();
+
+    $view->hispanic_latino = Vendor::search_race("hispanic_latino")->count();
+    $view->white = Vendor::search_race("white")->count();
+    $view->black = Vendor::search_race("black")->count();
+    $view->pacific_islander = Vendor::search_race("pacific_islander")->count();
+    $view->asian = Vendor::search_race("asian")->count();
+    $view->american_indian = Vendor::search_race("american_indian")->count();
+
+
+    $view->surveyed_total = Vendor::surveyed()->count();
+    $view->total = Vendor::count();
     $this->layout->content = $view;
   }
 
