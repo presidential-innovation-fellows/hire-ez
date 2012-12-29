@@ -10,20 +10,50 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     <td class="bid-details-wrapper" colspan="5">
       <div class="collapse">
         <div class="bid-details row-fluid">
-          <div class="span6">
-            <strong>Body</strong>
-            <p><%= body %></p>
+          <div class="span8">
+            <div class="bid-tab-wrapper">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#body<%= id %>" data-toggle="tab">Body</a></li>
+                <li><a href="#general_paragraph<%= id %>" data-toggle="tab">General Paragraph</a></li>
+                <li><a href="#resume<%= id %>" data-toggle="tab">Resume</a></li>
+                <li><a href="#links<%= id %>" data-toggle="tab">Links & Contact Info</a></li>
+              </ul>
 
-            <strong>General Application</strong>
-            <p>Placeholder</p>
+              <div class="tab-content">
+                <div class="tab-pane active" id="body<%= id %>"><%= body %></div>
+                <div class="tab-pane" id="general_paragraph<%= id %>"><%= vendor.general_paragraph %></div>
+                <div class="tab-pane" id="resume<%= id %>"><%= vendor.resume %></div>
+                <div class="tab-pane" id="links<%= id %>">
+                  <dl>
+                    <% if (vendor.link_1){ %>
+                      <dt>Link #1</dt>
+                      <dd><a href="<%= vendor.link_1 %>" target="_blank"><%= vendor.link_1 %></a></dd>
+                    <% } %>
+                    <% if (vendor.link_2){ %>
+                      <dt>Link #2</dt>
+                      <dd><a href="<%= vendor.link_2 %>" target="_blank"><%= vendor.link_2 %></a></dd>
+                    <% } %>
+                    <% if (vendor.link_3){ %>
+                      <dt>Link #3</dt>
+                      <dd><a href="<%= vendor.link_3 %>" target="_blank"><%= vendor.link_3 %></a></dd>
+                    <% } %>
+
+                    <dt>Location</dt>
+                    <dd><a href="https://maps.google.com/?q=<%= vendor.location %>" target="_blank"><%= vendor.location %></a></dd>
+
+                    <dt>Email</dt>
+                    <dd><a href="mailto:<%= vendor.email %>"><%= vendor.email %></a></dd>
+
+                    <dt>Phone</dt>
+                    <dd><%= vendor.phone %></dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="span5 offset1">
-            <strong>All comments about <%= vendor.name %></strong>
-            <div class="comments-wrapper"></div>
-
-            <hr />
-
+          <div class="span4">
             <div class="transfer-bid-wrapper"></div>
+            <div class="comments-wrapper"></div>
           </div>
         </div>
       </div>
@@ -32,14 +62,12 @@ Rfpez.Backbone.BidView = Backbone.View.extend
   """
 
   transfer_bid_template: _.template """
-    <strong>Projects applied for</strong>
-    <div><%= vendor.titles_of_projects_applied_for.join(", ") %></div>
-
-    <hr />
+    <strong>Applied to:</strong>
+    <p><%= vendor.titles_of_projects_applied_for.join(", ") %></p>
 
     <form action="/projects/<%= project_id %>/bids/<%= id %>/transfer" method="POST">
-      <strong>Transfer to</strong>
-      <select name="project_id">
+      <strong>Transfer to:</strong>
+      <select class="select-inline" name="project_id">
         <% _.each(vendor.projects_not_applied_for, function(project){ %>
           <option value="<%= project.id %>"><%= project.title %></option>
         <% }); %>

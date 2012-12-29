@@ -138,6 +138,9 @@ body.super-admin .super-admin-only {
   -ms-transform: rotate(70deg);
   transform: rotate(70deg);
 }
+select.select-inline {
+  margin-bottom: 0;
+}
 .pagination .pagination-text {
   position: relative;
   top: -9px;
@@ -213,6 +216,10 @@ body.vendor .no-auth-only {
 #bids-table tbody.selected {
   background-color: #efefef;
 }
+#bids-table tbody.selected .nav-tabs > .active > a {
+  background-color: #eee;
+  color: #444;
+}
 #bids-table .vendor-name {
   width: 100%;
   display: block;
@@ -228,6 +235,9 @@ body.vendor .no-auth-only {
 }
 #bids-table .bid-details {
   padding: 8px;
+}
+#bids-table .bid-tab-wrapper {
+  padding: 0 5px;
 }
 #bids-table .anyone-read {
   color: #aaa;
@@ -339,6 +349,7 @@ body.vendor .no-auth-only {
 .bid-details-wrapper .comments-list {
   margin-top: 10px;
   margin-bottom: 10px;
+  margin-right: 25px;
   border-top: 1px dotted #ccc;
 }
 .bid-details-wrapper .comment {
