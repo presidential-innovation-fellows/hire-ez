@@ -88,7 +88,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
       <% } %>
     </td>
     <td>
-      <a class="vendor-name toggle-details">
+      <a class="vendor-name toggle-details" href="/projects/<%= project_id %>/bids/<%= id %>">
         <%= vendor.name %>
         &nbsp;
         <% if (awarded_at) { %>
@@ -249,7 +249,12 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     @$el.find(".toggle-starred.btn-primary").click()
     @$el.find(".toggle-thumbs-down.btn-primary").click()
 
-  toggleDetails: ->
+  toggleDetails: (e) ->
+    if e.metaKey
+      return
+    else
+      e.preventDefault()
+
     if @model.attributes.read isnt "1" and !@$el.find(".bid-details-wrapper .collapse").hasClass('in') then @toggleRead()
     @$el.find(".bid-details-wrapper .collapse").collapse('toggle')
 
