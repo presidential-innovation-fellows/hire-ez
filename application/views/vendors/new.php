@@ -7,6 +7,7 @@
 </p>
 <form id="new-vendor-form" action="<?php echo e(route('vendors')); ?>" method="POST">
   <?php $vendor = Input::old('vendor'); ?>
+  <?php $project_application = @$vendor["project_application"] ?: array(); ?>
   <div class="row vendor-signup-container">
     <fieldset class="span5">
       <h5>Contact Info</h5>
@@ -16,11 +17,11 @@
       </div>
       <div class="control-group">
         <label>Email</label>
-        <input type="text" name="vendor[email]" />
+        <input type="text" name="vendor[email]" value="<?php echo e($vendor['email']); ?>" />
       </div>
       <div class="control-group">
         <label>Phone</label>
-        <input type="text" name="vendor[phone]" />
+        <input type="text" name="vendor[phone]" value="<?php echo e($vendor['phone']); ?>" />
       </div>
       <div class="control-group">
         <label>Location</label>
@@ -48,7 +49,7 @@
     <fieldset class="span5">
       <h5>Why would you make a great fellow?</h5>
       <div class="control-group why-great-fellow">
-        <textarea class="span4" name="vendor[general_paragraph]"></textarea>
+        <textarea class="span4" name="vendor[general_paragraph]"><?php echo e($vendor['general_paragraph']); ?></textarea>
         <div class="help-block pull-right">
           <code id="words-remaining">150</code>
           words left.
@@ -65,7 +66,7 @@
             <div class="control-label">
               <label class="checkbox">
                 <div class="controls">
-                  <input class="project-application-check" type="checkbox" data-projectid="<?php echo e($project->id); ?>" name="apply[project-<?php echo e($project->id); ?>]" />
+                  <input class="project-application-check" type="checkbox" />
                 </div>
                 <?php echo e($project->title); ?>
               </label>
@@ -76,7 +77,7 @@
               <label>Why are you great for this project?</label>
             </div>
             <controls>
-              <textarea class="span4" data-projectid="<?php echo e($project->id); ?>" name="whygood[project-<?php echo e($project->id); ?>]"></textarea>
+              <textarea class="span4" name="project_application[<?php echo e($project->id); ?>]"><?php echo e(@$project_application[$project->id]); ?></textarea>
             </controls>
           </div>
         </div>

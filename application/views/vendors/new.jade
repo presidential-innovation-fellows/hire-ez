@@ -10,6 +10,7 @@ p.readable-width
 form#new-vendor-form(action="#{route('vendors')}", method="POST")
 
   - $vendor = Input::old('vendor');
+  - $project_application = @$vendor["project_application"] ?: array();
 
   //- @placeholder
 
@@ -25,11 +26,11 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
 
       .control-group
         label Email
-        input(type="text", name="vendor[email]")
+        input(type="text", name="vendor[email]", value="#{$vendor['email']}")
 
       .control-group
         label Phone
-        input(type="text", name="vendor[phone]")
+        input(type="text", name="vendor[phone]", value="#{$vendor['phone']}")
 
       .control-group
         label Location
@@ -57,7 +58,7 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
       h5 Why would you make a great fellow?
 
       .control-group.why-great-fellow
-        textarea.span4(name="vendor[general_paragraph]")
+        textarea.span4(name="vendor[general_paragraph]") #{$vendor['general_paragraph']}
         .help-block.pull-right
           | <code id="words-remaining">150</code>
           | words left.
@@ -72,13 +73,13 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
             .control-label
               label.checkbox
                 .controls
-                  input.project-application-check(type='checkbox', data-projectid='#{$project->id}', name='apply[project-#{$project->id}]')
+                  input.project-application-check(type='checkbox')
                 | #{$project->title}
           .control-group.why-great.collapse
             .control-label
               label Why are you great for this project?
             controls
-              textarea.span4(data-projectid='#{$project->id}', name='whygood[project-#{$project->id}]')
+              textarea.span4(name='project_application[#{$project->id}]') #{@$project_application[$project->id]}
   hr
   .resume
     label

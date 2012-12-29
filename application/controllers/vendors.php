@@ -20,34 +20,32 @@ class Vendors_Controller extends Base_Controller {
   public function action_create() {
     // @placeholder mass-assignment vulnerable
     $vendor = new Vendor(Input::get('vendor'));
-    $vendor->general_paragraph = nl2br(Input::get('vendor.general_paragraph'));
-    if ($vendor->validator()->passes()) {
+    $vendor->general_paragraph = nl2br(e(Input::get('vendor.general_paragraph')));
+    $applications = array();
+
+    foreach (Input::get('project_application') as $project_id => $val) {
+      if ($val !== '') $applications[$project_id] = $val;
+    }
+
+    if ($vendor->validator()->passes() && !empty($applications)) {
       $vendor->save();
-      $applications = Input::get('apply');
-      $whygood = Input::get('whygood');
 
-      foreach($applications as $proj_id => $val) {
-        if ($whygood[$proj_id] !== '') {
-          $bits = explode('-', $proj_id);
-          $project_id = intval(array_pop($bits));
-          $bid = new Bid();
-          $bid->vendor_id = $vendor->id;
-          $bid->project_id = $project_id;
-          $bid->body = nl2br($whygood[$proj_id]);
-
-          if ($bid->validator()->passes()) {
-            $bid->submit();
-          } else {
-            Session::flash('errors', $bid->validator()->errors->all());
-            return Redirect::to_route('new_bids', array($project->id, $bid->id))->with_input();
-          }
-        }
+      foreach($applications as $project_id => $val) {
+        $bid = new Bid();
+        $bid->vendor_id = $vendor->id;
+        $bid->project_id = $project_id;
+        $bid->body = nl2br(e($val));
+        $bid->submit();
       }
 
       Mailer::send("ApplicationReceived", array("vendor" => $vendor));
       return Redirect::to_route('vendor_applied', $vendor->demographic_survey_key);
     } else {
-      Session::flash('errors', $vendor->validator()->errors->all());
+      if (empty($applications)) {
+        Session::flash('errors', array_merge(array('Please check at least one project to apply for.'), $vendor->validator()->errors->all()));
+      } else {
+        Session::flash('errors', $vendor->validator()->errors->all());
+      }
       return Redirect::to_route('new_vendors')->with_input();
     }
   }
