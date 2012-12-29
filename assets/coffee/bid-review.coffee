@@ -151,10 +151,9 @@ key 'up, down', ->
     on_mouseover_select = true
   , 200
 
-
-$(document).on "ready page:load", ->
-  if Rfpez.current_page("bid-review")
-    Rfpez.move_bid_selection("down")
-$(document).on "mouseover.selectbidmouseover", ".bid", ->
-  if Rfpez.current_page("bid-review") and on_mouseover_select
-    Rfpez.select_bid($(this), false)
+# $(document).on "ready page:load", ->
+#   if Rfpez.current_page("bid-review")
+#     Rfpez.move_bid_selection("down")
+# $(document).on "mouseover.selectbidmouseover", ".bid", ->
+#   if Rfpez.current_page("bid-review") and on_mouseover_select
+#     Rfpez.select_bid($(this), false)

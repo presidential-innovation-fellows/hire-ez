@@ -197,15 +197,3 @@ key('up, down', function() {
     return on_mouseover_select = true;
   }, 200);
 });
-
-$(document).on("ready page:load", function() {
-  if (Rfpez.current_page("bid-review")) {
-    return Rfpez.move_bid_selection("down");
-  }
-});
-
-$(document).on("mouseover.selectbidmouseover", ".bid", function() {
-  if (Rfpez.current_page("bid-review") && on_mouseover_select) {
-    return Rfpez.select_bid($(this), false);
-  }
-});

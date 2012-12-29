@@ -7088,10 +7088,12 @@ body.vendor .no-auth-only {
 #bids-table tbody {
   border: none;
 }
-#bids-table tbody.selected {
+#bids-table tbody.selected,
+#bids-table tbody:hover {
   background-color: #efefef;
 }
-#bids-table tbody.selected .nav-tabs > .active > a {
+#bids-table tbody.selected .nav-tabs > .active > a,
+#bids-table tbody:hover .nav-tabs > .active > a {
   background-color: #eee;
   color: #444;
 }
