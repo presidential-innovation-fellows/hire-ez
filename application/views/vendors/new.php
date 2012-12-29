@@ -1,4 +1,6 @@
 <?php Section::inject('page_title', 'Apply for the Spring 2013 Class') ?>
+<?php Section::inject('current_page', 'new-vendor') ?>
+<?php echo Jade\Dumper::_html(HTML::script('http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false')) ?>
 <p class="readable-width">
   Help the federal government innovate from the outside in. Be a part of this second round of
   fellows and spend 6 months using your insights and skills to solve unqiue challenges.
@@ -21,8 +23,10 @@
         <input type="text" name="vendor[phone]" />
       </div>
       <div class="control-group">
-        <label>Zip</label>
-        <input type="text" name="vendor[zip]" value="<?php echo e( $vendor['zip'] ); ?>" />
+        <label>Location</label>
+        <input id="locationInput" type="text" name="vendor[location]" value="<?php echo e( $vendor['location'] ); ?>" />
+        <input id="latitudeInput" type="hidden" name="vendor[latitude]" value="<?php echo e( $vendor['latitude'] ); ?>" />
+        <input id="longitudeInput" type="hidden" name="vendor[longitude]" value="<?php echo e( $vendor['longitude'] ); ?>" />
       </div>
       <h5>
         Where can we find you online?<br />

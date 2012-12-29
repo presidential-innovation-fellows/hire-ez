@@ -10,5 +10,21 @@ count_words = ->
 
 $(document).on "input", ".why-great-fellow textarea", count_words
 
+# Prevent submitting the form when a user hits enter on the location autocomplete.
+$(document).on "keydown", "#locationInput", (e) ->
+  e.preventDefault() if e.keyCode is 13
+
 $(document).on "ready page:load", ->
   editor = $('.wysihtml5').wysihtml5({image: false})
+
+  if Rfpez.current_page("new-vendor")
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('locationInput'), {})
+
+    google.maps.event.addListener autocomplete, 'place_changed', ->
+      place = autocomplete.getPlace()
+      if place.geometry
+        $("#latitudeInput").val(place.geometry.location.lat())
+        $("#longitudeInput").val(place.geometry.location.lng())
+      else
+        $("#latitudeInput").val('')
+        $("#longitudeInput").val('')

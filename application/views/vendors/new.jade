@@ -1,4 +1,6 @@
 - Section::inject('page_title', 'Apply for the Spring 2013 Class')
+- Section::inject('current_page', 'new-vendor')
+!= HTML::script('http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false')
 
 p.readable-width
   | Help the federal government innovate from the outside in. Be a part of this second round of
@@ -30,8 +32,10 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
         input(type="text", name="vendor[phone]")
 
       .control-group
-        label Zip
-        input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")
+        label Location
+        input#locationInput(type="text", name="vendor[location]", value="#{ $vendor['location'] }")
+        input#latitudeInput(type="hidden", name="vendor[latitude]", value="#{ $vendor['latitude'] }")
+        input#longitudeInput(type="hidden", name="vendor[longitude]", value="#{ $vendor['longitude'] }")
 
       h5 Where can we find you online?<br />
         span.smaller Add up to 3 links

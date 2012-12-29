@@ -72,9 +72,8 @@ $(document).on "ready page:load", ->
       "vendor[phone]":
         required: true
 
-      "vendor[zip]":
+      "vendor[location]":
         required: true
-        digits: true
 
       "vendor[general_paragraph]":
         required: true

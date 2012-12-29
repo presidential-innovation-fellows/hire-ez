@@ -80,9 +80,8 @@ $(document).on("ready page:load", function() {
       "vendor[phone]": {
         required: true
       },
-      "vendor[zip]": {
-        required: true,
-        digits: true
+      "vendor[location]": {
+        required: true
       },
       "vendor[general_paragraph]": {
         required: true,

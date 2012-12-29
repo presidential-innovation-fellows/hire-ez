@@ -23,7 +23,7 @@ class Vendor extends Eloquent {
                    'general_paragraph' => 'required',
                    'resume' => 'required',
                    'phone' => 'required',
-                   'zip' => 'required|numeric');
+                   'location' => 'required');
 
     $validator = Validator::make($this->attributes, $rules);
     $validator->passes(); // hack to populate error messages

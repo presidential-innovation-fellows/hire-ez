@@ -15,9 +15,29 @@ count_words = function() {
 
 $(document).on("input", ".why-great-fellow textarea", count_words);
 
+$(document).on("keydown", "#locationInput", function(e) {
+  if (e.keyCode === 13) {
+    return e.preventDefault();
+  }
+});
+
 $(document).on("ready page:load", function() {
-  var editor;
-  return editor = $('.wysihtml5').wysihtml5({
+  var autocomplete, editor;
+  editor = $('.wysihtml5').wysihtml5({
     image: false
   });
+  if (Rfpez.current_page("new-vendor")) {
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('locationInput'), {});
+    return google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      var place;
+      place = autocomplete.getPlace();
+      if (place.geometry) {
+        $("#latitudeInput").val(place.geometry.location.lat());
+        return $("#longitudeInput").val(place.geometry.location.lng());
+      } else {
+        $("#latitudeInput").val('');
+        return $("#longitudeInput").val('');
+      }
+    });
+  }
 });
