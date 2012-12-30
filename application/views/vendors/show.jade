@@ -1,10 +1,41 @@
 - Section::inject('page_title', $vendor->name)
 
-.vendor-detail
-  dl
-    dt Name
-    dd= $vendor->name
+.vendor-detail.row-fluid
+  .span6
+    h5 Applicant Info
+    dl
+      !{Helper::datum('Name', $vendor->name)}
+      !{Helper::datum('Email', $vendor->email, true)}
+      !{Helper::datum('Phone', $vendor->phone)}
+      !{Helper::datum('Location', $vendor->location)}
+      !{Helper::datum('Link 1', $vendor->link_1, true)}
+      !{Helper::datum('Link 2', $vendor->link_2, true)}
+      !{Helper::datum('Link 3', $vendor->link_3, true)}
 
-    dt Projects Applied For
+
+  .span6
+    h5 Projects Applied For
+
+    ul
       - foreach ($vendor->bids as $bid):
-        dd= $bid->project->title
+        li
+          - if ($bid->project->is_mine()):
+            a(href="#{route('bid', array($bid->project->id, $bid->id))}")= $bid->project->title
+          - else:
+            | #{$bid->project->title}
+          - endif;
+
+    h5 Comments
+    #vendor-comments
+
+    :javascript
+      | $(function(){
+      |   var commentView = new Rfpez.Backbone.BidCommentsView({vendor_id: #{$vendor->id}});
+      |   $("#vendor-comments").html(commentView.el)
+      | });
+
+h5 General Paragraph
+| !{$vendor->general_paragraph}
+
+h5 Resume
+| !{$vendor->resume}
