@@ -190,7 +190,7 @@ key('left', previous_page);
 
 key('/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts);
 
-key('up, down', function() {
+key('up, down, return, o', function() {
   on_mouseover_select = false;
   clearTimeout(mouseover_select_timeout);
   return mouseover_select_timeout = setTimeout(function() {

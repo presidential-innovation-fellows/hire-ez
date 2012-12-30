@@ -143,7 +143,7 @@ key 'left', previous_page
 
 key '/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts
 
-key 'up, down', ->
+key 'up, down, return, o', ->
   on_mouseover_select = false
   clearTimeout(mouseover_select_timeout)
 
