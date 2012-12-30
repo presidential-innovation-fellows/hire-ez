@@ -52,6 +52,14 @@ class Bids_Controller extends Base_Controller {
       $q = $q->where(function($q)use($view){
         $q->or_where('name', 'LIKE', '%'.$view->query.'%');
         $q->or_where('body', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('resume', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('email', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('phone', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('general_paragraph', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('link_1', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('link_2', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('link_3', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('location', 'LIKE', '%'.$view->query.'%');
       });
     }
 
