@@ -61,7 +61,7 @@ class Project extends Eloquent {
 
   public function bids($no_extra_fields = false) {
     if (!Auth::officer() || $no_extra_fields) {
-      return $this->has_many('Bid')->where_null('deleted_at');
+      return $this->has_many('Bid');
     } else {
 
       return $this->has_many('Bid')
@@ -75,8 +75,7 @@ class Project extends Eloquent {
                                  'bids.id as id',
                                  'bids.created_at as created_at',
                                  'bids.updated_at as updated_at',
-                                 DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')))
-                  ->where_null('bids.deleted_at');
+                                 DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')));
 
     }
   }
@@ -149,7 +148,6 @@ class Project extends Eloquent {
   public function current_bid_from($vendor) {
     $bid = Bid::where('project_id', '=', $this->id)
               ->where('vendor_id', '=', $vendor->id)
-              ->where_not_null('submitted_at')
               ->first();
 
     return $bid ? $bid : false;
@@ -158,7 +156,6 @@ class Project extends Eloquent {
   public function current_bid_draft_from($vendor) {
     $bid = Bid::where('project_id', '=', $this->id)
               ->where('vendor_id', '=', $vendor->id)
-              ->where_null('submitted_at')
               ->first();
 
     return $bid ? $bid : false;
@@ -175,8 +172,8 @@ class Project extends Eloquent {
   }
 
   public function submitted_bids() {
-    return $this->bids()
-                ->where_not_null('submitted_at');
+    // we removed 'submitted_at', just keeping this around for legacy compatibility.
+    return $this->bids();
   }
 
   public function all_bids() {

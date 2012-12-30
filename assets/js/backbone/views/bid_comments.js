@@ -42,6 +42,8 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend({
       formatted_created_at: new Date().toISOString()
     });
     this.$el.find("textarea").val('');
-    return this.parent_view.incrementCommentCount();
+    if (this.parent_view) {
+      return this.parent_view.incrementCommentCount();
+    }
   }
 });

@@ -13,8 +13,6 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'bid_exists')->only(array('update', 'transfer', 'show'));
 
-    $this->filter('before', 'bid_is_submitted_and_not_deleted')->only(array('update', 'transfer', 'show'));
-
     $this->filter('before', 'i_have_not_already_bid')->only(array('new', 'create'));
   }
 
@@ -95,7 +93,6 @@ class Bids_Controller extends Base_Controller {
                              'project_id' => $transfer_to_project->id));
 
     $new_bid->vendor_id = $bid->vendor_id;
-    $new_bid->submitted_at = new \DateTime;
 
     $new_bid->save();
 
@@ -241,12 +238,6 @@ Route::filter('bid_exists', function() {
 
   if (!$bid) return "doesn't exist id " . $id;
   Config::set('bid', $bid);
-});
-
-Route::filter('bid_is_submitted_and_not_deleted', function() {
-  $bid = Config::get('bid');
-  $project = Config::get('project');
-  if (!$bid->submitted_at || $bid->deleted_at) return Redirect::to_route('review_bids', array($project->id));
 });
 
 Route::filter('bid_is_not_awarded', function() {

@@ -119,11 +119,10 @@ Class Helper {
   public static function datum($label, $content, $link = false) {
     if ($content) {
       $isEmail = filter_var($content, FILTER_VALIDATE_EMAIL);
-      return "<div class='datum'>
-                <label>$label</label>
-                <div class='content'>".($link ? "<a href='".($isEmail ? "mailto:$content" : $content).
-                  "' ".($isEmail ? '' : 'target="_blank"').">" : "")."$content".($link ? '</a>' : '')."</div>
-              </div>";
+      return "<dt>$label</dt>
+                <dd>".($link ? "<a href='".($isEmail ? "mailto:$content" : $content).
+                  "' ".($isEmail ? '' : 'target="_blank"').">" : "")."$content".($link ? '</a>' : '')."</dd>
+             ";
     } else {
       return '';
     }

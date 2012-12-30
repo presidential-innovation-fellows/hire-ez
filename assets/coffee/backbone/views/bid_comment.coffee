@@ -30,5 +30,5 @@ Rfpez.Backbone.BidCommentView = Backbone.View.extend
     return @
 
   clear: ->
-    @parent_view.parent_view.decrementCommentCount()
+    @parent_view.parent_view.decrementCommentCount() if @parent_view
     @model.clear()

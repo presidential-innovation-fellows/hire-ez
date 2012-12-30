@@ -35,9 +35,7 @@ class Bid extends SoftDeleteModel {
   }
 
   public function get_status() {
-    if (!$this->submitted_at) {
-      return "Draft Saved";
-    } elseif ($this->dismissed()) {
+    if ($this->dismissed()) {
       return "Dismissed";
     } elseif ($this->awarded_at) {
       return "Won!";
@@ -47,7 +45,7 @@ class Bid extends SoftDeleteModel {
   }
 
   public function submit() {
-    $this->submitted_at = new \DateTime;
+    // we removed 'submitted_at', just keeping this around for legacy compatibility
     $this->save();
   }
 
@@ -144,8 +142,7 @@ class Bid extends SoftDeleteModel {
                 ->select(array('*',
                                'bids.id as id', 'bids.created_at as created_at',
                                'bids.updated_at as updated_at',
-                               DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')))
-                ->where_null('bids.deleted_at');
+                               DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')));
   }
 
 }

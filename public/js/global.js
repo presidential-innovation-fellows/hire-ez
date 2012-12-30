@@ -9960,7 +9960,9 @@ Rfpez.Backbone.BidCommentView = Backbone.View.extend({
     return this;
   },
   clear: function() {
-    this.parent_view.parent_view.decrementCommentCount();
+    if (this.parent_view) {
+      this.parent_view.parent_view.decrementCommentCount();
+    }
     return this.model.clear();
   }
 });
@@ -10009,7 +10011,9 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend({
       formatted_created_at: new Date().toISOString()
     });
     this.$el.find("textarea").val('');
-    return this.parent_view.incrementCommentCount();
+    if (this.parent_view) {
+      return this.parent_view.incrementCommentCount();
+    }
   }
 });
 

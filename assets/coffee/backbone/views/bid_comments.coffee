@@ -51,4 +51,4 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend
 
     @$el.find("textarea").val('')
 
-    @parent_view.incrementCommentCount()
+    @parent_view.incrementCommentCount() if @parent_view

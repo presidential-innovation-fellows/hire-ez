@@ -36,7 +36,7 @@ class Vendor extends Eloquent {
   }
 
   public function bids() {
-    return $this->has_many('Bid')->where_null('deleted_at');
+    return $this->has_many('Bid');
   }
 
   public function bids_with_project_names() {

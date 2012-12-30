@@ -47,7 +47,7 @@ class Comments_Controller extends Base_Controller {
 
     $comment->save();
 
-    $bids = $vendor->bids()->where_not_null('submitted_at')->get();
+    $bids = $vendor->bids;
 
     foreach ($bids as $bid) {
       Notification::send("ApplicantComment", array('bid' => $bid, 'comment' => $comment, 'officer' => $comment->officer, 'project_id' => $bid->project_id));
