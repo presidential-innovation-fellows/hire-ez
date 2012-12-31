@@ -11,6 +11,8 @@ class Vendor extends Eloquent {
 
   public static $hidden = array('demographic_survey_key', 'gender', 'race_1', 'race_2');
 
+  public $includes_in_array = array('resume_safe');
+
   public $validator = false;
 
   public $projects_applied_for = false;
@@ -89,6 +91,10 @@ class Vendor extends Eloquent {
     foreach ($this->bids as $bid) {
       if (!$bid->awarded_at) $bid->delete();
     }
+  }
+
+  public function resume_safe() {
+    return htmLawed($this->resume, array('safe' => true));
   }
 
   public static function surveyed() {

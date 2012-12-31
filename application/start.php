@@ -221,3 +221,5 @@ if (Config::get('application.log_queries')){
     Log::info($sql);
   });
 }
+
+require path('base').'application/libraries/htmLawed.php';

@@ -24,7 +24,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
                   <%= _.escape(body).replace(new RegExp('\\r?\\n', 'g'), '<br />') %>
                 </div>
                 <div class="tab-pane" id="general_paragraph<%- id %>"><%- vendor.general_paragraph %></div>
-                <div class="tab-pane" id="resume<%- id %>"><%- vendor.resume %></div>
+                <div class="tab-pane" id="resume<%- id %>"><%= vendor.resume_safe %></div>
                 <div class="tab-pane" id="links<%- id %>">
                   <dl>
                     <% if (vendor.link_1){ %>
