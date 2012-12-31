@@ -212,12 +212,13 @@ body.vendor .no-auth-only {
 }
 #bids-table tbody {
   border: none;
-}
-#bids-table tbody.selected {
   background-color: #efefef;
 }
+#bids-table tbody.selected {
+  background-color: #fff;
+}
 #bids-table tbody.selected .nav-tabs > .active > a {
-  background-color: #eee;
+  background-color: #fff;
   color: #444;
 }
 #bids-table .vendor-name {
@@ -235,6 +236,7 @@ body.vendor .no-auth-only {
 }
 #bids-table .bid-details {
   padding: 8px;
+  background-color: #fff;
 }
 #bids-table .bid-tab-wrapper {
   padding: 0 5px;
