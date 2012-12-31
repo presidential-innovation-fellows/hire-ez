@@ -1,6 +1,6 @@
 <?php
 
-class Bid extends SoftDeleteModel {
+class Bid extends Eloquent {
 
   public static $timestamps = true;
 
@@ -53,12 +53,6 @@ class Bid extends SoftDeleteModel {
     $this->awarded_at = new \DateTime;
     $this->awarded_by = Auth::officer()->id;
     Notification::send("ApplicantHired", array('bid' => $this));
-  }
-
-  public function delete_by_vendor() {
-    $this->delete();
-
-    Notification::where_payload_type("bid")->where_payload_id($this->id)->delete();
   }
 
   public function bid_officer() {
