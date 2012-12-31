@@ -13,39 +13,41 @@ Rfpez.Backbone.BidView = Backbone.View.extend
           <div class="span8">
             <div class="bid-tab-wrapper">
               <ul class="nav nav-tabs">
-                <li class="active"><a href="#body<%= id %>" data-toggle="tab">Body</a></li>
-                <li><a href="#general_paragraph<%= id %>" data-toggle="tab">General Paragraph</a></li>
-                <li><a href="#resume<%= id %>" data-toggle="tab">Resume</a></li>
-                <li><a href="#links<%= id %>" data-toggle="tab">Links & Contact Info</a></li>
+                <li class="active"><a href="#body<%- id %>" data-toggle="tab">Body</a></li>
+                <li><a href="#general_paragraph<%- id %>" data-toggle="tab">General Paragraph</a></li>
+                <li><a href="#resume<%- id %>" data-toggle="tab">Resume</a></li>
+                <li><a href="#links<%- id %>" data-toggle="tab">Links & Contact Info</a></li>
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane active" id="body<%= id %>"><%= body %></div>
-                <div class="tab-pane" id="general_paragraph<%= id %>"><%= vendor.general_paragraph %></div>
-                <div class="tab-pane" id="resume<%= id %>"><%= vendor.resume %></div>
-                <div class="tab-pane" id="links<%= id %>">
+                <div class="tab-pane active" id="body<%- id %>">
+                  <%= _.escape(body).replace(new RegExp('\\r?\\n', 'g'), '<br />') %>
+                </div>
+                <div class="tab-pane" id="general_paragraph<%- id %>"><%- vendor.general_paragraph %></div>
+                <div class="tab-pane" id="resume<%- id %>"><%- vendor.resume %></div>
+                <div class="tab-pane" id="links<%- id %>">
                   <dl>
                     <% if (vendor.link_1){ %>
                       <dt>Link #1</dt>
-                      <dd><a href="<%= vendor.link_1 %>" target="_blank"><%= vendor.link_1 %></a></dd>
+                      <dd><a href="<%- vendor.link_1 %>" target="_blank"><%- vendor.link_1 %></a></dd>
                     <% } %>
                     <% if (vendor.link_2){ %>
                       <dt>Link #2</dt>
-                      <dd><a href="<%= vendor.link_2 %>" target="_blank"><%= vendor.link_2 %></a></dd>
+                      <dd><a href="<%- vendor.link_2 %>" target="_blank"><%- vendor.link_2 %></a></dd>
                     <% } %>
                     <% if (vendor.link_3){ %>
                       <dt>Link #3</dt>
-                      <dd><a href="<%= vendor.link_3 %>" target="_blank"><%= vendor.link_3 %></a></dd>
+                      <dd><a href="<%- vendor.link_3 %>" target="_blank"><%- vendor.link_3 %></a></dd>
                     <% } %>
 
                     <dt>Location</dt>
-                    <dd><a href="https://maps.google.com/?q=<%= vendor.location %>" target="_blank"><%= vendor.location %></a></dd>
+                    <dd><a href="https://maps.google.com/?q=<%- vendor.location %>" target="_blank"><%- vendor.location %></a></dd>
 
                     <dt>Email</dt>
-                    <dd><a href="mailto:<%= vendor.email %>"><%= vendor.email %></a></dd>
+                    <dd><a href="mailto:<%- vendor.email %>"><%- vendor.email %></a></dd>
 
                     <dt>Phone</dt>
-                    <dd><%= vendor.phone %></dd>
+                    <dd><%- vendor.phone %></dd>
                   </dl>
                 </div>
               </div>
@@ -63,13 +65,13 @@ Rfpez.Backbone.BidView = Backbone.View.extend
 
   transfer_bid_template: _.template """
     <strong>Applied to:</strong>
-    <p><%= vendor.titles_of_projects_applied_for.join(", ") %></p>
+    <p><%- vendor.titles_of_projects_applied_for.join(", ") %></p>
 
-    <form action="/projects/<%= project_id %>/bids/<%= id %>/transfer" method="POST">
+    <form action="/projects/<%- project_id %>/bids/<%- id %>/transfer" method="POST">
       <strong>Transfer to:</strong>
       <select class="select-inline" name="project_id">
         <% _.each(vendor.projects_not_applied_for, function(project){ %>
-          <option value="<%= project.id %>"><%= project.title %></option>
+          <option value="<%- project.id %>"><%- project.title %></option>
         <% }); %>
       </select>
       <button class="btn btn-small">Send!</button>
@@ -88,8 +90,8 @@ Rfpez.Backbone.BidView = Backbone.View.extend
       <% } %>
     </td>
     <td>
-      <a class="vendor-name toggle-details" href="/projects/<%= project_id %>/bids/<%= id %>">
-        <%= vendor.name %>
+      <a class="vendor-name toggle-details" href="/projects/<%- project_id %>/bids/<%- id %>">
+        <%- vendor.name %>
         &nbsp;
         <% if (awarded_at) { %>
           <span class="label label-success">Hired</span>
@@ -99,8 +101,8 @@ Rfpez.Backbone.BidView = Backbone.View.extend
         <% } %>
       </a>
     </td>
-    <td><%= total_score %></td>
-    <td class="comment-count"><%= vendor.total_comments %></td>
+    <td><%- total_score %></td>
+    <td class="comment-count"><%- vendor.total_comments %></td>
     <td>
       <div class="btn-group">
 

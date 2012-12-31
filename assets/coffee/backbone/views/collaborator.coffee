@@ -2,21 +2,21 @@ Rfpez.Backbone.CollaboratorView = Backbone.View.extend
   tagName: "tr"
 
   template: _.template """
-    <td class="email"><%= user.email %></td>
+    <td class="email"><%- user.email %></td>
     <td>
       <% if (pivot.owner === "1") { %>
         <i class="icon-star"></i>
       <% } %>
     </td>
     <td>
-      <span class="not-user-<%= user.id %> only-user only-user-<%= owner_id %>">
+      <span class="not-user-<%- user.id %> only-user only-user-<%- owner_id %>">
         <% if (pivot.owner !== "1") { %>
           <button class="btn btn-danger">Remove</button>
         <% } else { %>
           Can't remove the owner.
         <% } %>
       </span>
-      <span class="only-user only-user-<%= user.id %>">
+      <span class="only-user only-user-<%- user.id %>">
         That's you!
       </span>
     </td>

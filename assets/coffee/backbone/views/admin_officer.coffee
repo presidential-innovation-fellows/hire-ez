@@ -2,12 +2,12 @@ Rfpez.Backbone.AdminOfficerView = Backbone.View.extend
   tagName: "tr"
 
   template: _.template """
-    <td><%= id %></td>
-    <td><%= name %></td>
-    <td><%= title %></td>
-    <td><%= user.email %></td>
+    <td><%- id %></td>
+    <td><%- name %></td>
+    <td><%- title %></td>
+    <td><%- user.email %></td>
     <td>
-      <div class="not-user-<%= user.id %>">
+      <div class="not-user-<%- user.id %>">
         <% if (role == 3 && !isSuperAdmin) { %>
           This officer is a super-admin.
         <% } else { %>
@@ -21,14 +21,14 @@ Rfpez.Backbone.AdminOfficerView = Backbone.View.extend
           </select>
         <% } %>
       </div>
-      <div class="only-user only-user-<%= user.id %>">
-        You're a <%= role_text %>.
+      <div class="only-user only-user-<%- user.id %>">
+        You're a <%- role_text %>.
       </div>
     </td>
     <td>
       <% if (role != 3){ %>
         <div class="super-admin-only">
-          <div class="not-user-<%= user.id %>">
+          <div class="not-user-<%- user.id %>">
             <% if (!user.banned_at){ %>
               <a class="btn btn-danger ban-button btn-mini">Ban Officer</a>
             <% } else { %>

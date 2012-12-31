@@ -1,5 +1,5 @@
 <p>
-  You've been invited to collaborate on a project, <strong>"<?= $project->title ?>"</strong>.
+  You've been invited to collaborate on a project, <strong>"<?= e($project->title) ?>"</strong>.
 </p>
 
 <p>

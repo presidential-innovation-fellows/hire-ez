@@ -21,7 +21,7 @@ Class Helper {
   }
 
   public static function preserve_input($name) {
-    if ($val = Input::get($name)) {
+    if ($val = e(Input::get($name))) {
       return "<input type='hidden' name='$name' value='$val' />";
     } else {
       return "";
@@ -119,9 +119,9 @@ Class Helper {
   public static function datum($label, $content, $link = false) {
     if ($content) {
       $isEmail = filter_var($content, FILTER_VALIDATE_EMAIL);
-      return "<dt>$label</dt>
-                <dd>".($link ? "<a href='".($isEmail ? "mailto:$content" : $content).
-                  "' ".($isEmail ? '' : 'target="_blank"').">" : "")."$content".($link ? '</a>' : '')."</dd>
+      return "<dt>".e($label)."</dt>
+                <dd>".($link ? "<a href='".($isEmail ? "mailto:".e($content) : e($content)).
+                  "' ".($isEmail ? '' : 'target="_blank"').">" : "").e($content).($link ? '</a>' : '')."</dd>
              ";
     } else {
       return '';

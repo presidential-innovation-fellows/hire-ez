@@ -1,6 +1,6 @@
 <?php $parsed = $notification->parsed(); ?>
 
-<?= $parsed["subject"] ?>
+<?= e($parsed["subject"]) ?>
 
 View your notifications on EasyBid: <?= route('notifications') ?>
 

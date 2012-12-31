@@ -2,7 +2,7 @@
 Rfpez.Backbone.BidCommentView = Backbone.View.extend({
   tagName: "div",
   className: "comment",
-  template: _.template("<div class=\"body\">\n  <span class=\"author\">\n    <%= officer.name %>\n  </span>\n  <%= body %>\n</div>\n<span class=\"timestamp\">\n  <span class=\"posted-at\">Posted <span class=\"timeago\" title=\"<%= formatted_created_at %>\"></span></span>\n</span>\n<a class=\"delete-comment only-user only-user-<%= officer.user_id %>\">Delete</a>"),
+  template: _.template("<div class=\"body\">\n  <span class=\"author\">\n    <%- officer.name %>\n  </span>\n  <%- body %>\n</div>\n<span class=\"timestamp\">\n  <span class=\"posted-at\">Posted <span class=\"timeago\" title=\"<%- formatted_created_at %>\"></span></span>\n</span>\n<a class=\"delete-comment only-user only-user-<%- officer.user_id %>\">Delete</a>"),
   events: {
     "click a.delete-comment": "clear"
   },

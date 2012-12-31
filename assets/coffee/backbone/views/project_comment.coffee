@@ -5,14 +5,14 @@ Rfpez.Backbone.ProjectCommentView = Backbone.View.extend
   template: _.template """
     <div class="body">
       <span class="author">
-        <%= officer.name %>
+        <%- officer.name %>
       </span>
-      <%= body %>
+      <%- body %>
     </div>
     <span class="timestamp">
-      <span class="posted-at">Posted <span class="timeago" title="<%= formatted_created_at %>"></span></span>
+      <span class="posted-at">Posted <span class="timeago" title="<%- formatted_created_at %>"></span></span>
     </span>
-    <a class="delete-comment only-user only-user-<%= officer.user_id %>">Delete</a>
+    <a class="delete-comment only-user only-user-<%- officer.user_id %>">Delete</a>
   """
 
   events:

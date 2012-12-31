@@ -20,7 +20,7 @@ class Vendors_Controller extends Base_Controller {
   public function action_create() {
     // @placeholder mass-assignment vulnerable
     $vendor = new Vendor(Input::get('vendor'));
-    $vendor->general_paragraph = nl2br(e(Input::get('vendor.general_paragraph')));
+    $vendor->general_paragraph = Input::get('vendor.general_paragraph');
     $applications = array();
 
     foreach (Input::get('project_application') as $project_id => $val) {
@@ -34,7 +34,7 @@ class Vendors_Controller extends Base_Controller {
         $bid = new Bid();
         $bid->vendor_id = $vendor->id;
         $bid->project_id = $project_id;
-        $bid->body = nl2br(e($val));
+        $bid->body = $val;
         $bid->submit();
       }
 
