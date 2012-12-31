@@ -33,7 +33,7 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend
     @addAll()
 
   addOne: (comment) ->
-    view = new Rfpez.Backbone.BidCommentView({model: comment, parent_view: @})
+    view = new Rfpez.Backbone.CommentView({model: comment, parent_view: @})
     html = view.render().el
     @$el.find(".comments-list").append(html)
 

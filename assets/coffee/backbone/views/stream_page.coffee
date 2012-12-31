@@ -27,9 +27,10 @@ Rfpez.Backbone.StreamPage = Backbone.View.extend
     if model.attributes.notification_type
       view = new Rfpez.Backbone.NotificationView({model: model})
     else
-      view = new Rfpez.Backbone.ProjectCommentView({model: model})
-    html = view.render().el
-    $(".comments-list").append(html);
+      view = new Rfpez.Backbone.CommentView({model: model})
+    $comment = $(view.render().el)
+    $comment.addClass('well') if !model.attributes.notification_type
+    $(".comments-list").append($comment);
 
   addAll: ->
     Rfpez.Backbone.ProjectComments.each @addOne

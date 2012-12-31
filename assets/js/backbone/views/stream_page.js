@@ -19,18 +19,21 @@ Rfpez.Backbone.StreamPage = Backbone.View.extend({
   },
   render: function() {},
   addOne: function(model) {
-    var html, view;
+    var $comment, view;
     if (model.attributes.notification_type) {
       view = new Rfpez.Backbone.NotificationView({
         model: model
       });
     } else {
-      view = new Rfpez.Backbone.ProjectCommentView({
+      view = new Rfpez.Backbone.CommentView({
         model: model
       });
     }
-    html = view.render().el;
-    return $(".comments-list").append(html);
+    $comment = $(view.render().el);
+    if (!model.attributes.notification_type) {
+      $comment.addClass('well');
+    }
+    return $(".comments-list").append($comment);
   },
   addAll: function() {
     return Rfpez.Backbone.ProjectComments.each(this.addOne);

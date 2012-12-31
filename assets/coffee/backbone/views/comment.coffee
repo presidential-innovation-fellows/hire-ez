@@ -1,4 +1,4 @@
-Rfpez.Backbone.BidCommentView = Backbone.View.extend
+Rfpez.Backbone.CommentView = Backbone.View.extend
   tagName: "div"
   className: "comment"
 
@@ -7,12 +7,13 @@ Rfpez.Backbone.BidCommentView = Backbone.View.extend
       <span class="author">
         <%- officer.name %>
       </span>
-      <%- body %>
+      <span class="timestamp">
+        <span class="posted-at">Posted <span class="timeago" title="<%- formatted_created_at %>"></span></span>
+      </span>
+      <a class="delete-comment only-user only-user-<%- officer.user_id %>">Delete</a>
+
+      <p class="no-margin"><%= _.escape(body).replace(new RegExp('\\r?\\n', 'g'), '<br />') %></p>
     </div>
-    <span class="timestamp">
-      <span class="posted-at">Posted <span class="timeago" title="<%- formatted_created_at %>"></span></span>
-    </span>
-    <a class="delete-comment only-user only-user-<%- officer.user_id %>">Delete</a>
   """
 
   events:

@@ -21,7 +21,7 @@ Rfpez.Backbone.BidCommentsView = Backbone.View.extend({
   },
   addOne: function(comment) {
     var html, view;
-    view = new Rfpez.Backbone.BidCommentView({
+    view = new Rfpez.Backbone.CommentView({
       model: comment,
       parent_view: this
     });
