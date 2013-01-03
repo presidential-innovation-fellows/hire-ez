@@ -58,6 +58,11 @@ $(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", fu
   return Turbolinks.visit("" + href + "?" + ($.param(params)));
 });
 
+$(document).on("click", ".show-refer", function(e) {
+  e.preventDefault();
+  return $(this).addClass('hide').next('form').removeClass('hide');
+});
+
 on_mouseover_select = true;
 
 mouseover_select_timeout = false;

@@ -66,9 +66,10 @@ Rfpez.Backbone.BidView = Backbone.View.extend
   transfer_bid_template: _.template """
     <strong>Applied to:</strong>
     <p><%- vendor.titles_of_projects_applied_for.join(", ") %></p>
-
-    <form action="/projects/<%- project_id %>/bids/<%- id %>/transfer" method="POST">
+    <a href="#" class="show-refer">Refer to another project</a>
+    <form action="/projects/<%- project_id %>/bids/<%- id %>/transfer" method="POST" class="hide">
       <strong>Refer to:</strong>
+      <br />
       <select class="select-inline" name="project_id">
         <% _.each(vendor.projects_not_applied_for, function(project){ %>
           <option value="<%- project.id %>"><%- project.title %></option>

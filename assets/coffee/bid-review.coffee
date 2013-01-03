@@ -42,6 +42,9 @@ $(document).on "click", "#bid-review-pagination-wrapper li:not(.disabled) a", (e
 
   Turbolinks.visit "#{href}?#{$.param(params)}"
 
+$(document).on "click", ".show-refer", (e) ->
+  e.preventDefault()
+  $(this).addClass('hide').next('form').removeClass('hide')
 
 on_mouseover_select = true
 mouseover_select_timeout = false

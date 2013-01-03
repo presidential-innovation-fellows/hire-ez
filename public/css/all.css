@@ -7126,6 +7126,10 @@ body.vendor .no-auth-only {
   top: 2px;
   font-size: 11px;
 }
+.show-refer {
+  text-decoration: underline;
+  font-weight: bold;
+}
 #bid-review-pagination-wrapper .pagination {
   margin: 0;
 }
