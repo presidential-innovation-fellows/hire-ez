@@ -85,11 +85,11 @@ class Bids_Controller extends Base_Controller {
     $transfer_to_project = Project::find(Input::get('project_id'));
 
     if (!$transfer_to_project) {
-      Session::flash('error', "Couldn't find the project that you're trying to transfer this bid to.");
+      Session::flash('error', "Couldn't find the project that you're trying to transfer this applicant to.");
       return Redirect::to_route('bid', array($project->id, $bid->id));
     }
 
-    $new_bid = new Bid(array('body' => "Transferred from project $project->title by $from_email.",
+    $new_bid = new Bid(array('body' => "Applicant referred from project $project->title by $from_email.",
                              'project_id' => $transfer_to_project->id));
 
     $new_bid->vendor_id = $bid->vendor_id;
@@ -98,7 +98,7 @@ class Bids_Controller extends Base_Controller {
 
     Notification::send("ApplicantForwarded", array('bid' => $new_bid, 'from_project' => $project, 'project' => $transfer_to_project));
 
-    Session::flash('notice', "Success! Transferred the bid from ".$bid->vendor->name." to ".$transfer_to_project->title.".");
+    Session::flash('notice', "Success! " . $bid->vendor->name." referred to ".$transfer_to_project->title.".");
     return Redirect::back();
 
   }
