@@ -224,6 +224,9 @@ body.vendor .no-auth-only {
   background-color: #fff;
   color: #444;
 }
+#bids-table tbody.selected .detailed-score {
+  display: inline !important;
+}
 #bids-table .vendor-name {
   width: 100%;
   display: block;
@@ -250,6 +253,11 @@ body.vendor .no-auth-only {
   position: relative;
   top: 2px;
   font-size: 11px;
+}
+#bids-table .detailed-score {
+  display: none;
+  color: #aaa;
+  margin-left: 10px;
 }
 .show-refer {
   text-decoration: underline;

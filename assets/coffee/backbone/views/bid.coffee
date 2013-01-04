@@ -102,7 +102,12 @@ Rfpez.Backbone.BidView = Backbone.View.extend
         <% } %>
       </a>
     </td>
-    <td><%- total_score %></td>
+    <td>
+      <%- total_score %>
+      <span class="detailed-score">
+        +<%= total_stars %> / -<%= total_thumbs_down %>
+      </span>
+    </td>
     <td class="comment-count"><%- vendor.total_comments %></td>
     <td>
       <div class="btn-group">
