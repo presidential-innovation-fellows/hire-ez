@@ -13,7 +13,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
           <div class="span8">
             <div class="bid-tab-wrapper">
               <ul class="nav nav-tabs">
-                <li class="active"><a href="#body<%- id %>" data-toggle="tab">Body</a></li>
+                <li class="active"><a href="#body<%- id %>" data-toggle="tab">This Project</a></li>
                 <li><a href="#general_paragraph<%- id %>" data-toggle="tab">General Paragraph</a></li>
                 <li><a href="#resume<%- id %>" data-toggle="tab">Resume</a></li>
                 <li><a href="#links<%- id %>" data-toggle="tab">Links & Contact Info</a></li>
