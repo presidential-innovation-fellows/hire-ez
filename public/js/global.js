@@ -10225,8 +10225,7 @@ $(document).on("submit", "#add-comment-form", function(e) {
 var keep_bid_in_view, mark_as_spam, mouseover_select_timeout, next_page, no_vote_selection, on_mouseover_select, open_selection, previous_page, thumbs_down_selection, thumbs_up_selection, toggle_unread_selection;
 
 $(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", function(e) {
-  var $wrapper, filter, forwardDirection, href, i, no_longer_visible_count, params, total, val;
-  e.preventDefault();
+  var $wrapper, filter, forwardDirection, href, i, no_longer_visible_count, params, total, url, val;
   $wrapper = $("#bid-review-pagination-wrapper");
   forwardDirection = $(this).hasClass('previous') ? false : true;
   total = $wrapper.data('total');
@@ -10279,7 +10278,13 @@ $(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", fu
       delete params[i];
     }
   }
-  return Turbolinks.visit("" + href + "?" + ($.param(params)));
+  url = "" + href + "?" + ($.param(params));
+  if (e.metaKey) {
+    $(this).attr('href', url);
+  } else {
+    Turbolinks.visit(url);
+    return e.preventDefault();
+  }
 });
 
 $(document).on("click", ".show-refer", function(e) {

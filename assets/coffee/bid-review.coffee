@@ -1,5 +1,4 @@
 $(document).on "click", "#bid-review-pagination-wrapper li:not(.disabled) a", (e) ->
-  e.preventDefault()
   $wrapper = $("#bid-review-pagination-wrapper")
   forwardDirection = if $(this).hasClass('previous') then false else true
   total = $wrapper.data('total')
@@ -40,7 +39,15 @@ $(document).on "click", "#bid-review-pagination-wrapper li:not(.disabled) a", (e
   for i, val of params
     delete params[i] unless val
 
-  Turbolinks.visit "#{href}?#{$.param(params)}"
+  url = "#{href}?#{$.param(params)}"
+
+  if e.metaKey
+    $(@).attr 'href', url
+    return
+
+  else
+    Turbolinks.visit url
+    e.preventDefault()
 
 $(document).on "click", ".show-refer", (e) ->
   e.preventDefault()
