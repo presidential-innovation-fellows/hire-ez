@@ -64,7 +64,7 @@ class Bids_Controller extends Base_Controller {
     $total = $q->count();
     if ($sort) $q = $q->order_by($sort, $order);
 
-    $per_page = 10;
+    $per_page = 25;
     $view->skip = Input::get('skip', 0);
     $view->sort = Input::get('sort');
     $bids = $q->take($per_page)->skip($view->skip)->get();

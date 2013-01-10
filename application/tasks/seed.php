@@ -50,8 +50,7 @@ class Seed_Task {
     $project = new Project(array('title' => 'RFP-EZr',
                                      'agency' => 'Small Business Administration',
                                      'office' => 'Office of Innovation and Research',
-                                     'body' => "Best. Project. EVER!",
-                                     'proposals_due_at' => new \DateTime('12/31/2012')
+                                     'body' => "Best. Project. EVER!"
                                      ));
 
     $project->save();
