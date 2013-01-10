@@ -2,8 +2,12 @@
 
 !{View::make('admin.partials.subnav')->with('current_page', 'emails')}
 
-h5 Vendors
-p #{implode(', ', $vendor_emails)}
+h5 Applicants
+p
+  em A csv list of applicant emails.
+textarea.superbig(data-select-text-on-focus) #{implode(', ', $vendor_emails)}
 
 h5 Officers
-p #{implode(', ', $officer_emails)}
+p
+  em A csv list of officers who have their email preferences set to allow emails.
+textarea.superbig(data-select-text-on-focus) #{implode(', ', $officer_emails)}

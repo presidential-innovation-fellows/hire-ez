@@ -69,7 +69,8 @@ Class Factory {
     $p = new Project(array('title' => array_pop(self::$project_titles),
                            'agency' => self::$agencies[array_rand(self::$agencies)],
                            'office' => self::$offices[array_rand(self::$offices)],
-                           'body' => $faker->paragraph,
+                           'tagline' => implode(" ", $faker->sentences(2)),
+                           'body' => implode(" ", $faker->paragraphs(2)),
                            'proposals_due_at' => $due_at
                            ));
 

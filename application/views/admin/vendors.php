@@ -13,13 +13,7 @@
       <tr>
         <td><?php echo e($vendor->id); ?></td>
         <td><?php echo e($vendor->company_name); ?></td>
-        <td>
-          <?php if ($vendor->user->banned_at): ?>
-            Banned.
-          <?php else: ?>
-            <a class="btn btn-danger" href="<?php echo e(route('admin_ban_vendor', array($vendor->id))); ?>" data-confirm="<?php echo e(__('r.admin.vendors.ban_vendor_confirmation')); ?>" data-no-turbolink="data-no-turbolink">Ban Vendor</a>
-          <?php endif; ?>
-        </td>
+        <td></td>
       </tr>
     <?php endforeach; ?>
   </tbody>

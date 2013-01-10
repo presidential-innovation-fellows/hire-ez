@@ -220,7 +220,10 @@ Route::filter('auth', function() {
 });
 
 Route::filter('no_auth', function() {
-  if (Auth::user()) return Redirect::to('/');
+  if (Auth::user()) {
+    Session::flash('errors', array("Sorry, you can't be logged in to access that page."));
+    return Redirect::to('/');
+  }
 });
 
 Route::filter('vendor_only', function() {

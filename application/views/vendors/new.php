@@ -68,7 +68,10 @@
                 <div class="controls">
                   <input class="project-application-check" type="checkbox" />
                 </div>
-                <?php echo e($project->title); ?>
+                <?php echo e($project->title); ?> &nbsp;
+                <a class="btn btn-mini" href="<?php echo e(route('project', $project->id)); ?>" target="_blank">
+                  <i class="icon-share"></i>
+                </a>
               </label>
             </div>
           </div>

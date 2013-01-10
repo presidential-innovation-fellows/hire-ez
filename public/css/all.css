@@ -7036,6 +7036,19 @@ select.select-inline {
 p.no-margin {
   margin: 0;
 }
+.textarea-full-width {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+textarea.superbig {
+  width: 100%;
+  min-height: 200px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 @media (max-width: 979px) {
   .hero-unit h1 small {
     display: block;
@@ -7361,6 +7374,9 @@ footer.footer ul li:after {
 }
 footer.footer ul li:last-child:after {
   content: "";
+}
+.project-tagline {
+  display: block;
 }
 .top-applicant-table {
   margin: 0;

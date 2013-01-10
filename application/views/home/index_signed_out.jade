@@ -10,8 +10,6 @@
 .row-fluid
   .span5
     h4 !{__('r.home.index_signed_out.biz_header')}
-    p
-      | !{HTML::image('img/psy.jpg', '', array('style' => 'height: 169px; width: 169px;'))}
     p.main-description !{__('r.home.index_signed_out.biz_description', array('url' => route('projects')))}
     a.btn.btn-warning.btn-large(href="#{ route('new_vendors') }") !{__('r.home.index_signed_out.biz_button')}
 
@@ -21,3 +19,4 @@
       - foreach($projects as $project):
         li
           a.project-title(href="#{ route('project', array($project->id)) }") #{$project->title}
+          span.project-tagline= $project->tagline

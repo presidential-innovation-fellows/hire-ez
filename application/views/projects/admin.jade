@@ -8,6 +8,27 @@
 .row-fluid
 
   .span6
+    h5 Update project
+
+    form(action="#{route('project', array($project->id))}", method="POST", id="update-project-form")
+      input(type="hidden", name="_method", value="PUT")
+      .control-group
+        label Project Title
+        input.span12(type="text", name="project[title]", value="#{$project->title}")
+
+      .control-group
+        label Tagline
+        textarea.textarea-full-width(name="project[tagline]")= $project->tagline
+
+      .control-group
+        label Body
+        textarea.textarea-full-width(name="project[body]", style="min-height: 120px;")= $project->body
+
+      .form-actions
+        button.btn.btn-primary Save
+
+
+  .span6
 
     h5 Collaborators
 

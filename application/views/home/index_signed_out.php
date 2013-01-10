@@ -6,9 +6,6 @@
 <div class="row-fluid">
   <div class="span5">
     <h4><?php echo __('r.home.index_signed_out.biz_header'); ?></h4>
-    <p>
-      <?php echo HTML::image('img/psy.jpg', '', array('style' => 'height: 169px; width: 169px;')); ?>
-    </p>
     <p class="main-description"><?php echo __('r.home.index_signed_out.biz_description', array('url' => route('projects'))); ?></p>
     <a class="btn btn-warning btn-large" href="<?php echo e( route('new_vendors') ); ?>"><?php echo __('r.home.index_signed_out.biz_button'); ?></a>
   </div>
@@ -18,6 +15,7 @@
       <?php foreach($projects as $project): ?>
         <li>
           <a class="project-title" href="<?php echo e( route('project', array($project->id)) ); ?>"><?php echo e($project->title); ?></a>
+          <span class="project-tagline"><?php echo Jade\Dumper::_text($project->tagline) ?></span>
         </li>
       <?php endforeach; ?>
     </ul>
