@@ -1,6 +1,9 @@
 - Section::inject('page_title', 'Apply for the Spring 2013 Class')
 - Section::inject('current_page', 'new-vendor')
 != HTML::script('http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false')
+| <script>
+| google.maps.event.addDomListener(window, 'load', Rfpez.initialize_google_autocomplete);
+| </script>
 
 p.readable-width
   | Help the federal government innovate from the outside in. Be a part of this second round of

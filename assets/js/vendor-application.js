@@ -22,22 +22,24 @@ $(document).on("keydown", "#locationInput", function(e) {
 });
 
 $(document).on("ready page:load", function() {
-  var autocomplete, editor;
-  editor = $('.wysihtml5').wysihtml5({
+  var editor;
+  return editor = $('.wysihtml5').wysihtml5({
     image: false
   });
-  if (Rfpez.current_page("new-vendor")) {
-    autocomplete = new google.maps.places.Autocomplete(document.getElementById('locationInput'), {});
-    return google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      var place;
-      place = autocomplete.getPlace();
-      if (place.geometry) {
-        $("#latitudeInput").val(place.geometry.location.lat());
-        return $("#longitudeInput").val(place.geometry.location.lng());
-      } else {
-        $("#latitudeInput").val('');
-        return $("#longitudeInput").val('');
-      }
-    });
-  }
 });
+
+Rfpez.initialize_google_autocomplete = function() {
+  var autocomplete;
+  autocomplete = new google.maps.places.Autocomplete(document.getElementById('locationInput'), {});
+  return google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var place;
+    place = autocomplete.getPlace();
+    if (place.geometry) {
+      $("#latitudeInput").val(place.geometry.location.lat());
+      return $("#longitudeInput").val(place.geometry.location.lng());
+    } else {
+      $("#latitudeInput").val('');
+      return $("#longitudeInput").val('');
+    }
+  });
+};

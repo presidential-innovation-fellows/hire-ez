@@ -17,14 +17,14 @@ $(document).on "keydown", "#locationInput", (e) ->
 $(document).on "ready page:load", ->
   editor = $('.wysihtml5').wysihtml5({image: false})
 
-  if Rfpez.current_page("new-vendor")
-    autocomplete = new google.maps.places.Autocomplete(document.getElementById('locationInput'), {})
+Rfpez.initialize_google_autocomplete = ->
+  autocomplete = new google.maps.places.Autocomplete(document.getElementById('locationInput'), {})
 
-    google.maps.event.addListener autocomplete, 'place_changed', ->
-      place = autocomplete.getPlace()
-      if place.geometry
-        $("#latitudeInput").val(place.geometry.location.lat())
-        $("#longitudeInput").val(place.geometry.location.lng())
-      else
-        $("#latitudeInput").val('')
-        $("#longitudeInput").val('')
+  google.maps.event.addListener autocomplete, 'place_changed', ->
+    place = autocomplete.getPlace()
+    if place.geometry
+      $("#latitudeInput").val(place.geometry.location.lat())
+      $("#longitudeInput").val(place.geometry.location.lng())
+    else
+      $("#latitudeInput").val('')
+      $("#longitudeInput").val('')
