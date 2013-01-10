@@ -33,13 +33,16 @@ class Notifications_Controller extends Base_Controller {
 
   public function action_json() {
     $return_array = array();
-    foreach(Auth::user()->notifications_received()->order_by('read')->order_by('notifications.created_at', 'desc')->take(3)->get() as $notification) {
-      $return_array[] = array('object' => $notification->to_array(),
-                              'parsed' => NotificationParser::parse($notification));
+    $received = Auth::user()->notifications_received();
+    if ($received) {
+      foreach($received->order_by('read')->order_by('notifications.created_at', 'desc')->take(3)->get() as $notification) {
+        $return_array[] = array('object' => $notification->to_array(),
+                                'parsed' => NotificationParser::parse($notification));
+      }
     }
     return Response::json(array('status' => 'success',
                                 'results' => $return_array,
-                                'count' => Auth::user()->notifications_received()->count()));
+                                'count' => $received ? Auth::user()->notifications_received()->count() : 0));
   }
 
 }
