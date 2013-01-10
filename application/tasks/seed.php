@@ -50,6 +50,7 @@ class Seed_Task {
     $project = new Project(array('title' => 'RFP-EZr',
                                      'agency' => 'Small Business Administration',
                                      'office' => 'Office of Innovation and Research',
+                                     'tagline' => 'You think you know what EZ is. Just you wait...',
                                      'body' => "Best. Project. EVER!"
                                      ));
 
