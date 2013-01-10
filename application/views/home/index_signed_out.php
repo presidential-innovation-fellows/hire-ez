@@ -15,6 +15,7 @@
       <?php foreach($projects as $project): ?>
         <li>
           <a class="project-title" href="<?php echo e( route('project', array($project->id)) ); ?>"><?php echo e($project->title); ?></a>
+          <span class="project-tagline"><?php echo Jade\Dumper::_text($project->tagline) ?></span>
         </li>
       <?php endforeach; ?>
     </ul>

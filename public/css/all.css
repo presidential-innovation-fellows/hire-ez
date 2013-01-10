@@ -7362,6 +7362,9 @@ footer.footer ul li:after {
 footer.footer ul li:last-child:after {
   content: "";
 }
+.project-tagline {
+  display: block;
+}
 .top-applicant-table {
   margin: 0;
 }

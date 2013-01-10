@@ -19,3 +19,4 @@
       - foreach($projects as $project):
         li
           a.project-title(href="#{ route('project', array($project->id)) }") #{$project->title}
+          span.project-tagline= $project->tagline
