@@ -74,7 +74,9 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
               label.checkbox
                 .controls
                   input.project-application-check(type='checkbox')
-                | #{$project->title}
+                | #{$project->title} &nbsp;
+                a.btn.btn-mini(href="#{route('project', $project->id)}", target="_blank")
+                  i.icon-share
           .control-group.why-great.collapse
             .control-label
               label Why are you great for this project?
