@@ -10,6 +10,9 @@
           <a href="<?php echo e(route('admin_emails')); ?>">Emails</a>
         </li>
       <?php endif; ?>
+      <li>
+        <a href="<?php echo e(route('new_projects')); ?>">Add Project</a>
+      </li>
     </ul>
   </div>
 </div>

@@ -8,9 +8,7 @@
   <li class="pull-right <?php echo e(Helper::active_subnav('comments') ? 'active':''); ?>">
     <a href="<?php echo e(route('comments', array($project->id))); ?>">Timeline</a>
   </li>
-  <?php if ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED): ?>
-    <li class="pull-right <?php echo e(Helper::active_subnav('review_bids') ? 'active':''); ?>">
-      <a href="<?php echo e(route('review_bids_filtered', array($project->id, 'unread'))); ?>">Applications (<?php echo e($project->submitted_bids()->count()); ?>)</a>
-    </li>
-  <?php endif; ?>
+  <li class="pull-right <?php echo e(Helper::active_subnav('review_bids') ? 'active':''); ?>">
+    <a href="<?php echo e(route('review_bids_filtered', array($project->id, 'unread'))); ?>">Applications (<?php echo e($project->submitted_bids()->count()); ?>)</a>
+  </li>
 </div>

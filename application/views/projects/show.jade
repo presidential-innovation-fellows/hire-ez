@@ -3,14 +3,9 @@
 - Section::inject('active_subnav', "view")
 - Section::inject('no_page_header', true)
 
-- if ($project->is_mine()):
-  !{View::make('projects.partials.toolbar')->with('project', $project)}
-  !{View::make('projects.partials.answer_question_form')}
-- else:
-  p
-    a(href="#{route('root')}") &larr; Back home
-  h4= $project->title
-- endif;
+p
+  a(href="#{route('root')}") &larr; Back home
+h4= $project->title
 
 .row
   .main-description.span6

@@ -117,13 +117,7 @@ class Project extends Eloquent {
   }
 
   public function status() {
-    if (new DateTime($this->proposals_due_at, new DateTimeZone('UTC')) > new DateTime('', new DateTimeZone('UTC')) && !$this->winning_bids()->first()) {
-      return self::STATUS_ACCEPTING_BIDS;
-    } elseif (!$this->winning_bids()->first()) {
-      return self::STATUS_REVIEWING_BIDS;
-    } else {
-      return self::STATUS_CONTRACT_AWARDED;
-    }
+    return;
   }
 
   public function is_open_for_bids() {
@@ -234,10 +228,5 @@ class Project extends Eloquent {
     $this->save();
   }
 
-  //////////// STATIC FUNCTIONS ////////////
-
-  public static function open_projects() {
-    return self::where('proposals_due_at', '>', new \DateTime("", new DateTimeZone('UTC')));
-  }
 
 }

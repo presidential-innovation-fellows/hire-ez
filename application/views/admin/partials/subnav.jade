@@ -10,3 +10,7 @@ h4 Admin Panel
       - if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)):
         li(class="#{$current_page == 'emails' ? 'active' : ''}")
           a(href="#{route('admin_emails')}") Emails
+      - endif;
+
+      li
+        a(href="#{route('new_projects')}") Add Project
