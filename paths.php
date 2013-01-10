@@ -24,7 +24,8 @@
 $environments = array(
   'test' => array('http://*-test*'),
 	'local' => array('http://localhost*', '*.dev'),
-  'ec2' => array('http://hire-ez.presidentialinnovationfellows.org*')
+  'ec2' => array('http://hire-ez.presidentialinnovationfellows.org*'),
+  'production' => array('*innovationfellows.usa.gov*'),
 );
 
 // --------------------------------------------------------------
