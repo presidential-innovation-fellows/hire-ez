@@ -7,7 +7,7 @@
 <h4><?php echo Jade\Dumper::_text($project->title) ?></h4>
 <div class="row">
   <div class="main-description span6">
-    <?php echo $project->body; ?>
+    <?php echo nl2br(e($project->body)); ?>
   </div>
   <div class="span4 offset1">
     <a class="btn btn-warning" href="<?php echo e( route('new_vendors') ); ?>">Apply Now!</a>

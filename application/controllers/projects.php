@@ -185,52 +185,11 @@ class Projects_Controller extends Base_Controller {
   }
 
   public function action_update() {
-
     $project = Config::get('project');
-
-    if (Request::ajax()) {
-      // backbone update
-      $json = Input::json(true);
-
-      if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)) {
-        $project->recommended = $json["recommended"];
-        $project->public = $json["public"];
-      }
-
-      $project->save();
-
-      return Response::json($project->to_array());
-
-    } else {
-      $project_input = Input::get('project');
-
-      $project->title = $project_input["title"];
-      $project->agency = $project_input["agency"];
-      $project->office = $project_input["office"];
-      $project->price_type = $project_input["price_type"];
-
-      if ($project_input["proposals_due_at"]) {
-        $dt = new \DateTime($project_input["proposals_due_at"] . " 23:59:59", new DateTimeZone('America/New_York'));
-        $dt->setTimeZone(new DateTimeZone('UTC'));
-        $project->proposals_due_at = $dt;
-      }
-
-      if ($project_input["question_period_over_at"]) {
-        $dt = new \DateTime($project_input["question_period_over_at"] . " 23:59:59", new DateTimeZone('America/New_York'));
-        $dt->setTimeZone(new DateTimeZone('UTC'));
-        $project->question_period_over_at = $dt;
-      } else {
-        $project->question_period_over_at = null;
-      }
-
-      if ($project->validator()->passes()) {
-        $project->save();
-        return Redirect::to_route('project_admin', array($project->id));
-      } else {
-        Session::flash('errors', $project->validator()->errors->all());
-        return Redirect::to_route('project_admin', array($project->id))->with_input();
-      }
-    }
+    $project->fill(Input::get('project'));
+    $project->save();
+    Session::flash('notice', "$project->title was successfully updated.");
+    return Redirect::back();
   }
 
   public function action_mine() {

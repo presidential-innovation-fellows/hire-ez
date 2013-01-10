@@ -4,15 +4,15 @@
 <form id="new-project-form" action="<?php echo e(route('projects')); ?>" method="POST">
   <div class="control-group">
     <label>Project Title</label>
-    <input type="text" name="project[title]" />
+    <input class="readable-width" type="text" name="project[title]" />
   </div>
   <div class="control-group">
     <label>Tagline</label>
-    <textarea name="project[tagline]"></textarea>
+    <textarea class="readable-width" name="project[tagline]"></textarea>
   </div>
   <div class="control-group">
     <label>Body</label>
-    <textarea name="project[body]"></textarea>
+    <textarea class="readable-width" name="project[body]" style="min-height: 220px;"></textarea>
   </div>
   <div class="form-actions">
     <button class="btn btn-primary" type="submit">Create Project</button>

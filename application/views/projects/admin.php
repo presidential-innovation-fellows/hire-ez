@@ -5,6 +5,27 @@
 <?php echo View::make('projects.partials.toolbar')->with('project', $project); ?>
 <div class="row-fluid">
   <div class="span6">
+    <h5>Update project</h5>
+    <form id="update-project-form" action="<?php echo e(route('project', array($project->id))); ?>" method="POST">
+      <input type="hidden" name="_method" value="PUT" />
+      <div class="control-group">
+        <label>Project Title</label>
+        <input class="span12" type="text" name="project[title]" value="<?php echo e($project->title); ?>" />
+      </div>
+      <div class="control-group">
+        <label>Tagline</label>
+        <textarea class="textarea-full-width" name="project[tagline]"><?php echo Jade\Dumper::_text($project->tagline) ?></textarea>
+      </div>
+      <div class="control-group">
+        <label>Body</label>
+        <textarea class="textarea-full-width" name="project[body]" style="min-height: 120px;"><?php echo Jade\Dumper::_text($project->body) ?></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+  <div class="span6">
     <h5>Collaborators</h5>
     <p><?php echo e(__("r.projects.admin.collaborators")); ?></p>
     <table class="table collaborators-table" data-project-id="<?php echo e($project->id); ?>">

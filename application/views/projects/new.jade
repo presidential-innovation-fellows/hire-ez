@@ -8,15 +8,15 @@ h4 New Project
 form(action="#{route('projects')}", method="POST", id="new-project-form")
   .control-group
     label Project Title
-    input(type="text", name="project[title]")
+    input.readable-width(type="text", name="project[title]")
 
   .control-group
     label Tagline
-    textarea(name="project[tagline]")
+    textarea.readable-width(name="project[tagline]")
 
   .control-group
     label Body
-    textarea(name="project[body]")
+    textarea.readable-width(name="project[body]", style="min-height: 220px;")
 
   .form-actions
     button.btn.btn-primary(type="submit") Create Project
