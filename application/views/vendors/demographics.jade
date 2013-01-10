@@ -1,58 +1,62 @@
 - Section::inject('page_title', 'Applicant Demographics')
 
-p Out of <strong>#{$total}</strong> applicants, <strong>#{$surveyed_total}</strong> have opted
-  | to take the demographic survey.
+- if ($surveyed_total < 1):
+  p No applicants have opted to take the demographic survey yet.
 
-table.table
-  thead
-    tr
-      th(width="50%") Gender
-      th(width="25%") # Applicants
-      th(width="25%") %
+- else:
+  p Out of <strong>#{$total}</strong> applicants, <strong>#{$surveyed_total}</strong> have opted
+    | to take the demographic survey.
 
-  tbody
-    tr
-      td Male
-      td #{$male}
-      td= Helper::demographic_percentage($male / $surveyed_total)
-    tr
-      td Female
-      td #{$female}
-      td= Helper::demographic_percentage($female / $surveyed_total)
-    tr
-      td Other
-      td #{$other}
-      td= Helper::demographic_percentage($other / $surveyed_total)
+  table.table
+    thead
+      tr
+        th(width="50%") Gender
+        th(width="25%") # Applicants
+        th(width="25%") %
 
-table.table
-  thead
-    tr
-      th(width="50%") Race
-      th(width="25%") # Applicants
-      th(width="25%") %
+    tbody
+      tr
+        td Male
+        td #{$male}
+        td= Helper::demographic_percentage($male / $surveyed_total)
+      tr
+        td Female
+        td #{$female}
+        td= Helper::demographic_percentage($female / $surveyed_total)
+      tr
+        td Other
+        td #{$other}
+        td= Helper::demographic_percentage($other / $surveyed_total)
 
-  tbody
-    tr
-      td Hispanic or Latino
-      td #{$hispanic_latino}
-      td= Helper::demographic_percentage($hispanic_latino / $surveyed_total)
-    tr
-      td White
-      td #{$white}
-      td= Helper::demographic_percentage($white / $surveyed_total)
-    tr
-      td Black or African American
-      td #{$black}
-      td= Helper::demographic_percentage($black / $surveyed_total)
-    tr
-      td Native Hawaiian or Other Pacific Islander
-      td #{$pacific_islander}
-      td= Helper::demographic_percentage($pacific_islander / $surveyed_total)
-    tr
-      td Asian (Not Hispanic or Latino)
-      td #{$asian}
-      td= Helper::demographic_percentage($asian / $surveyed_total)
-    tr
-      td American Indian or Alaska Native
-      td #{$american_indian}
-      td= Helper::demographic_percentage($american_indian / $surveyed_total)
+  table.table
+    thead
+      tr
+        th(width="50%") Race
+        th(width="25%") # Applicants
+        th(width="25%") %
+
+    tbody
+      tr
+        td Hispanic or Latino
+        td #{$hispanic_latino}
+        td= Helper::demographic_percentage($hispanic_latino / $surveyed_total)
+      tr
+        td White
+        td #{$white}
+        td= Helper::demographic_percentage($white / $surveyed_total)
+      tr
+        td Black or African American
+        td #{$black}
+        td= Helper::demographic_percentage($black / $surveyed_total)
+      tr
+        td Native Hawaiian or Other Pacific Islander
+        td #{$pacific_islander}
+        td= Helper::demographic_percentage($pacific_islander / $surveyed_total)
+      tr
+        td Asian (Not Hispanic or Latino)
+        td #{$asian}
+        td= Helper::demographic_percentage($asian / $surveyed_total)
+      tr
+        td American Indian or Alaska Native
+        td #{$american_indian}
+        td= Helper::demographic_percentage($american_indian / $surveyed_total)
