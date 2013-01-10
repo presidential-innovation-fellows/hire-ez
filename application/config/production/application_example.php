@@ -1,7 +1,7 @@
 <?php
 
 return array(
-  'url' => 'http://rfpez.sba.gov', // change this to "https" once SSL is enabled
+  'url' => 'https://innovationfellows.usa.gov', // change this to "https" once SSL is enabled
   'key' => '', /* 30 characters of random gibberish */
   // 'application_period_over' => true,
 );
