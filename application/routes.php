@@ -28,7 +28,10 @@ Route::group(array('https' => true), function(){
   Route::get('resetpassword/(:any)', array('uses' => 'users@get_reset_password', 'as' => 'reset_password'));
   Route::post('resetpassword/(:any)', array('uses' => 'users@post_reset_password', 'as' => 'reset_password'));
 
-  Route::resourceful('vendors', array('new', 'create', 'index', 'show'));
+  Route::resourceful('vendors', array('create', 'index', 'show'));
+
+  Route::get('apply', array('uses' => 'vendors@new', 'as' => 'new_vendors'));
+
   Route::get('vendors/get_more', array('uses' => 'vendors@get_more'));
   Route::get('vendors/demographics', array('uses' => 'vendors@demographics', 'as' => 'vendor_demographics'));
   Route::get('applythanks/(:any)', array('uses' => 'vendors@applied', 'as' => 'vendor_applied'));
