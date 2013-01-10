@@ -29,10 +29,10 @@ $(document).on "click", "#bid-review-pagination-wrapper li:not(.disabled) a", (e
       else
         if b.attributes.dismissed_at then no_longer_visible_count++
 
-    params.skip = (params.skip - no_longer_visible_count + 10) # perPage = 10
+    params.skip = (params.skip - no_longer_visible_count + 25) # perPage = 10
 
   else
-    params.skip = params.skip - 10
+    params.skip = params.skip - 25
 
   if params.skip < 1 then params.skip = false
 

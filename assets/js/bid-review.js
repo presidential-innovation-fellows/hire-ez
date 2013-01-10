@@ -41,9 +41,9 @@ $(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", fu
         }
       }
     });
-    params.skip = params.skip - no_longer_visible_count + 10;
+    params.skip = params.skip - no_longer_visible_count + 25;
   } else {
-    params.skip = params.skip - 10;
+    params.skip = params.skip - 25;
   }
   if (params.skip < 1) {
     params.skip = false;
