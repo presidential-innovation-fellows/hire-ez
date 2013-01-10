@@ -70,8 +70,7 @@ Class Factory {
                            'agency' => self::$agencies[array_rand(self::$agencies)],
                            'office' => self::$offices[array_rand(self::$offices)],
                            'tagline' => implode(" ", $faker->sentences(2)),
-                           'body' => implode(" ", $faker->paragraphs(2)),
-                           'proposals_due_at' => $due_at
+                           'body' => implode(" ", $faker->paragraphs(2))
                            ));
 
     $p->save();
