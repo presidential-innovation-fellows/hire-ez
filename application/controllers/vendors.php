@@ -12,6 +12,7 @@ class Vendors_Controller extends Base_Controller {
   }
 
   public function action_new() {
+    if (Config::get('application.application_period_over')) return Redirect::to_route('root');
     $view = View::make('vendors.new');
     $view->projects = Project::open_projects()->get();
     $this->layout->content = $view;

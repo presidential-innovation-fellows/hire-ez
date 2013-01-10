@@ -7,7 +7,11 @@
   <div class="span5">
     <h4><?php echo __('r.home.index_signed_out.biz_header'); ?></h4>
     <p class="main-description"><?php echo __('r.home.index_signed_out.biz_description', array('url' => route('projects'))); ?></p>
-    <a class="btn btn-warning btn-large" href="<?php echo e( route('new_vendors') ); ?>"><?php echo __('r.home.index_signed_out.biz_button'); ?></a>
+    <?php if (!Config::get('application.application_period_over')): ?>
+      <a class="btn btn-warning btn-large" href="<?php echo e( route('new_vendors') ); ?>"><?php echo __('r.home.index_signed_out.biz_button'); ?></a>
+    <?php else: ?>
+      <p>Sorry, the application period is now over.</p>
+    <?php endif; ?>
   </div>
   <div class="span6 offset1">
     <h4><?php echo __('r.home.index_signed_out.biz_header_right'); ?></h4>
