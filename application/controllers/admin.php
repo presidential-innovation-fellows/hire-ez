@@ -50,25 +50,9 @@ class Admin_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
-  public function action_ban_vendor($id) {
-    $vendor = Vendor::find($id);
-    $vendor->ban();
-    return Redirect::back();
-  }
-
-  public function action_template_toggle_recommended($project_id) {
-    $project = Project::find($project_id);
-    $project->recommended = $project->recommended == 1 ? 0 : 1;
-    $project->save();
-    return Redirect::back();
-  }
-
   public function action_emails() {
     $view = View::make('admin.emails');
-    $view->vendor_emails = Vendor::join('users', 'user_id', '=', 'users.id')
-                           ->where_null('banned_at')
-                           ->where('send_emails', '=', true)
-                           ->lists('email');
+    $view->vendor_emails = Vendor::lists('email');
     $view->officer_emails = Officer::join('users', 'user_id', '=', 'users.id')
                            ->where_null('banned_at')
                            ->where('send_emails', '=', true)

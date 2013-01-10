@@ -7036,6 +7036,13 @@ select.select-inline {
 p.no-margin {
   margin: 0;
 }
+textarea.superbig {
+  width: 100%;
+  min-height: 200px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 @media (max-width: 979px) {
   .hero-unit h1 small {
     display: block;
