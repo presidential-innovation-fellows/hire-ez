@@ -215,7 +215,7 @@ class Projects_Controller extends Base_Controller {
 
   public function action_index() {
     $view = View::make('projects.index');
-    $view->projects = Project::open_projects()->get();
+    $view->projects = Project::get();
     $this->layout->content = $view;
   }
 
