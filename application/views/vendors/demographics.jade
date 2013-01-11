@@ -1,4 +1,5 @@
 - Section::inject('page_title', 'Applicant Demographics')
+- Section::inject('current_page', 'demographic-stats')
 
 - if ($surveyed_total < 1):
   p No applicants have opted to take the demographic survey yet.
@@ -6,6 +7,11 @@
 - else:
   p Out of <strong>#{$total}</strong> applicants, <strong>#{$surveyed_total}</strong> have opted
     | to take the demographic survey.
+
+  .demographic-charts.row
+    #gender-chart.span-4
+    #race-chart.span-6
+
 
   table.table
     thead
@@ -60,3 +66,11 @@
         td American Indian or Alaska Native
         td #{$american_indian}
         td= Helper::demographic_percentage($american_indian / $surveyed_total)
+
+  !{HTML::script('js/vendor/raphael-min.js')}
+  !{HTML::script('js/vendor/g.raphael-min.js')}
+  !{HTML::script('js/vendor/g.bar-min.js')}
+  !{HTML::script('js/vendor/g.pie-min.js')}
+  script
+    | window.demographicStats = {gender: [!{$female}, !{$male}, !{$other}], race: [!{$pacific_islander}, !{$hispanic_latino}, !{$american_indian}, !{$white}, !{$black}, !{$asian}]}
+

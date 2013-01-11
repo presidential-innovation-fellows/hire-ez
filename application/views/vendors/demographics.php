@@ -1,4 +1,5 @@
 <?php Section::inject('page_title', 'Applicant Demographics') ?>
+<?php Section::inject('current_page', 'demographic-stats') ?>
 <?php if ($surveyed_total < 1): ?>
   <p>No applicants have opted to take the demographic survey yet.</p>
 <?php else: ?>
@@ -6,6 +7,10 @@
     Out of <strong><?php echo e($total); ?></strong> applicants, <strong><?php echo e($surveyed_total); ?></strong> have opted
     to take the demographic survey.
   </p>
+  <div class="demographic-charts row">
+    <div id="gender-chart" class="span-4"></div>
+    <div id="race-chart" class="span-6"></div>
+  </div>
   <table class="table">
     <thead>
       <tr>
@@ -73,4 +78,11 @@
       </tr>
     </tbody>
   </table>
+  <?php echo HTML::script('js/vendor/raphael-min.js'); ?>
+  <?php echo HTML::script('js/vendor/g.raphael-min.js'); ?>
+  <?php echo HTML::script('js/vendor/g.bar-min.js'); ?>
+  <?php echo HTML::script('js/vendor/g.pie-min.js'); ?>
+  <script>
+    window.demographicStats = {gender: [<?php echo $female; ?>, <?php echo $male; ?>, <?php echo $other; ?>], race: [<?php echo $pacific_islander; ?>, <?php echo $hispanic_latino; ?>, <?php echo $american_indian; ?>, <?php echo $white; ?>, <?php echo $black; ?>, <?php echo $asian; ?>]}
+  </script>
 <?php endif; ?>
