@@ -1,6 +1,8 @@
 <?php Section::inject('page_title', 'Apply for the Spring 2013 Class') ?>
 <?php Section::inject('current_page', 'new-vendor') ?>
-<?php echo Jade\Dumper::_html(HTML::script('http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false')) ?>
+<script>
+$(document).on("ready page:load",function(){Rfpez.initialize_google_autocomplete();});
+</script>
 <p class="readable-width">
   Help the federal government innovate from the outside in. Be a part of this second round of
   fellows and spend 6 months using your insights and skills to solve unqiue challenges.

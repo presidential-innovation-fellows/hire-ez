@@ -37,7 +37,11 @@ head
   !{HTML::script('js/modernizr.js')}
   !{HTML::script('js/vendor/jquery-1.8.1.min.js')}
   !{Helper::asset('js/global')}
-  !{Helper::asset('js/vendor/turbolinks')}
+  - if (Auth::officer()):
+    !{Helper::asset('js/vendor/turbolinks')}
+  - else:
+    !{HTML::script('http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false')}
+  - endif;
 
 body(class="#{$body_class}", data-current-page="#{Section::yield('current_page')}", data-officer-name="#{Auth::officer() ? Auth::officer()->name : ''}", data-officer-id="#{Auth::officer() ? Auth::officer()->id : ''}", data-officer-user-id="#{Auth::officer() ? Auth::officer()->user_id : ''}")
 

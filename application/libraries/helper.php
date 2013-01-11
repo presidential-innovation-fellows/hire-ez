@@ -112,7 +112,7 @@ Class Helper {
 
   public static function helper_tooltip($title, $placement = "top", $pull_right = false, $no_margin = false) {
     return "<span class='helper-tooltip ".($pull_right ? 'pull-right' : '')."' " .($no_margin ? 'style="margin:0;"' : ''). " data-title=\"".htmlspecialchars($title)."\" data-trigger='manual' data-placement='$placement'>
-        <i class='icon-question-sign icon-white'></i>
+        <i class='icon-question-sign'></i>
       </span>";
   }
 

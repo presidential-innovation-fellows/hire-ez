@@ -6915,7 +6915,6 @@ hr.dark {
 }
 .helper-tooltip {
   display: inline-block;
-  background-color: #00a587;
   -webkit-border-radius: 9px;
   border-radius: 9px;
   height: 18px;

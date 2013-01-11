@@ -38,7 +38,9 @@ class User extends Eloquent {
   }
 
   public function unread_notifications() {
-    return $this->notifications_received()
+    $received = $this->notifications_received();
+    if (!$received) return array();
+    return $received
                 ->where(function($q){
                   $q->or_where('read', '!=', true);
                   $q->or_where_null('read');
@@ -46,18 +48,23 @@ class User extends Eloquent {
   }
 
   public function get_unread_notifications() {
-    return $this->unread_notifications()->get();
+    $received = $this->unread_notifications();
+    if (!$received) return array();
+    return $received->get();
   }
 
   public function unread_notification_count() {
-    return $this->unread_notifications()->count();
+    $received = $this->unread_notifications();
+    if (!$received) return 0;
+    return $received->count();
   }
 
   public function notifications_received() {
     if ($this->vendor) {
-      return array();
+      return false;
     } else { //officer
       $project_ids = $this->officer->projects()->lists('id');
+      if (!$project_ids) return false;
       return Notification::with_officer_fields()
                          ->where_in('project_id', $project_ids)
                          ->where('actor_id', '!=', Auth::user()->id)
