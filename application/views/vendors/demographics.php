@@ -83,6 +83,6 @@
   <?php echo HTML::script('js/vendor/g.bar-min.js'); ?>
   <?php echo HTML::script('js/vendor/g.pie-min.js'); ?>
   <script>
-    window.demographicStats = {gender: [<?php echo $female; ?>, <?php echo $male; ?>, <?php echo $other; ?>], race: [<?php echo $pacific_islander; ?>, <?php echo $hispanic_latino; ?>, <?php echo $american_indian; ?>, <?php echo $white; ?>, <?php echo $black; ?>, <?php echo $asian; ?>]}
+    window.demographicStats = {gender: [<?php echo $female; ?>, <?php echo $male; ?>, <?php echo $other; ?>], race: [<?php echo $asian; ?>,<?php echo $american_indian; ?>,<?php echo $black; ?>,<?php echo $hispanic_latino; ?>,<?php echo $pacific_islander; ?>,<?php echo $white; ?>], raceLabels: ['Asian: <?php echo $asian; ?>','American Indian: <?php echo $american_indian; ?>','Black: <?php echo $black; ?>', 'Hispanic Latino: <?php echo $hispanic_latino; ?>','Pacific Islander: <?php echo $pacific_islander; ?>','White: <?php echo $white; ?>']}
   </script>
 <?php endif; ?>

@@ -7,8 +7,9 @@ $(document).on("ready page:load", function() {
       legend: ['female', 'male', 'other'],
       legendpos: "east"
     };
-    genderChart.piechart(75, 75, 75, demographicStats.gender, gendChartOpts);
-    raceChart = Raphael('race-chart', 500, 200);
-    return raceChart.barchart(10, 10, 260, 160, demographicStats.race);
+    genderChart.piechart(75, 85, 75, demographicStats.gender, gendChartOpts);
+    raceChart = Raphael('race-chart', 600, 200);
+    raceChart.hbarchart(120, 0, 360, 180, demographicStats.race);
+    return Raphael.g.axis(120, 153, 165, null, null, 6, 1, demographicStats.raceLabels.reverse(), "|", 0, raceChart);
   }
 });
