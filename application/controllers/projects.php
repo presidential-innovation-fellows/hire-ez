@@ -304,6 +304,7 @@ Route::filter('template_exists_and_is_forkable', function(){
 
 Route::filter('i_am_collaborator', function() { // also allowed if user is ADMIN
   $project = Config::get('project');
+  if (!Auth::officer()) return Redirect::to('/');
   if (!$project->is_mine() && !Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)) return Redirect::to('/');
 });
 
