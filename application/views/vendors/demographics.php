@@ -78,11 +78,9 @@
       </tr>
     </tbody>
   </table>
-  <?php echo HTML::script('js/vendor/raphael-min.js'); ?>
-  <?php echo HTML::script('js/vendor/g.raphael-min.js'); ?>
-  <?php echo HTML::script('js/vendor/g.bar-min.js'); ?>
-  <?php echo HTML::script('js/vendor/g.pie-min.js'); ?>
   <script>
-    window.demographicStats = {gender: [<?php echo $female; ?>, <?php echo $male; ?>, <?php echo $other; ?>], race: [<?php echo $pacific_islander; ?>, <?php echo $hispanic_latino; ?>, <?php echo $american_indian; ?>, <?php echo $white; ?>, <?php echo $black; ?>, <?php echo $asian; ?>]}
+    $.getScript('/js/vendor/raphael.js', function(){
+        Rfpez.demographic_stats({gender: [<?php echo $female; ?>, <?php echo $male; ?>, <?php echo $other; ?>], race: [<?php echo $pacific_islander; ?>, <?php echo $hispanic_latino; ?>, <?php echo $american_indian; ?>, <?php echo $white; ?>, <?php echo $black; ?>, <?php echo $asian; ?>]});
+    });
   </script>
 <?php endif; ?>
