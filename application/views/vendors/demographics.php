@@ -78,11 +78,9 @@
       </tr>
     </tbody>
   </table>
-  <?php echo HTML::script('js/vendor/raphael-min.js'); ?>
-  <?php echo HTML::script('js/vendor/g.raphael-min.js'); ?>
-  <?php echo HTML::script('js/vendor/g.bar-min.js'); ?>
-  <?php echo HTML::script('js/vendor/g.pie-min.js'); ?>
   <script>
-    window.demographicStats = {gender: [<?php echo $female; ?>, <?php echo $male; ?>, <?php echo $other; ?>], race: [<?php echo $asian; ?>,<?php echo $american_indian; ?>,<?php echo $black; ?>,<?php echo $hispanic_latino; ?>,<?php echo $pacific_islander; ?>,<?php echo $white; ?>], raceLabels: ['Asian: <?php echo $asian; ?>','American Indian: <?php echo $american_indian; ?>','Black: <?php echo $black; ?>', 'Hispanic Latino: <?php echo $hispanic_latino; ?>','Pacific Islander: <?php echo $pacific_islander; ?>','White: <?php echo $white; ?>']}
+    $.getScript('/js/vendor/raphael.js', function(){
+        Rfpez.demographic_stats({gender: [<?php echo $female; ?>, <?php echo $male; ?>, <?php echo $other; ?>], race: [<?php echo $asian; ?>,<?php echo $american_indian; ?>,<?php echo $black; ?>,<?php echo $hispanic_latino; ?>,<?php echo $pacific_islander; ?>,<?php echo $white; ?>], raceLabels: ['Asian: <?php echo $asian; ?>','American Indian: <?php echo $american_indian; ?>','Black: <?php echo $black; ?>', 'Hispanic Latino: <?php echo $hispanic_latino; ?>','Pacific Islander: <?php echo $pacific_islander; ?>','White: <?php echo $white; ?>']});
+    });
   </script>
 <?php endif; ?>

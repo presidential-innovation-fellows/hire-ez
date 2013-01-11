@@ -67,10 +67,7 @@
         td #{$american_indian}
         td= Helper::demographic_percentage($american_indian / $surveyed_total)
 
-  !{HTML::script('js/vendor/raphael-min.js')}
-  !{HTML::script('js/vendor/g.raphael-min.js')}
-  !{HTML::script('js/vendor/g.bar-min.js')}
-  !{HTML::script('js/vendor/g.pie-min.js')}
   script
-    | window.demographicStats = {gender: [!{$female}, !{$male}, !{$other}], race: [!{$asian},!{$american_indian},!{$black},!{$hispanic_latino},!{$pacific_islander},!{$white}], raceLabels: ['Asian: !{$asian}','American Indian: !{$american_indian}','Black: !{$black}', 'Hispanic Latino: !{$hispanic_latino}','Pacific Islander: !{$pacific_islander}','White: !{$white}']}
-
+    | $.getScript('/js/vendor/raphael.js', function(){
+    |     Rfpez.demographic_stats({gender: [!{$female}, !{$male}, !{$other}], race: [!{$asian},!{$american_indian},!{$black},!{$hispanic_latino},!{$pacific_islander},!{$white}], raceLabels: ['Asian: !{$asian}','American Indian: !{$american_indian}','Black: !{$black}', 'Hispanic Latino: !{$hispanic_latino}','Pacific Islander: !{$pacific_islander}','White: !{$white}']});
+    | });
