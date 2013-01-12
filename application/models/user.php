@@ -11,9 +11,9 @@ class User extends Eloquent {
 
   public $unread_notifications = false;
 
-  public $unread_notification_count = false;
-
   public $validator = false;
+
+  public $unread_notification_count = false;
 
   public function validator($password_required = true, $dotgov_only = false) {
     if ($this->validator) return $this->validator;
@@ -54,9 +54,10 @@ class User extends Eloquent {
   }
 
   public function unread_notification_count() {
+    if ($this->unread_notification_count !== false) return $this->unread_notification_count;
     $received = $this->unread_notifications();
     if (!$received) return 0;
-    return $received->count();
+    return $this->unread_notification_count = $received->count();
   }
 
   public function notifications_received() {
