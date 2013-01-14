@@ -163,59 +163,6 @@ class Bids_Controller extends Base_Controller {
     }
   }
 
-  // new bid page
-  public function action_new() {
-    $view = View::make('bids.new');
-    $view->project = Config::get('project');
-    $this->layout->content = $view;
-  }
-
-  // create bid
-  public function action_create() {
-    $project = Config::get('project');
-    $bid = $project->my_current_bid_draft() ?: new Bid();
-    $bid->vendor_id = Auth::user()->vendor->id;
-    $bid->project_id = $project->id;
-
-    $bid_input = Input::get('bid');
-    $bid->fill($bid_input);
-
-    $prices = array();
-    $i = 0;
-    $deliverable_prices = Input::get('deliverable_prices');
-    foreach (Input::get('deliverable_names') as $deliverable_name) {
-      if (trim($deliverable_name) !== "") {
-        $prices[$deliverable_name] = $deliverable_prices[$i];
-      }
-      $i++;
-    }
-    $bid->prices = $prices;
-
-    if (Input::get('submit_now') === 'true') {
-      if ($bid->validator()->passes()) {
-        $bid->sync_with_epls();
-        $bid->submit();
-        Session::flash('notice', __("r.flashes.bid_submitted"));
-        return Redirect::to_route('bid', array($project->id, $bid->id));
-      } else {
-        Session::flash('errors', $bid->validator()->errors->all());
-        return Redirect::to_route('new_bids', array($project->id, $bid->id))->with_input();
-      }
-    } else {
-      $bid->save();
-      return Response::json(array("status" => "success"));
-    }
-
-  }
-
-  // vendor deletes bid -- @placeholder remove this?
-  public function action_destroy() {
-    $project = Config::get('project');
-    $bid = Config::get('bid');
-    $bid->delete_by_vendor();
-    return Redirect::to_route('project', array($project->id));
-  }
-
 }
 
 Route::filter('project_exists', function() {
@@ -250,10 +197,6 @@ Route::filter('i_am_collaborator_or_bid_vendor', function() {
   $bid = Config::get('bid');
   $project = Config::get('project');
   if (!$bid->is_mine() && !$project->is_mine()) return Redirect::to('/');
-});
-
-Route::filter('i_am_contracting_officer', function() {
-  if (!Auth::officer()->is_verified_contracting_officer()) return Redirect::to('/');
 });
 
 Route::filter('i_am_bid_vendor', function() {
