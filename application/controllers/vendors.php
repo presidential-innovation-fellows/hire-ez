@@ -19,9 +19,9 @@ class Vendors_Controller extends Base_Controller {
   }
 
   public function action_create() {
-    // @placeholder mass-assignment vulnerable
-    $vendor = new Vendor(Input::get('vendor'));
-    $vendor->resume = htmLawed($vendor->resume, array('safe' => true));
+    $vendor_input = Input::get('vendor');
+    $vendor = new Vendor($vendor_input);
+    $vendor->resume = htmLawed($vendor_input["resume"], array('safe' => true));
     $vendor->general_paragraph = Input::get('vendor.general_paragraph');
     $applications = array();
 

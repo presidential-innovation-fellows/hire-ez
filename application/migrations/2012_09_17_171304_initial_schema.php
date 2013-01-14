@@ -50,7 +50,6 @@ class Initial_Schema {
       $t->integer('vendor_id')->unsigned();
       $t->integer('project_id')->unsigned();
 
-      // @placeholder
       $t->text('body');
 
       $t->date('dismissed_at')->nullable();
@@ -77,7 +76,6 @@ class Initial_Schema {
       $t->string('agency');
       $t->string('office');
 
-      // @placeholder
       $t->text('body');
 
       $t->date('proposals_due_at');

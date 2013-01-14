@@ -12,6 +12,8 @@ class Projects_Controller extends Base_Controller {
     $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show', 'destroy_collaborator', 'rss'));
 
     $this->filter('before', 'i_am_owner')->only(array('destroy_collaborator'));
+
+    $this->filter('before', 'admin_only')->only(array('new'));
   }
 
   public function action_new() {
@@ -312,3 +314,9 @@ Route::filter('i_am_owner', function() {
   $project = Config::get('project');
   if (!$project->i_am_owner()) return Redirect::to('/');
 });
+
+Route::filter('admin_only', function() {
+  if (!Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN))
+    return Redirect::to('/');
+});
+

@@ -10,28 +10,9 @@ class Project extends Eloquent {
 
   public static $my_project_ids = false;
 
-  // @placeholder
-  // public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'public', 'background',
-  //                                   'sections', 'variables', 'proposals_due_at', 'price_type');
+  public static $accessible = array('title', 'agency', 'office', 'body', 'tagline');
 
   public $winning_bid = false;
-
-  public $validator = false;
-
-
-  public function validator() {
-    if ($this->validator) return $this->validator;
-
-    // @placeholder
-    // $rules = array('title' => 'required',
-    //                'project_type_id' => 'required');
-    $rules = array();
-
-    $validator = Validator::make($this->attributes, $rules);
-    $validator->passes(); // hack to populate error messages
-
-    return $this->validator = $validator;
-  }
 
   public function officers() {
     return $this->has_many_and_belongs_to('Officer', 'project_collaborators')->with(array('owner'))->order_by('owner', 'desc');

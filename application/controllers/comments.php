@@ -39,7 +39,6 @@ class Comments_Controller extends Base_Controller {
 
     $json = Input::json(true);
 
-    // @placeholder some sort of check for commentable() actually existing
     $comment = new Comment(array('commentable_id' => $vendor->id,
                                  'commentable_type' => "vendor",
                                  'officer_id' => Auth::officer()->id,
@@ -70,7 +69,6 @@ class Comments_Controller extends Base_Controller {
   public function action_create() {
     $json = Input::json();
 
-    // @placeholder some sort of check for commentable() actually existing
     $comment = new Comment(array('commentable_id' => $json->commentable_id,
                                  'commentable_type' => $json->commentable_type,
                                  'officer_id' => Auth::officer()->id));

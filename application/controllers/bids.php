@@ -144,7 +144,6 @@ class Bids_Controller extends Base_Controller {
       return Response::json($bid->to_array());
 
     } else {
-      // placeholder
       if (!$bid->read) $bid->assign_officer_read(true);
 
       Auth::user()->view_notification_payload("bid", $bid->id);

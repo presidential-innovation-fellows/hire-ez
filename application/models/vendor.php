@@ -4,12 +4,10 @@ class Vendor extends Eloquent {
 
   public static $timestamps = true;
 
-  // @placeholder
-  // public static $accessible = array('company_name', 'contact_name', 'address', 'city', 'state', 'zip',
-  //                                   'latitude', 'longitude', 'ballpark_price', 'more_info', 'homepage_url',
-  //                                   'image_url', 'portfolio_url', 'sourcecode_url', 'duns');
-
   public static $hidden = array('demographic_survey_key', 'gender', 'race_1', 'race_2');
+
+  public static $accessible = array('name', 'email', 'phone', 'general_paragraph', 'link_1', 'link_2', 'link_3',
+                                    'location', 'latitude', 'longitude');
 
   public $validator = false;
 

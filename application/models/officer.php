@@ -9,8 +9,7 @@ class Officer extends Eloquent {
 
   public static $timestamps = true;
 
-  // @placeholder
-  // public static $accessible = array('user_id', 'phone', 'fax', 'name', 'title', 'agency');
+  public static $accessible = array('phone', 'name', 'title', 'agency');
 
   public static $hidden = array('created_at', 'updated_at');
 
@@ -23,11 +22,6 @@ class Officer extends Eloquent {
   public function validator() {
     if ($this->validator) return $this->validator;
 
-    // @placeholder
-    // $rules = array('phone' => 'required',
-    //                'name' => 'required',
-    //                'title' => 'required',
-    //                'agency' => 'required');
     $rules = array();
 
     $validator = Validator::make($this->attributes, $rules);

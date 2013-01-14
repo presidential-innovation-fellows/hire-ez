@@ -69,8 +69,6 @@ class Officers_Controller extends Base_Controller {
     if ($user->validator(false, true)->passes() && $officer->validator()->passes()) {
       $user->save();
       $user->officer()->insert($officer);
-      // @placeholder
-      // Mailer::send("FinishOfficerRegistration", array("user" => $user));
       return Redirect::to('/')->with('notice', "Thanks for signing up. You'll need to be verified by a current user before you can start using the system.");
     } else {
       Session::flash('errors', array_merge($user->validator(false, true)->errors->all(), $officer->validator()->errors->all()));

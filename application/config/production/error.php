@@ -2,6 +2,7 @@
 
 return array(
 
-  'log' => true
+  'log' => true,
+  'detail' => false
 
 );
