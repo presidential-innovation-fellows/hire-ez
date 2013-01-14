@@ -202,10 +202,6 @@ IoC::singleton('yaml_dumper', function() {
   return new \Symfony\Component\Yaml\Dumper();
 });
 
-Event::listen('laravel.language.loader', function(){
- return array('asdfadsf' => 'asdf');
-});
-
 if (Config::get('application.log_queries')){
   Event::listen('laravel.query', function($sql, $bindings, $time) {
     foreach ($bindings as $binding)
