@@ -1,8 +1,5 @@
 <?php Section::inject('page_title', 'Apply for the Spring 2013 Class') ?>
 <?php Section::inject('current_page', 'new-vendor') ?>
-<script>
-$(document).on("ready page:load",function(){Rfpez.initialize_google_autocomplete();});
-</script>
 <p class="readable-width">
   Help the federal government innovate from the outside in. Be a part of this second round of
   fellows and spend 6 months using your insights and skills to solve unqiue challenges.
@@ -102,3 +99,4 @@ $(document).on("ready page:load",function(){Rfpez.initialize_google_autocomplete
     <button class="btn btn-warning" type="submit">Submit Application</button>
   </div>
 </form>
+<script src="http://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&amp;async=2&amp;callback=Rfpez.initialize_google_autocomplete"></script>
