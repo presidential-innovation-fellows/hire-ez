@@ -40,4 +40,4 @@
 <?php echo nl2br(e($vendor->general_paragraph)); ?>
 <h5>Resume
 </h5>
-<?php echo $vendor->resume_safe(); ?>
+<?php echo $vendor->resume; ?>
