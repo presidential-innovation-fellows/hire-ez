@@ -122,7 +122,8 @@ class Bid extends Eloquent {
                 })
                 ->left_join('vendors', 'vendor_id', '=', 'vendors.id')
                 ->select(array('*',
-                               'bids.id as id', 'bids.created_at as created_at',
+                               'bids.id as id',
+                               'bids.created_at as created_at',
                                'bids.updated_at as updated_at',
                                DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')));
   }
