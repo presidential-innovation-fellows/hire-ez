@@ -144,7 +144,11 @@ class Request {
 	 */
 	public static function secure()
 	{
-		return static::foundation()->isSecure() and Config::get('application.ssl');
+		if (Config::get('application.override_request_secure')) {
+			return true;
+		} else {
+			return static::foundation()->isSecure() and Config::get('application.ssl');
+		}
 	}
 
 	/**
@@ -178,7 +182,7 @@ class Request {
 	{
 		return static::foundation()->headers->get('referer');
 	}
-	
+
 	/**
 	 * Get the timestamp of the time when the request was started.
 	 *
