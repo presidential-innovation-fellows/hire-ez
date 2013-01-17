@@ -502,6 +502,12 @@ footer.footer ul li:last-child:after {
 .project-tagline {
   display: block;
 }
+.more-info {
+  margin-top: 25px;
+}
+.more-info a {
+  color: #d66b24;
+}
 .top-applicant-table {
   margin: 0;
 }

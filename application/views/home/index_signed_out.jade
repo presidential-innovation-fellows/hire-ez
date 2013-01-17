@@ -1,24 +1,20 @@
 - Section::inject('page_title', __('r.home.index_signed_out.site_tagline'))
 - Section::inject('no_page_header', true)
 
-
-- //.hero-unit
-- //h1 #{__('r.app_name')}
-- //small #{__('r.home.index_signed_out.site_tagline')}
-
-
 .row-fluid
-  .span5
+  .span7
     h4 !{__('r.home.index_signed_out.biz_header')}
     p.main-description !{__('r.home.index_signed_out.biz_description', array('url' => route('projects')))}
-
     - if (!Config::get('application.application_period_over')):
       a.btn.btn-warning.btn-large(href="#{ route('new_vendors') }") !{__('r.home.index_signed_out.biz_button')}
     - else:
       p Sorry, the application period is now over.
     - endif;
 
-  .span6.offset1
+    p.more-info
+      | For more information visit <a href="http://whitehouse.gov/innovationfellows">WhiteHouse.gov</a>
+
+  .span4.offset1
     h4 !{__('r.home.index_signed_out.biz_header_right')}
     ul.projects-list.home-page-projects
       - foreach($projects as $project):

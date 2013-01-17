@@ -1,10 +1,7 @@
 <?php Section::inject('page_title', __('r.home.index_signed_out.site_tagline')) ?>
 <?php Section::inject('no_page_header', true) ?>
-<?php //.hero-unit ?>
-<?php //h1 #{__('r.app_name')} ?>
-<?php //small #{__('r.home.index_signed_out.site_tagline')} ?>
 <div class="row-fluid">
-  <div class="span5">
+  <div class="span7">
     <h4><?php echo __('r.home.index_signed_out.biz_header'); ?></h4>
     <p class="main-description"><?php echo __('r.home.index_signed_out.biz_description', array('url' => route('projects'))); ?></p>
     <?php if (!Config::get('application.application_period_over')): ?>
@@ -12,8 +9,11 @@
     <?php else: ?>
       <p>Sorry, the application period is now over.</p>
     <?php endif; ?>
+    <p class="more-info">
+      For more information visit <a href="http://whitehouse.gov/innovationfellows">WhiteHouse.gov</a>
+    </p>
   </div>
-  <div class="span6 offset1">
+  <div class="span4 offset1">
     <h4><?php echo __('r.home.index_signed_out.biz_header_right'); ?></h4>
     <ul class="projects-list home-page-projects">
       <?php foreach($projects as $project): ?>

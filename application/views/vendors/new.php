@@ -30,7 +30,7 @@
       </div>
       <h5>
         Where can we find you online?<br />
-        <span class="smaller">Add up to 3 links</span>
+        <span class="smaller">Add up to 3 links (optional)</span>
       </h5>
       <div class="control-group">
         <label>Link #1</label>
