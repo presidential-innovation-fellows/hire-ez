@@ -5,7 +5,7 @@
 </p>
 <h4>Voluntary Demographic Survey</h4>
 <p class="main-description">
-  The White House is committed to equal opportunity, diversity, and inclusion in the Presidential Innovation Fellowship program.
+  The White House is committed to equal opportunity, diversity, and inclusion in the Presidential Innovation Fellows program.
   Help us measure our progress by taking the following, voluntary survey.
 </p>
 <div class="row-fluid">

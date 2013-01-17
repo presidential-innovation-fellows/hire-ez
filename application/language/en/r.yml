@@ -1,7 +1,7 @@
 # Note: this file is intended less as a comprehensive i18n file for everything in our app,
 # and more as a place where we can aggregate our non-trivial copy for ease of editing it.
 
-app_name: Presidential Innovation Fellowship
+app_name: Presidential Innovation Fellows
 
 admin:
   projects:
@@ -64,7 +64,7 @@ error:
 
 home:
   index_signed_out:
-    site_tagline: Presidential Innovation Fellowship
+    site_tagline: Presidential Innovation Fellows
     biz_header: The Spring 2013 Class
     biz_header_right: Learn About the Projects
     biz_description: >
@@ -88,7 +88,7 @@ partials:
     text: >
       This is an official website of the United States Government, and was
       created by <a href='http://wh.gov/innovationfellows/rfpez'>Team Project RFP-EZ</a>
-      as part of the Presidential Innovation Fellowship program.
+      as part of the Presidential Innovation Fellows program.
 
   topnav:
     no_notifications: No notifications to display.
@@ -218,9 +218,9 @@ bid_award_message: >
 
 delete_bid_confirmation: Are you sure you want to delete your bid?
 
-email_signature_text: -The Presidential Innovation Fellowship Team
+email_signature_text: -The Presidential Innovation Fellows Team
 
-email_signature_html: <p><em>-The Presidential Innovation Fellowship Team</em></p>
+email_signature_html: <p><em>-The Presidential Innovation Fellows Team</em></p>
 
 chromeframe_text: >
   You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>
