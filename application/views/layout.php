@@ -67,11 +67,8 @@
     </div>
   </div>
   <?php echo View::make('partials.footer'); ?>
-  <?php if (Request::is_env('production')) { ?>
+  <?php if (Request::is_env('production')): ?>
     <script src="/js/vendor/google.analytics.js"></script>
-    <script>
-      $(document).on("ready page:load", function() { $("form").formTimer(); });
-    </script>
-  <?php } ?>
+  <?php endif; ?>
 </body>
 </html>

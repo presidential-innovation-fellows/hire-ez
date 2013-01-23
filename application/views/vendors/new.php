@@ -99,4 +99,4 @@
     <button class="btn btn-warning" type="submit">Submit Application</button>
   </div>
 </form>
-<script src="http://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&amp;async=2&amp;callback=Rfpez.initialize_google_autocomplete"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&amp;async=2&amp;callback=Rfpez.initialize_google_autocomplete"></script>
