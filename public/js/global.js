@@ -9526,22 +9526,16 @@ Rfpez.current_page = function(str) {
   }
 };
 
-$(document).on("click", "input[data-checkbox-group]", function(e) {
-  var max, numCheckedInputs;
-  max = $(this).data('checkbox-max') ? parseInt($(this).data('checkbox-max')) : false;
-  numCheckedInputs = $("input[data-checkbox-group=" + ($(this).data('checkbox-group')) + "]").filter(":checked").length;
-  if ($(this).is(":checked")) {
-    if (max && (numCheckedInputs >= max)) {
-      $("input[data-checkbox-group=" + ($(this).data('checkbox-group')) + "]").filter(":not(:checked)").attr('disabled', true);
-    }
-    return $("input[data-checkbox-group!=" + ($(this).data('checkbox-group')) + "]").removeAttr('checked').attr('disabled', true);
-  } else {
-    if (max && (numCheckedInputs < max)) {
-      $("input[data-checkbox-group=" + ($(this).data('checkbox-group')) + "]").filter(":not(:checked)").removeAttr('disabled');
-    }
-    if (numCheckedInputs === 0) {
-      return $("input[data-checkbox-group!=" + ($(this).data('checkbox-group')) + "]").removeAttr('disabled');
-    }
+$(document).on("click", "[data-checkbox-max] input[type=checkbox]", function(e) {
+  var group, inputs, max, numCheckedInputs;
+  group = $(this).closest('[data-checkbox-group]').data('checkbox-group');
+  max = parseInt($(this).closest('[data-checkbox-max]').data('checkbox-max'));
+  inputs = group ? $("[data-checkbox-group=" + group + "] input[type=checkbox]") : $("[data-checkbox-max] input[type=checkbox]");
+  numCheckedInputs = inputs.filter(":checked").length;
+  if ($(this).is(":checked") && numCheckedInputs === max) {
+    return inputs.filter(":not(:checked)").attr('disabled', true);
+  } else if (numCheckedInputs < max) {
+    return inputs.filter(":not(:checked)").removeAttr('disabled');
   }
 });
 

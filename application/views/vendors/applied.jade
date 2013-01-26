@@ -4,6 +4,8 @@ p.main-description
   | Your application has been received. You will receive an email confirmation shortly. Thanks for applying and being
   | willing to use your time and skills to better your government.
 
+hr
+
 h4 Voluntary Demographic Survey
 
 p.main-description
@@ -23,41 +25,39 @@ p.main-description
           option(value="Female") Female
           option(value="Other") Other
 
-        h5 Race and Ethnicity
+        h5 Race and Ethnicity (select up to two)
 
-        strong Are you A:
+        div.demographic-checkboxes(data-checkbox-max="2")
 
-        label.checkbox
-          input(type="checkbox", name="race[]", value="hispanic_latino", data-checkbox-group="a")
-          | Hispanic or Latino
-          != Helper::helper_tooltip("A person of Cuban, Mexican, Puerto Rican, South or Central American, or other Spanish culture or origin regardless of race.", "right", false, true)
+          label.checkbox
+            input(type="checkbox", name="race[]", value="hispanic_latino")
+            | Hispanic or Latino
+            != Helper::helper_tooltip("A person of Cuban, Mexican, Puerto Rican, South or Central American, or other Spanish culture or origin regardless of race.", "right", false, true)
 
-        strong OR B: (select up to two)
+          label.checkbox
+            input(type="checkbox", name="race[]", value="white")
+            | White
+            != Helper::helper_tooltip("A person having origins in any of the original peoples of Europe, the Middle East, or North Africa.", "right", false, true)
 
-        label.checkbox
-          input(type="checkbox", name="race[]", value="white", data-checkbox-group="race", data-checkbox-max="2")
-          | White
-          != Helper::helper_tooltip("A person having origins in any of the original peoples of Europe, the Middle East, or North Africa.", "right", false, true)
+          label.checkbox
+            input(type="checkbox", name="race[]", value="black")
+            | Black or African American
+            != Helper::helper_tooltip("A person having origins in any of the black racial groups of Africa.", "right", false, true)
 
-        label.checkbox
-          input(type="checkbox", name="race[]", value="black", data-checkbox-group="race", data-checkbox-max="2")
-          | Black or African American
-          != Helper::helper_tooltip("A person having origins in any of the black racial groups of Africa.", "right", false, true)
+          label.checkbox
+            input(type="checkbox", name="race[]", value="pacific_islander")
+            | Native Hawaiian or Other Pacific Islander
+            != Helper::helper_tooltip("A person having origins in any of the peoples of Hawaii, Guam, Samoa, or other Pacific Islands.", "right", false, true)
 
-        label.checkbox
-          input(type="checkbox", name="race[]", value="pacific_islander", data-checkbox-group="race", data-checkbox-max="2")
-          | Native Hawaiian or Other Pacific Islander
-          != Helper::helper_tooltip("A person having origins in any of the peoples of Hawaii, Guam, Samoa, or other Pacific Islands.", "right", false, true)
+          label.checkbox
+            input(type="checkbox", name="race[]", value="asian")
+            | Asian
+            != Helper::helper_tooltip("A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian Subcontinent, including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.", "right", false, true)
 
-        label.checkbox
-          input(type="checkbox", name="race[]", value="asian", data-checkbox-group="race", data-checkbox-max="2")
-          | Asian
-          != Helper::helper_tooltip("A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian Subcontinent, including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.", "right", false, true)
-
-        label.checkbox
-          input(type="checkbox", name="race[]", value="american_indian", data-checkbox-group="race", data-checkbox-max="2")
-          | American Indian or Alaska Native
-          != Helper::helper_tooltip("A person having origins in any of the original peoples of North and South America (including Central America), and who maintain tribal affiliation or community attachment.", "right", false, true)
+          label.checkbox
+            input(type="checkbox", name="race[]", value="american_indian")
+            | American Indian or Alaska Native
+            != Helper::helper_tooltip("A person having origins in any of the original peoples of North and South America (including Central America), and who maintain tribal affiliation or community attachment.", "right", false, true)
 
       .form-actions
         button.btn.btn-primary Submit

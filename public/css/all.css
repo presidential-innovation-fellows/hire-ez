@@ -7438,6 +7438,11 @@ footer.footer ul li:last-child:after {
 #new-vendor-form .resume {
   padding-bottom: 20px;
 }
+.demographic-checkboxes i {
+  opacity: 0.8;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  filter: alpha(opacity=80);
+}
 .demographic-charts {
   height: 200px;
   padding-top: 20px;
