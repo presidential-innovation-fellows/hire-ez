@@ -1,9 +1,5 @@
 <?php Section::inject('page_title', 'Apply for the Spring 2013 Class') ?>
 <?php Section::inject('current_page', 'new-vendor') ?>
-<p class="readable-width">
-  Help the federal government innovate from the outside in. Be a part of this second round of
-  fellows and spend 6 months using your insights and skills to solve unqiue challenges.
-</p>
 <form id="new-vendor-form" action="<?php echo e(route('vendors')); ?>" method="POST">
   <?php $vendor = Input::old('vendor'); ?>
   <?php $project_application = @$vendor["project_application"] ?: array(); ?>
