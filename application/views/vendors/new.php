@@ -91,6 +91,12 @@
       <textarea class="wysihtml5" name="vendor[resume]"></textarea>
     </div>
   </div>
+  <div class="control-group">
+    <label class="checkbox">
+      <input type="checkbox" name="vendor[hire_me_elsewhere]" checked="true" />
+      Yes, it's OK to contact me about other related positions in government.
+    </label>
+  </div>
   <div class="form-actions">
     <button class="btn btn-warning" type="submit">Submit Application</button>
   </div>

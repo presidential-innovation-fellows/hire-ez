@@ -7435,6 +7435,9 @@ footer.footer ul li:last-child:after {
 #new-vendor-form .wysiwyg-wrapper.error {
   border: 1px solid #b94a48;
 }
+#new-vendor-form .resume {
+  padding-bottom: 20px;
+}
 .demographic-charts {
   height: 200px;
   padding-top: 20px;

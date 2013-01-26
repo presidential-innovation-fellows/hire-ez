@@ -81,6 +81,11 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
     .wysiwyg-wrapper
       textarea.wysihtml5(name="vendor[resume]")
 
+  .control-group
+    label.checkbox
+      input(type='checkbox', name="vendor[hire_me_elsewhere]", checked="true")
+      | Yes, it's OK to contact me about other related positions in government.
+
   .form-actions
     button.btn.btn-warning(type="submit") Submit Application
 

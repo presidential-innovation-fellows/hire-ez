@@ -21,6 +21,7 @@ class Vendors_Controller extends Base_Controller {
   public function action_create() {
     $vendor_input = Input::get('vendor');
     $vendor = new Vendor($vendor_input);
+    $vendor->hire_me_elsewhere = isset($vendor_input["hire_me_elsewhere"]) ? true : false;
     $vendor->resume = htmLawed($vendor_input["resume"], array('safe' => true));
     $vendor->general_paragraph = Input::get('vendor.general_paragraph');
     $applications = array();

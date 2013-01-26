@@ -10,6 +10,14 @@
       <?php echo Helper::datum('Link 1', $vendor->link_1, true); ?>
       <?php echo Helper::datum('Link 2', $vendor->link_2, true); ?>
       <?php echo Helper::datum('Link 3', $vendor->link_3, true); ?>
+      <dt>Hire me elsewhere</dt>
+      <dd>
+        <?php if ($vendor->hire_me_elsewhere): ?>
+          Yes
+        <?php else: ?>
+          No
+        <?php endif; ?>
+      </dd>
     </dl>
   </div>
   <div class="span6">

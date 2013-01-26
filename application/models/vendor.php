@@ -7,7 +7,7 @@ class Vendor extends Eloquent {
   public static $hidden = array('demographic_survey_key', 'gender', 'race_1', 'race_2');
 
   public static $accessible = array('name', 'email', 'phone', 'general_paragraph', 'link_1', 'link_2', 'link_3',
-                                    'location', 'latitude', 'longitude');
+                                    'location', 'latitude', 'longitude', 'hire_me_elsewhere');
 
   public $validator = false;
 

@@ -48,6 +48,9 @@ Rfpez.Backbone.BidView = Backbone.View.extend
 
                     <dt>Phone</dt>
                     <dd><%- vendor.phone %></dd>
+
+                    <dt>Hire me elsewhere?</dt>
+                    <dd><% if (vendor.hire_me_elsewhere == 1){ %>Yes<% } else { %>No<% } %></dd>
                   </dl>
                 </div>
               </div>
