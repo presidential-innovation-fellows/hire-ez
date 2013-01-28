@@ -23,8 +23,13 @@ $(document).on("keydown", "#locationInput", function(e) {
 
 $(document).on("ready page:load", function() {
   var editor;
-  return editor = $('.wysihtml5').wysihtml5({
+  editor = $('.wysihtml5').wysihtml5({
     image: false
+  });
+  return $("#new-vendor-form .project textarea").each(function() {
+    if ($(this).val()) {
+      return $(this).closest(".project").find("input[type=checkbox]").attr('checked', true).trigger('change');
+    }
   });
 });
 
