@@ -2,7 +2,7 @@
 <?php Section::inject('current_page', 'new-vendor') ?>
 <form id="new-vendor-form" action="<?php echo e(route('vendors')); ?>" method="POST">
   <?php $vendor = Input::old('vendor'); ?>
-  <?php $project_application = @$vendor["project_application"] ?: array(); ?>
+  <?php $project_application = Input::old("project_application") ?: array(); ?>
   <div class="row vendor-signup-container">
     <fieldset class="span5">
       <h5>Contact Info</h5>

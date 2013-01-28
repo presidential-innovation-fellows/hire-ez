@@ -17,6 +17,10 @@ $(document).on "keydown", "#locationInput", (e) ->
 $(document).on "ready page:load", ->
   editor = $('.wysihtml5').wysihtml5({image: false})
 
+  $("#new-vendor-form .project textarea").each ->
+    if $(@).val()
+      $(@).closest(".project").find("input[type=checkbox]").attr('checked', true).trigger('change')
+
 Rfpez.initialize_google_autocomplete = ->
   autocomplete = new google.maps.places.Autocomplete(document.getElementById('locationInput'), {})
 

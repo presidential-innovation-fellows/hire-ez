@@ -4,7 +4,7 @@
 form#new-vendor-form(action="#{route('vendors')}", method="POST")
 
   - $vendor = Input::old('vendor');
-  - $project_application = @$vendor["project_application"] ?: array();
+  - $project_application = Input::old("project_application") ?: array();
 
   .row.vendor-signup-container
 
