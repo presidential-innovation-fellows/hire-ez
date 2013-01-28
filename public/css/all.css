@@ -7438,6 +7438,10 @@ footer.footer ul li:last-child:after {
 #new-vendor-form .resume {
   padding-bottom: 20px;
 }
+#new-vendor-form .project-description-link {
+  font-size: 11px;
+  color: #d66b24;
+}
 .demographic-checkboxes i {
   opacity: 0.8;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
