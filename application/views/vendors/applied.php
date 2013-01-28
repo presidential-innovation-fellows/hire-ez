@@ -1,13 +1,13 @@
 <?php Section::inject('page_title', 'Application Received') ?>
 <?php Section::inject('no_page_header', true) ?>
 <div class="alert alert-success">
-  Your application has been received. You will receive an email confirmation shortly. Thanks for applying and being
-  willing to use your time and skills to better your government.
+  Your application has been received! You will receive an email confirmation shortly.
+  Thanks for applying and for being willing to dedicate your skills and abilities to serve your country.
 </div>
 <h4>Voluntary Demographic Survey</h4>
 <p class="main-description">
   The White House is committed to equal opportunity, diversity, and inclusion in the Presidential Innovation Fellows program.
-  Help us measure our progress by taking the following, voluntary survey.
+  Help us measure our progress by taking the following voluntary survey.
 </p>
 <div class="row-fluid">
   <div class="span6">
