@@ -666,6 +666,9 @@ text-
   font-weight: normal;
   color: #d66b24;
 }
+.projects-list li .project-title:before {
+  content: "\00BB \0020";
+}
 .projects-list.home-page-projects {
   margin-top: 20px;
 }
