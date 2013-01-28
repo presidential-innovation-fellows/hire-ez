@@ -1,9 +1,9 @@
 <?php Section::inject('page_title', 'Application Received') ?>
-<p class="main-description">
+<?php Section::inject('no_page_header', true) ?>
+<div class="alert alert-success">
   Your application has been received. You will receive an email confirmation shortly. Thanks for applying and being
   willing to use your time and skills to better your government.
-</p>
-<hr />
+</div>
 <h4>Voluntary Demographic Survey</h4>
 <p class="main-description">
   The White House is committed to equal opportunity, diversity, and inclusion in the Presidential Innovation Fellows program.
