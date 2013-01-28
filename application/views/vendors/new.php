@@ -88,7 +88,7 @@
       <h5>Résumé (copy and paste)</h5>
     </label>
     <div class="wysiwyg-wrapper">
-      <textarea class="wysihtml5" name="vendor[resume]"></textarea>
+      <textarea class="wysihtml5" name="vendor[resume]"><?php echo $vendor['resume']; ?></textarea>
     </div>
   </div>
   <div class="control-group">

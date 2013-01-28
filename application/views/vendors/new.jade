@@ -79,7 +79,7 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
     label
       h5 Résumé (copy and paste)
     .wysiwyg-wrapper
-      textarea.wysihtml5(name="vendor[resume]")
+      textarea.wysihtml5(name="vendor[resume]") !{$vendor['resume']}
 
   .control-group
     label.checkbox
