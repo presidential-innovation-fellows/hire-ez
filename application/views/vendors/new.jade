@@ -83,8 +83,8 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
 
   .control-group
     label.checkbox
-      input(type='checkbox', name="vendor[hire_me_elsewhere]", checked="true")
-      | Yes, it's OK to contact me about other related positions in government.
+      | <input type='checkbox' name="vendor[hire_me_elsewhere]" <?php if (isset($vendor["hire_me_elsewhere"])){ ?>checked="true"<?php } ?> />
+      | Yes, it’s OK to consider me for non-PIF positions in government.
 
   .form-actions
     button.btn.btn-warning(type="submit") Submit Application

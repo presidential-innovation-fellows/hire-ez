@@ -93,8 +93,8 @@
   </div>
   <div class="control-group">
     <label class="checkbox">
-      <input type="checkbox" name="vendor[hire_me_elsewhere]" checked="true" />
-      Yes, it's OK to contact me about other related positions in government.
+      <input type='checkbox' name="vendor[hire_me_elsewhere]" <?php if (isset($vendor["hire_me_elsewhere"])){ ?>checked="true"<?php } ?> />
+      Yes, it’s OK to consider me for non-PIF positions in government.
     </label>
   </div>
   <div class="form-actions">
