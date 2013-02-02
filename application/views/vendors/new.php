@@ -1,4 +1,4 @@
-<?php Section::inject('page_title', 'Apply for the Spring 2013 Class') ?>
+<?php Section::inject('page_title', 'Apply for Round 2') ?>
 <?php Section::inject('current_page', 'new-vendor') ?>
 <form id="new-vendor-form" action="<?php echo e(route('vendors')); ?>" method="POST">
   <?php $vendor = Input::old('vendor'); ?>
