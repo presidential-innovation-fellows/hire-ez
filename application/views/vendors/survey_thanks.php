@@ -1,4 +1,5 @@
 <?php Section::inject('page_title', 'Application Received') ?>
-<div class="container">
-  <p class="main-description">Thanks again for applying and completing the demographic survey. We'll be in touch!</p>
+<div class="alert alert-success">
+  <h5>You will receive an email confirmation shortly.</h5>
+  <p>Thanks for applying and for being willing to dedicate your skills and abilities to serve your country.</p>
 </div>

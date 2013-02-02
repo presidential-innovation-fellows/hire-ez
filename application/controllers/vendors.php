@@ -42,7 +42,7 @@ class Vendors_Controller extends Base_Controller {
       }
 
       Mailer::send("ApplicationReceived", array("vendor" => $vendor));
-      return Redirect::to_route('vendor_applied', $vendor->demographic_survey_key);
+      return Redirect::to_route('survey_thanks');
     } else {
       if (empty($applications)) {
         Session::flash('errors', array_merge(array('Please check at least one project to apply for.'), $vendor->validator()->errors->all()));
