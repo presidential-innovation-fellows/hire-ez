@@ -67,7 +67,7 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
                 .controls
                   input.project-application-check(type='checkbox')
                 | #{$project->title} &nbsp;
-                a.project-description-link(href="#{route('project', $project->id)}", target="_blank") More Info
+                a.project-description-link(href="#{route('project', $project->id)}", target="_blank") Learn More
           .control-group.why-great.collapse
             .control-label
               label Why are you great for this project?
