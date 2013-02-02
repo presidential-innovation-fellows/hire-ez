@@ -83,9 +83,11 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
   .control-group
     label.checkbox
       | <input type='checkbox' name="vendor[hire_me_elsewhere]" <?php if (isset($vendor["hire_me_elsewhere"])){ ?>checked="true"<?php } ?> />
-      | Yes, it’s OK to consider me for positions in the government other than a Presidential Innovation Fellow.
+      | Yes, it’s OK to consider me for positions in government other than a Presidential Innovation Fellow.
 
   .form-actions
+    p.smaller
+      em Information submitted through this Presidential Innovation Fellows application will be shared with Federal agencies for the purpose of candidate review, selection, and hiring.
     button.btn.btn-warning(type="submit") Submit Application
 
 script(src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&async=2&callback=Rfpez.initialize_google_autocomplete")
