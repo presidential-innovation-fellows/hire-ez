@@ -92,7 +92,7 @@
   <div class="control-group">
     <label class="checkbox">
       <input type='checkbox' name="vendor[hire_me_elsewhere]" <?php if (isset($vendor["hire_me_elsewhere"])){ ?>checked="true"<?php } ?> />
-      Yes, it’s OK to consider me for non-PIF positions in government.
+      Yes, it’s OK to consider me for positions in the government other than a Presidential Innovation Fellow.
     </label>
   </div>
   <div class="form-actions">
