@@ -7069,8 +7069,24 @@ body.vendor .no-vendor {
 body.vendor .no-auth-only {
   display: none !important;
 }
-.navbar-static-top {
+.navbar-static-top.with-logo {
   margin-bottom: 20px;
+  background-color: #0f132e;
+}
+.navbar-static-top.with-logo .navbar-inner {
+  background-color: #0f132e;
+}
+.navbar-static-top.with-logo .navbar-inner .container .nav li a {
+  color: #fff;
+}
+.navbar-static-top.with-logo .navbar-inner .container .dropdown-menu li a {
+  color: #000;
+}
+.navbar-static-top.with-logo .navbar-inner .container .brand {
+  color: #fff;
+  padding: 20px 0 0 20px;
+  height: 120px;
+  width: 490px;
 }
 .notification-nav-item {
   position: relative;

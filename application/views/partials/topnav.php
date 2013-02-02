@@ -1,7 +1,9 @@
-<div class="navbar navbar-static-top">
+<div class="navbar navbar-static-top with-logo">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="<?php echo e(route('root')); ?>" data-no-turbolink="data-no-turbolink"><?php echo e(__('r.app_name')); ?></a>
+      <a class="brand" href="<?php echo e(route('root')); ?>" data-no-turbolink="data-no-turbolink">
+        <img src="/img/logo-text-only.png" alt="Presidential Innovation Fellows" />
+      </a>
       <div class="nav-collapse collapse">
         <?php if (Auth::check()): ?>
           <ul class="nav">
@@ -36,7 +38,7 @@
             </li>
             <li class="hidden-desktop">
               <a href="<?php echo e(route('notifications')); ?>">
-                <i class="icon-envelope"></i>
+                <i class="icon-envelope icon-white"></i>
                 Notifications (<?php echo e(Auth::user()->unread_notification_count()); ?> Unread)
               </a>
             </li>
@@ -44,7 +46,7 @@
               <li class="dropdown notification-nav-item visible-desktop">
                 <a id="notifications-dropdown-trigger" class="dropdown-toggle" data-toggle="dropdown" href="#">
                   &nbsp;
-                  <i class="icon-envelope"></i>
+                  <i class="icon-envelope icon-white"></i>
                   <?php $count = Auth::user()->unread_notification_count() ?>
                   &nbsp;
                   <span class="badge badge-inverse unread-notification-badge <?php echo e($count == 0 ? 'hide' : ''); ?>"><?php echo e($count); ?></span>
