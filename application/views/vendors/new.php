@@ -101,12 +101,12 @@
     <div class="control-group">
       <label class="checkbox">
         <input type='checkbox' name="vendor[hire_me_elsewhere]" <?php if (isset($vendor["hire_me_elsewhere"])){ ?>checked="true"<?php } ?> />
-        Yes, it’s OK to consider me for positions in government other than a Presidential Innovation Fellow.
+        Yes, it’s OK to consider me for positions in addition to Presidential Innovation Fellow.
       </label>
     </div>
     <div class="form-actions">
       <p class="smaller">
-        <em>Information submitted through this Presidential Innovation Fellows application will be shared with Federal agencies for the purpose of candidate review, selection, and hiring.</em>
+        <em>Information submitted through this application will be shared with Federal agencies for the purpose of candidate review, selection, and hiring.</em>
       </p>
       <button class="btn btn-warning" type="submit">Submit Application</button>
     </div>
