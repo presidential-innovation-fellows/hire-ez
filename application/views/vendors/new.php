@@ -84,6 +84,9 @@
             </div>
           </div>
         <?php endforeach; ?>
+        <p class="more-info">
+          For more information visit <a href="http://whitehouse.gov/innovationfellows">WhiteHouse.gov</a>
+        </p>
       </fieldset>
     </div>
     <hr />

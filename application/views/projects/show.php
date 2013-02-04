@@ -11,8 +11,5 @@
   </div>
   <div class="span4 offset1">
     <a class="btn btn-warning" href="<?php echo e( route('new_vendors') ); ?>">Apply Now!</a>
-    <p class="more-info">
-      or for more information visit <a href="http://whitehouse.gov/innovationfellows">WhiteHouse.gov</a>
-    </p>
   </div>
 </div>
