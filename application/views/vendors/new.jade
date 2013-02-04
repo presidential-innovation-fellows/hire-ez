@@ -1,94 +1,98 @@
-- Section::inject('page_title', 'Apply for Round 2')
-- Section::inject('current_page', 'new-vendor')
+- Section::inject('current_page', 'new-vendor');
 
-form#new-vendor-form(action="#{route('vendors')}", method="POST")
+- if (!Config::get('application.application_period_over')):
 
-  - $vendor = Input::old('vendor');
-  - $project_application = Input::old("project_application") ?: array();
+  - Section::inject('page_title', 'Apply for Round 2')
+  form#new-vendor-form(action="#{route('vendors')}", method="POST")
 
-  .row.vendor-signup-container
+    - $vendor = Input::old('vendor');
+    - $project_application = Input::old("project_application") ?: array();
 
-    fieldset.span5
+    .row.vendor-signup-container
 
-      h5 Contact Info
+      fieldset.span5
 
-      .control-group
-        label Name
-        input(type="text", name="vendor[name]", value="#{$vendor['name']}")
+        h5 Contact Info
 
-      .control-group
-        label Email
-        input(type="text", name="vendor[email]", value="#{$vendor['email']}")
+        .control-group
+          label Name
+          input(type="text", name="vendor[name]", value="#{$vendor['name']}")
 
-      .control-group
-        label Phone
-        input(type="text", name="vendor[phone]", value="#{$vendor['phone']}")
+        .control-group
+          label Email
+          input(type="text", name="vendor[email]", value="#{$vendor['email']}")
 
-      .control-group
-        label Location
-        input#locationInput(type="text", name="vendor[location]", value="#{ $vendor['location'] }")
-        input#latitudeInput(type="hidden", name="vendor[latitude]", value="#{ $vendor['latitude'] }")
-        input#longitudeInput(type="hidden", name="vendor[longitude]", value="#{ $vendor['longitude'] }")
+        .control-group
+          label Phone
+          input(type="text", name="vendor[phone]", value="#{$vendor['phone']}")
 
-      h5 Where can we find you online?<br />
-        span.smaller Add up to 3 links (e.g. GitHub, LinkedIn, etc). Optional.
+        .control-group
+          label Location
+          input#locationInput(type="text", name="vendor[location]", value="#{ $vendor['location'] }")
+          input#latitudeInput(type="hidden", name="vendor[latitude]", value="#{ $vendor['latitude'] }")
+          input#longitudeInput(type="hidden", name="vendor[longitude]", value="#{ $vendor['longitude'] }")
 
-      .control-group
-        label Link #1
-        input(type="text", name="vendor[link_1]", value="#{$vendor['link_1']}")
+        h5 Where can we find you online?<br />
+          span.smaller Add up to 3 links (e.g. GitHub, LinkedIn, etc). Optional.
 
-      .control-group
-        label Link #2
-        input(type="text", name="vendor[link_2]", value="#{$vendor['link_2']}")
+        .control-group
+          label Link #1
+          input(type="text", name="vendor[link_1]", value="#{$vendor['link_1']}")
 
-      .control-group
-        label Link #3
-        input(type="text", name="vendor[link_3]", value="#{$vendor['link_3']}")
+        .control-group
+          label Link #2
+          input(type="text", name="vendor[link_2]", value="#{$vendor['link_2']}")
 
-    fieldset.span5
+        .control-group
+          label Link #3
+          input(type="text", name="vendor[link_3]", value="#{$vendor['link_3']}")
 
-      h5 Why would you make a great fellow?
+      fieldset.span5
 
-      .control-group.why-great-fellow
-        textarea.span4(name="vendor[general_paragraph]") #{$vendor['general_paragraph']}
-        .help-block.pull-right
-          | <code id="words-remaining">150</code>
-          | words left.
-        .clearfix &nbsp;
+        h5 Why would you make a great fellow?
 
-      h5 Projects <br />
-        span.smaller Check each project you are interested in serving on.
+        .control-group.why-great-fellow
+          textarea.span4(name="vendor[general_paragraph]") #{$vendor['general_paragraph']}
+          .help-block.pull-right
+            | <code id="words-remaining">150</code>
+            | words left.
+          .clearfix &nbsp;
 
-      - foreach($projects as $project):
-        .project
-          .control-group
-            .control-label
-              label.checkbox
-                .controls
-                  input.project-application-check(type='checkbox')
-                | #{$project->title} &nbsp;
-                a.project-description-link(href="#{route('project', $project->id)}", target="_blank") Learn More
-          .control-group.why-great.collapse
-            .control-label
-              label Why are you great for this project?
-            controls
-              textarea.span4(name='project_application[#{$project->id}]') #{@$project_application[$project->id]}
-  hr
-  .resume
-    label
-      h5 Résumé (copy and paste)
-    .wysiwyg-wrapper
-      textarea.wysihtml5(name="vendor[resume]") !{$vendor['resume']}
+        h5 Projects <br />
+          span.smaller Check each project you are interested in serving on.
 
-  .control-group
-    label.checkbox
-      | <input type='checkbox' name="vendor[hire_me_elsewhere]" <?php if (isset($vendor["hire_me_elsewhere"])){ ?>checked="true"<?php } ?> />
-      | Yes, it’s OK to consider me for positions in government other than a Presidential Innovation Fellow.
+        - foreach($projects as $project):
+          .project
+            .control-group
+              .control-label
+                label.checkbox
+                  .controls
+                    input.project-application-check(type='checkbox')
+                  | #{$project->title} &nbsp;
+                  a.project-description-link(href="#{route('project', $project->id)}", target="_blank") Learn More
+            .control-group.why-great.collapse
+              .control-label
+                label Why are you great for this project?
+              controls
+                textarea.span4(name='project_application[#{$project->id}]') #{@$project_application[$project->id]}
+    hr
+    .resume
+      label
+        h5 Résumé (copy and paste)
+      .wysiwyg-wrapper
+        textarea.wysihtml5(name="vendor[resume]") !{$vendor['resume']}
 
-  .form-actions
-    p.smaller
-      em Information submitted through this Presidential Innovation Fellows application will be shared with Federal agencies for the purpose of candidate review, selection, and hiring.
-    button.btn.btn-warning(type="submit") Submit Application
+    .control-group
+      label.checkbox
+        | <input type='checkbox' name="vendor[hire_me_elsewhere]" <?php if (isset($vendor["hire_me_elsewhere"])){ ?>checked="true"<?php } ?> />
+        | Yes, it’s OK to consider me for positions in government other than a Presidential Innovation Fellow.
 
-script(src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&async=2&callback=Rfpez.initialize_google_autocomplete")
+    .form-actions
+      p.smaller
+        em Information submitted through this Presidential Innovation Fellows application will be shared with Federal agencies for the purpose of candidate review, selection, and hiring.
+      button.btn.btn-warning(type="submit") Submit Application
 
+  script(src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&async=2&callback=Rfpez.initialize_google_autocomplete")
+
+- else:
+  - Section::inject('page_title', 'Sorry, the application period is now over.');
