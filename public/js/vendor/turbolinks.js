@@ -1,4 +1,4 @@
-var anchoredLink, assets, assetsChanged, browserCompatibleDocumentParser, browserSupportsPushState, cacheCurrentPage, changePage, constrainPageCacheTo, createDocument, crossOriginLink, currentState, executeScriptTags, extractAssets, extractLink, extractTitleAndBody, fetchHistory, fetchReplacement, handleClick, ignoreClick, initialized, installClickHandlerLast, intersection, noTurbolink, nonHtmlLink, nonStandardClick, pageCache, recallScrollPosition, referer, reflectNewUrl, reflectRedirectedUrl, rememberCurrentAssets, rememberCurrentState, rememberCurrentUrl, rememberInitialPage, resetScrollPosition, targetLink, triggerEvent, visit,
+var anchoredLink, assetsChanged, browserCompatibleDocumentParser, browserIsntBuggy, browserSupportsPushState, cacheCurrentPage, changePage, constrainPageCacheTo, createDocument, crossOriginLink, currentState, executeScriptTags, extractLink, extractTitleAndBody, extractTrackAssets, fetchHistory, fetchReplacement, handleClick, ignoreClick, initializeTurbolinks, initialized, installClickHandlerLast, intersection, loadedAssets, noTurbolink, nonHtmlLink, nonStandardClick, pageCache, recallScrollPosition, referer, reflectNewUrl, reflectRedirectedUrl, rememberCurrentState, rememberCurrentUrl, rememberInitialPage, removeHash, removeNoscriptTags, requestMethod, requestMethodIsSafe, resetScrollPosition, targetLink, triggerEvent, visit, xhr, _ref,
   __hasProp = {}.hasOwnProperty,
   __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
@@ -8,11 +8,15 @@ currentState = null;
 
 referer = document.location.href;
 
-assets = [];
+loadedAssets = null;
 
 pageCache = {};
 
 createDocument = null;
+
+requestMethod = ((_ref = document.cookie.match(/request_method=(\w+)/)) != null ? _ref[1].toUpperCase() : void 0) || '';
+
+xhr = null;
 
 visit = function(url) {
   if (browserSupportsPushState) {
@@ -25,11 +29,15 @@ visit = function(url) {
 };
 
 fetchReplacement = function(url) {
-  var xhr,
+  var safeUrl,
     _this = this;
   triggerEvent('page:fetch');
+  safeUrl = removeHash(url);
+  if (xhr != null) {
+    xhr.abort();
+  }
   xhr = new XMLHttpRequest;
-  xhr.open('GET', url, true);
+  xhr.open('GET', safeUrl, true);
   xhr.setRequestHeader('Accept', 'text/html, application/xhtml+xml, application/xml');
   xhr.setRequestHeader('X-XHR-Referer', referer);
   xhr.onload = function() {
@@ -40,12 +48,22 @@ fetchReplacement = function(url) {
     } else {
       changePage.apply(null, extractTitleAndBody(doc));
       reflectRedirectedUrl(xhr);
-      resetScrollPosition();
+      if (document.location.hash) {
+        document.location.href = document.location.href;
+      } else {
+        resetScrollPosition();
+      }
       return triggerEvent('page:load');
     }
   };
+  xhr.onloadend = function() {
+    return xhr = null;
+  };
   xhr.onabort = function() {
-    return console.log('Aborted turbolink fetch!');
+    return rememberCurrentUrl();
+  };
+  xhr.onerror = function() {
+    return document.location.href = url;
   };
   return xhr.send();
 };
@@ -54,6 +72,9 @@ fetchHistory = function(state) {
   var page;
   cacheCurrentPage();
   if (page = pageCache[state.position]) {
+    if (xhr != null) {
+      xhr.abort();
+    }
     changePage(page.title, page.body);
     recallScrollPosition(page);
     return triggerEvent('page:restore');
@@ -92,6 +113,7 @@ constrainPageCacheTo = function(limit) {
 changePage = function(title, body, runScripts) {
   document.title = title;
   document.documentElement.replaceChild(body, document.body);
+  removeNoscriptTags();
   if (runScripts) {
     executeScriptTags();
   }
@@ -100,27 +122,35 @@ changePage = function(title, body, runScripts) {
 };
 
 executeScriptTags = function() {
-  var attr, copy, parent, script, _i, _j, _len, _len1, _ref, _ref1, _ref2, _results;
-  _ref = document.body.getElementsByTagName('script');
+  var attr, copy, nextSibling, parentNode, script, _i, _j, _len, _len1, _ref1, _ref2, _ref3, _results;
+  _ref1 = document.body.getElementsByTagName('script');
   _results = [];
-  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-    script = _ref[_i];
-    if (script && ((_ref1 = script.type) === '' || _ref1 === 'text/javascript')) {
-      if ((script.src != null) && script.src !== '' && !(script.getAttribute('data-turbolinks-evaluated') != null)) {
-        copy = document.createElement('script');
-        _ref2 = script.attributes;
-        for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
-          attr = _ref2[_j];
-          copy.setAttribute(attr.name, attr.value);
-        }
-        copy.setAttribute('data-turbolinks-evaluated', '');
-        parent = script.parentNode;
-        parent.removeChild(script);
-        _results.push(parent.insertBefore(copy, parent.childNodes[0]));
-      } else {
-        _results.push(window["eval"](script.innerHTML));
-      }
+  for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+    script = _ref1[_i];
+    if (!((_ref2 = script.type) === '' || _ref2 === 'text/javascript')) {
+      continue;
     }
+    copy = document.createElement('script');
+    _ref3 = script.attributes;
+    for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
+      attr = _ref3[_j];
+      copy.setAttribute(attr.name, attr.value);
+    }
+    copy.appendChild(document.createTextNode(script.innerHTML));
+    parentNode = script.parentNode, nextSibling = script.nextSibling;
+    parentNode.removeChild(script);
+    _results.push(parentNode.insertBefore(copy, nextSibling));
+  }
+  return _results;
+};
+
+removeNoscriptTags = function() {
+  var noscript, _i, _len, _ref1, _results;
+  _ref1 = document.body.getElementsByTagName('noscript');
+  _results = [];
+  for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+    noscript = _ref1[_i];
+    _results.push(noscript.parentNode.removeChild(noscript));
   }
   return _results;
 };
@@ -137,8 +167,8 @@ reflectNewUrl = function(url) {
 
 reflectRedirectedUrl = function(xhr) {
   var location;
-  if ((location = xhr.getResponseHeader('X-XHR-Current-Location'))) {
-    return window.history.replaceState(currentState, '', location);
+  if ((location = xhr.getResponseHeader('X-XHR-Current-Location')) && location !== document.location.pathname + document.location.search) {
+    return window.history.replaceState(currentState, '', location + document.location.hash);
   }
 };
 
@@ -151,10 +181,6 @@ rememberCurrentUrl = function() {
 
 rememberCurrentState = function() {
   return currentState = window.history.state;
-};
-
-rememberCurrentAssets = function() {
-  return assets = extractAssets(document);
 };
 
 rememberInitialPage = function() {
@@ -174,6 +200,16 @@ resetScrollPosition = function() {
   return window.scrollTo(0, 0);
 };
 
+removeHash = function(url) {
+  var link;
+  link = url;
+  if (url.href == null) {
+    link = document.createElement('A');
+    link.href = url;
+  }
+  return link.href.replace(link.hash, '');
+};
+
 triggerEvent = function(name) {
   var event;
   event = document.createEvent('Events');
@@ -181,13 +217,13 @@ triggerEvent = function(name) {
   return document.dispatchEvent(event);
 };
 
-extractAssets = function(doc) {
-  var node, _i, _len, _ref, _results;
-  _ref = doc.head.childNodes;
+extractTrackAssets = function(doc) {
+  var node, _i, _len, _ref1, _results;
+  _ref1 = doc.head.childNodes;
   _results = [];
-  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-    node = _ref[_i];
-    if (node.src || node.href) {
+  for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+    node = _ref1[_i];
+    if ((typeof node.getAttribute === "function" ? node.getAttribute('data-turbolinks-track') : void 0) != null) {
       _results.push(node.src || node.href);
     }
   }
@@ -195,15 +231,16 @@ extractAssets = function(doc) {
 };
 
 assetsChanged = function(doc) {
-  var extractedAssets;
-  extractedAssets = extractAssets(doc);
-  return extractedAssets.length !== assets.length || intersection(extractedAssets, assets).length !== assets.length;
+  var fetchedAssets;
+  loadedAssets || (loadedAssets = extractTrackAssets(document));
+  fetchedAssets = extractTrackAssets(doc);
+  return fetchedAssets.length !== loadedAssets.length || intersection(fetchedAssets, loadedAssets).length !== loadedAssets.length;
 };
 
 intersection = function(a, b) {
-  var value, _i, _len, _ref, _results;
+  var value, _i, _len, _ref1, _results;
   if (a.length > b.length) {
-    _ref = [b, a], a = _ref[0], b = _ref[1];
+    _ref1 = [b, a], a = _ref1[0], b = _ref1[1];
   }
   _results = [];
   for (_i = 0, _len = a.length; _i < _len; _i++) {
@@ -222,9 +259,15 @@ extractTitleAndBody = function(doc) {
 };
 
 browserCompatibleDocumentParser = function() {
-  var createDocumentUsingParser, createDocumentUsingWrite, testDoc, _ref;
+  var createDocumentUsingDOM, createDocumentUsingParser, createDocumentUsingWrite, testDoc, _ref1;
   createDocumentUsingParser = function(html) {
     return (new DOMParser).parseFromString(html, 'text/html');
+  };
+  createDocumentUsingDOM = function(html) {
+    var doc;
+    doc = document.implementation.createHTMLDocument('');
+    doc.documentElement.innerHTML = html;
+    return doc;
   };
   createDocumentUsingWrite = function(html) {
     var doc;
@@ -234,13 +277,18 @@ browserCompatibleDocumentParser = function() {
     doc.close();
     return doc;
   };
-  if (window.DOMParser) {
-    testDoc = createDocumentUsingParser('<html><body><p>test');
-  }
-  if ((testDoc != null ? (_ref = testDoc.body) != null ? _ref.childNodes.length : void 0 : void 0) === 1) {
-    return createDocumentUsingParser;
-  } else {
-    return createDocumentUsingWrite;
+  try {
+    if (window.DOMParser) {
+      testDoc = createDocumentUsingParser('<html><body><p>test');
+      return createDocumentUsingParser;
+    }
+  } catch (e) {
+    testDoc = createDocumentUsingDOM('<html><body><p>test');
+    return createDocumentUsingDOM;
+  } finally {
+    if ((testDoc != null ? (_ref1 = testDoc.body) != null ? _ref1.childNodes.length : void 0 : void 0) !== 1) {
+      return createDocumentUsingWrite;
+    }
   }
 };
 
@@ -255,7 +303,7 @@ handleClick = function(event) {
   var link;
   if (!event.defaultPrevented) {
     link = extractLink(event);
-    if ((link != null ? link.nodeName : void 0) === 'A' && !ignoreClick(event, link)) {
+    if (link.nodeName === 'A' && !ignoreClick(event, link)) {
       visit(link.href);
       return event.preventDefault();
     }
@@ -276,7 +324,7 @@ crossOriginLink = function(link) {
 };
 
 anchoredLink = function(link) {
-  return ((link.hash && link.href.replace(link.hash, '')) === location.href.replace(location.hash, '')) || (link.href === location.href + '#');
+  return ((link.hash && removeHash(link)) === removeHash(location)) || (link.href === location.href + '#');
 };
 
 nonHtmlLink = function(link) {
@@ -304,17 +352,24 @@ ignoreClick = function(event, link) {
   return crossOriginLink(link) || anchoredLink(link) || nonHtmlLink(link) || noTurbolink(link) || targetLink(link) || nonStandardClick(event);
 };
 
-browserSupportsPushState = window.history && window.history.pushState && window.history.replaceState && window.history.state !== void 0;
-
-if (browserSupportsPushState) {
-  rememberCurrentAssets();
+initializeTurbolinks = function() {
   document.addEventListener('click', installClickHandlerLast, true);
-  window.addEventListener('popstate', function(event) {
-    var _ref;
-    if ((_ref = event.state) != null ? _ref.turbolinks : void 0) {
+  return window.addEventListener('popstate', function(event) {
+    var _ref1;
+    if ((_ref1 = event.state) != null ? _ref1.turbolinks : void 0) {
       return fetchHistory(event.state);
     }
   });
+};
+
+browserSupportsPushState = window.history && window.history.pushState && window.history.replaceState && window.history.state !== void 0;
+
+browserIsntBuggy = !navigator.userAgent.match(/CriOS\//);
+
+requestMethodIsSafe = requestMethod === 'GET' || requestMethod === '';
+
+if (browserSupportsPushState && browserIsntBuggy && requestMethodIsSafe) {
+  initializeTurbolinks();
 }
 
 this.Turbolinks = {
