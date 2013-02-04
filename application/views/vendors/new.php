@@ -1,4 +1,9 @@
 <?php Section::inject('current_page', 'new-vendor'); ?>
+<div class="row-fluid">
+  <div class="span7">
+    <p class="main-description"><?php echo __('r.home.index_signed_out.biz_description', array('url' => route('projects'))); ?></p>
+  </div>
+</div>
 <?php if (!Config::get('application.application_period_over')): ?>
   <?php Section::inject('page_title', 'Apply for Round 2') ?>
   <form id="new-vendor-form" action="<?php echo e(route('vendors')); ?>" method="POST">

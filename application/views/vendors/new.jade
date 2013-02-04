@@ -1,5 +1,9 @@
 - Section::inject('current_page', 'new-vendor');
 
+.row-fluid
+  .span7
+    p.main-description !{__('r.home.index_signed_out.biz_description', array('url' => route('projects')))}
+
 - if (!Config::get('application.application_period_over')):
 
   - Section::inject('page_title', 'Apply for Round 2')
