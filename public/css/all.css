@@ -6877,6 +6877,9 @@ a {
   line-height: 1.5em;
   margin-bottom: 30px;
 }
+.main-description a {
+  border-bottom: 1px dotted;
+}
 .larger {
   font-size: 1.2em;
   margin-bottom: 1.1em;

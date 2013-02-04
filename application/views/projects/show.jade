@@ -9,7 +9,7 @@ h4= $project->title
 
 .row
   .main-description.span6
-    !{nl2br(e($project->body))}
+    !{nl2br($project->body)}
 
   .span4.offset1
     a.btn.btn-warning(href="#{ route('new_vendors') }") Apply Now!
