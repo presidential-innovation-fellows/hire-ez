@@ -51,6 +51,11 @@ body(class="#{$body_class}", data-current-page="#{Section::yield('current_page')
 
     !{View::make('partials.topnav')}
 
+    .logo-header
+      .container
+        a.brand(href="#{route('root')}", data-no-turbolink)
+          img(src="/img/logo-text-only.png", alt="Presidential Innovation Fellows")
+
     .container
 
       - if (Auth::guest()):

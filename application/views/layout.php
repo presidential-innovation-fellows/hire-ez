@@ -38,6 +38,13 @@
   <![endif]-->
   <div id="outer-container">
     <?php echo View::make('partials.topnav'); ?>
+    <div class="logo-header">
+      <div class="container">
+        <a class="brand" href="<?php echo e(route('root')); ?>" data-no-turbolink="data-no-turbolink">
+          <img src="/img/logo-text-only.png" alt="Presidential Innovation Fellows" />
+        </a>
+      </div>
+    </div>
     <div class="container">
       <?php if (Auth::guest()): ?>
         <?php echo View::make('partials.signin_modal'); ?>

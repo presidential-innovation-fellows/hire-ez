@@ -1,13 +1,8 @@
-.navbar.navbar-static-top.with-logo
-  .navbar-inner
-    .container
-
-      a.brand(href="#{route('root')}", data-no-turbolink)
-        img(src="/img/logo-text-only.png", alt="Presidential Innovation Fellows")
-
-      div.nav-collapse.collapse
-
-        - if (Auth::check()):
+- if (Auth::check()):
+  .navbar.navbar-static-top
+    .navbar-inner
+      .container
+        .nav-collapse.collapse
           ul.nav
             - if (Auth::user()->officer):
               li
@@ -36,14 +31,14 @@
 
             li.hidden-desktop
               a(href="#{route('notifications')}")
-                i.icon-envelope.icon-white
+                i.icon-envelope
                 | Notifications (#{Auth::user()->unread_notification_count()} Unread)
 
             - if (Auth::officer()):
               li.dropdown.notification-nav-item.visible-desktop
                 a#notifications-dropdown-trigger.dropdown-toggle(data-toggle="dropdown", href="#")
                   | &nbsp;
-                  i.icon-envelope.icon-white
+                  i.icon-envelope
                   - $count = Auth::user()->unread_notification_count()
                   | &nbsp;
                   span(class="badge badge-inverse unread-notification-badge #{$count == 0 ? 'hide' : ''}") #{$count}
