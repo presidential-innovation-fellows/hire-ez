@@ -217,7 +217,7 @@ class Projects_Controller extends Base_Controller {
 
   public function action_index() {
     $view = View::make('projects.index');
-    $view->projects = Project::get();
+    $view->projects = Project::order_by('created_at', 'asc')->get();
     $this->layout->content = $view;
   }
 

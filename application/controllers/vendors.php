@@ -13,7 +13,7 @@ class Vendors_Controller extends Base_Controller {
 
   public function action_new() {
     $view = View::make('vendors.new');
-    $view->projects = Project::get();
+    $view->projects = Project::order_by('created_at', 'asc')->get();
     $this->layout->content = $view;
   }
 
