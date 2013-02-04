@@ -548,7 +548,10 @@ footer.footer ul li:last-child:after {
   width: 100%;
 }
 #new-vendor-form .project {
-  padding: 10px;
+  padding: 10px 10px 0 10px;
+}
+#new-vendor-form .project .control-group {
+  margin-bottom: 5px;
 }
 #new-vendor-form .project label.checkbox {
   font-weight: bold;
