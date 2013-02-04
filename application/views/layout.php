@@ -28,9 +28,6 @@
   <?php echo HTML::script('js/modernizr.js'); ?>
   <?php echo HTML::script('js/vendor/jquery-1.8.1.min.js'); ?>
   <?php echo Helper::asset('js/global'); ?>
-  <?php if (Auth::officer()): ?>
-    <?php echo Helper::asset('js/vendor/turbolinks'); ?>
-  <?php endif; ?>
 </head>
 <body class="<?php echo e($body_class); ?>" data-current-page="<?php echo e(Section::yield('current_page')); ?>" data-officer-name="<?php echo e(Auth::officer() ? Auth::officer()->name : ''); ?>" data-officer-id="<?php echo e(Auth::officer() ? Auth::officer()->id : ''); ?>" data-officer-user-id="<?php echo e(Auth::officer() ? Auth::officer()->user_id : ''); ?>">
   <!--[if lt IE 8]>
