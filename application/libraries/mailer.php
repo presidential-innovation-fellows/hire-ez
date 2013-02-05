@@ -52,7 +52,7 @@ Class Mailer {
     } elseif ($template_name == "ApplicationReceived") {
       $vendor = $attributes["vendor"];
 
-      $message->setSubject("Your application has been received.")
+      $message->setSubject("Your application has been received")
               ->setTo($vendor->email)
               ->addPart(View::make('mailer.application_received_text')->with('vendor', $vendor), 'text/plain')
               ->setBody(View::make('mailer.application_received_html')->with('vendor', $vendor), 'text/html');
