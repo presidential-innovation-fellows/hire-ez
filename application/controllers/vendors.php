@@ -44,7 +44,7 @@ class Vendors_Controller extends Base_Controller {
       return Redirect::to_route('survey_thanks');
     } else {
       if (empty($applications)) {
-        Session::flash('errors', array_merge(array('Please check at least one project to apply for.'), $vendor->validator()->errors->all()));
+        Session::flash('errors', array_merge(array('Please check at least one project to apply for, and be sure to fill out the project-specific paragraph.'), $vendor->validator()->errors->all()));
       } else {
         Session::flash('errors', $vendor->validator()->errors->all());
       }
