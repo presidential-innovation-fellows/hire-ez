@@ -87,6 +87,9 @@
         <p class="more-info">
           For more information visit <a href="http://whitehouse.gov/innovationfellows">WhiteHouse.gov</a>
         </p>
+        <p class="more-info">
+          Questions or feedback? Email pif@ostp.gov
+        </p>
       </fieldset>
     </div>
     <hr />
