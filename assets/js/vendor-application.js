@@ -27,6 +27,9 @@ $(document).on("ready page:load", function() {
   editor = $('.wysihtml5').wysihtml5({
     image: false
   });
+  $('.control-group.why-great.collapse.in').removeClass('in');
+  $('.words-remaining-wrapper.hidden').removeClass('hidden');
+  $('.words-max-wrapper').addClass('hidden');
   return $("#new-vendor-form .project textarea").each(function() {
     if ($(this).val()) {
       return $(this).closest(".project").find("input[type=checkbox]").attr('checked', true).trigger('change');

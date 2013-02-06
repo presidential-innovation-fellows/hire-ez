@@ -58,8 +58,12 @@
         .control-group.why-great-fellow
           textarea.span4(name="vendor[general_paragraph]") #{$vendor['general_paragraph']}
           .help-block.pull-right
-            | <code class="words-remaining">150</code>
-            | words left.
+            p.words-remaining-wrapper.hidden
+              | <code class="words-remaining">150</code>
+              | words left.
+            p.words-max-wrapper
+              | <code class="words-remaining">150</code>
+              | words max.
           .clearfix &nbsp;
 
         h5 Projects <br />
@@ -74,14 +78,18 @@
                     input.project-application-check(type='checkbox')
                   | #{$project->title} &nbsp;
                   a.project-description-link(href="#{route('project', $project->id)}", target="_blank") Learn More
-            .control-group.why-great.collapse
+            .control-group.why-great.collapse.in
               .control-label
                 label Why are you great for this project?
               controls
                 textarea.span4(name='project_application[#{$project->id}]') #{@$project_application[$project->id]}
                 .help-block.pull-right
-                  | <code class="words-remaining">150</code>
-                  | words left.
+                  p.words-remaining-wrapper.hidden
+                    | <code class="words-remaining">150</code>
+                    | words left.
+                  p.words-max-wrapper
+                    | <code class="words-remaining">150</code>
+                    | words max.
                 .clearfix &nbsp;
 
         p.more-info

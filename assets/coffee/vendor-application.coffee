@@ -18,6 +18,10 @@ $(document).on "keydown", "#locationInput", (e) ->
 $(document).on "ready page:load", ->
   editor = $('.wysihtml5').wysihtml5({image: false})
 
+  $('.control-group.why-great.collapse.in').removeClass('in')
+  $('.words-remaining-wrapper.hidden').removeClass('hidden')
+  $('.words-max-wrapper').addClass('hidden')
+
   $("#new-vendor-form .project textarea").each ->
     if $(@).val()
       $(@).closest(".project").find("input[type=checkbox]").attr('checked', true).trigger('change')

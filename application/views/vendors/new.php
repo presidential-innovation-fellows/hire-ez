@@ -52,8 +52,14 @@
         <div class="control-group why-great-fellow">
           <textarea class="span4" name="vendor[general_paragraph]"><?php echo e($vendor['general_paragraph']); ?></textarea>
           <div class="help-block pull-right">
-            <code class="words-remaining">150</code>
-            words left.
+            <p class="words-remaining-wrapper hidden">
+              <code class="words-remaining">150</code>
+              words left.
+            </p>
+            <p class="words-max-wrapper">
+              <code class="words-remaining">150</code>
+              words max.
+            </p>
           </div>
           <div class="clearfix">&nbsp;</div>
         </div>
@@ -74,15 +80,21 @@
                 </label>
               </div>
             </div>
-            <div class="control-group why-great collapse">
+            <div class="control-group why-great collapse in">
               <div class="control-label">
                 <label>Why are you great for this project?</label>
               </div>
               <controls>
                 <textarea class="span4" name="project_application[<?php echo e($project->id); ?>]"><?php echo e(@$project_application[$project->id]); ?></textarea>
                 <div class="help-block pull-right">
-                  <code class="words-remaining">150</code>
-                  words left.
+                  <p class="words-remaining-wrapper hidden">
+                    <code class="words-remaining">150</code>
+                    words left.
+                  </p>
+                  <p class="words-max-wrapper">
+                    <code class="words-remaining">150</code>
+                    words max.
+                  </p>
                 </div>
                 <div class="clearfix">&nbsp;</div>
               </controls>
