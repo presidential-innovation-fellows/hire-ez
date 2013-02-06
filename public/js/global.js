@@ -10270,12 +10270,7 @@ $(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", fu
     }
   }
   url = "" + href + "?" + ($.param(params));
-  if (e.metaKey) {
-    $(this).attr('href', url);
-  } else {
-    Turbolinks.visit(url);
-    return e.preventDefault();
-  }
+  return $(this).attr('href', url);
 });
 
 $(document).on("click", ".show-refer", function(e) {

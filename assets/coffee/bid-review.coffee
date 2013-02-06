@@ -41,13 +41,7 @@ $(document).on "click", "#bid-review-pagination-wrapper li:not(.disabled) a", (e
 
   url = "#{href}?#{$.param(params)}"
 
-  if e.metaKey
-    $(@).attr 'href', url
-    return
-
-  else
-    Turbolinks.visit url
-    e.preventDefault()
+  $(@).attr 'href', url
 
 $(document).on "click", ".show-refer", (e) ->
   e.preventDefault()
