@@ -52,7 +52,7 @@
         <div class="control-group why-great-fellow">
           <textarea class="span4" name="vendor[general_paragraph]"><?php echo e($vendor['general_paragraph']); ?></textarea>
           <div class="help-block pull-right">
-            <code id="words-remaining">150</code>
+            <code class="words-remaining">150</code>
             words left.
           </div>
           <div class="clearfix">&nbsp;</div>
@@ -80,6 +80,11 @@
               </div>
               <controls>
                 <textarea class="span4" name="project_application[<?php echo e($project->id); ?>]"><?php echo e(@$project_application[$project->id]); ?></textarea>
+                <div class="help-block pull-right">
+                  <code class="words-remaining">150</code>
+                  words left.
+                </div>
+                <div class="clearfix">&nbsp;</div>
               </controls>
             </div>
           </div>

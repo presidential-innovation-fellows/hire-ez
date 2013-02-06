@@ -58,7 +58,7 @@
         .control-group.why-great-fellow
           textarea.span4(name="vendor[general_paragraph]") #{$vendor['general_paragraph']}
           .help-block.pull-right
-            | <code id="words-remaining">150</code>
+            | <code class="words-remaining">150</code>
             | words left.
           .clearfix &nbsp;
 
@@ -79,6 +79,10 @@
                 label Why are you great for this project?
               controls
                 textarea.span4(name='project_application[#{$project->id}]') #{@$project_application[$project->id]}
+                .help-block.pull-right
+                  | <code class="words-remaining">150</code>
+                  | words left.
+                .clearfix &nbsp;
 
         p.more-info
           | For more information visit <a href="http://whitehouse.gov/innovationfellows">WhiteHouse.gov</a>
