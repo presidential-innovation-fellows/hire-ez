@@ -1,5 +1,9 @@
 <?php Section::inject('page_title', 'All Applicants') ?>
 <?php Section::inject('no_page_header', true) ?>
+<h3>
+  <?php echo e($applicant_count); ?>
+  <span class="muted">candidates have applied.</span>
+</h3>
 <?php foreach ($projects as $project): ?>
   <div class="project">
     <h4>Top un-hired applicants from <?php echo e($project->title); ?></h4>
