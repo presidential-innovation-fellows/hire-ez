@@ -7196,6 +7196,10 @@ body.vendor .no-auth-only {
   height: 4.5em;
   overflow: hidden;
 }
+.applicants-simple a {
+  text-decoration: underline;
+  font-weight: bold;
+}
 .vendor-data {
   margin-bottom: 20px;
 }

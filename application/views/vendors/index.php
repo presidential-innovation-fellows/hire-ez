@@ -1,9 +1,29 @@
 <?php Section::inject('page_title', 'All Applicants') ?>
 <?php Section::inject('no_page_header', true) ?>
 <h3>
-  <?php echo e($applicant_count); ?>
+  <?php echo e(count($applicants)); ?>
   <span class="muted">candidates have applied.</span>
 </h3>
+<table class="table applicants-simple">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Email</th>
+    </tr>
+    <tbody>
+      <?php foreach ($applicants as $applicant) { ?>
+        <tr>
+          <td>
+            <a href="<?php echo e(route('vendor', array($applicant->id))); ?>"><?php echo e($applicant->name); ?></a>
+          </td>
+          <td><?php echo e($applicant->location); ?></td>
+          <td><?php echo e($applicant->email); ?></td>
+        </tr>
+      <?php } ?>
+    </tbody>
+  </thead>
+</table>
 <?php foreach ($projects as $project): ?>
   <div class="project">
     <h4>Top un-hired applicants from <?php echo e($project->title); ?></h4>

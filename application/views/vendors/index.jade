@@ -1,8 +1,22 @@
 - Section::inject('page_title', 'All Applicants')
 - Section::inject('no_page_header', true)
 
-h3 #{$applicant_count}
+h3 #{count($applicants)}
   span.muted candidates have applied.
+
+table.table.applicants-simple
+  thead
+    tr
+      th Name
+      th Location
+      th Email
+    tbody
+      - foreach ($applicants as $applicant)
+        tr
+          td
+            a(href="#{route('vendor', array($applicant->id))}") #{$applicant->name}
+          td #{$applicant->location}
+          td #{$applicant->email}
 
 - foreach ($projects as $project):
   .project

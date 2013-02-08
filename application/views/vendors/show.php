@@ -43,9 +43,8 @@
     </script>
   </div>
 </div>
-<h5>General Paragraph
-</h5>
-<?php echo nl2br(e($vendor->general_paragraph)); ?>
+<h5>General Paragraph</h5>
+<p><?php echo nl2br(e($vendor->general_paragraph)); ?></p>
 <h5>Resume
 </h5>
 <?php echo $vendor->resume; ?>
