@@ -29,7 +29,9 @@ class Bids_Controller extends Base_Controller {
     $view->project = Config::get('project');
     if ($filter) Config::set('review_bids_filter', $filter);
 
-    $sort = @$this->bid_sort_options[Input::get('sort')] ?: false;
+    $sortInput = Input::get('sort') ?: "name";
+    Config::set('review_bids_sort', $sortInput);
+    $sort = @$this->bid_sort_options[$sortInput];
     $order = Input::get('order');
 
     if ($filter == 'unread') {
@@ -66,7 +68,7 @@ class Bids_Controller extends Base_Controller {
 
     $per_page = 25;
     $view->skip = Input::get('skip', 0);
-    $view->sort = Input::get('sort');
+    $view->sort = $sortInput;
     $bids = $q->take($per_page)->skip($view->skip)->get();
 
     $view->paginator = Helper::get_bid_paginator($view->skip, $per_page, $total);

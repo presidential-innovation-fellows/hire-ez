@@ -52,7 +52,7 @@ Class Helper {
   public static function current_sort_link($sort, $title, $default_order = false) {
     $return_str = "<a href='".self::current_sort_url($sort, $default_order)."'>$title</a>";
 
-    if ($sort == Input::get('sort')) {
+    if ($sort == Config::get('review_bids_sort')) {
       $return_str .= " " . (Input::get('order') == 'desc' ? "<i class='icon-chevron-down'></i>" : "<i class='icon-chevron-up'></i>");
     }
 
@@ -65,7 +65,7 @@ Class Helper {
 
     $params = array_merge($_GET, $params);
 
-    if ($sort == Input::get('sort')) {
+    if ($sort == Config::get('review_bids_sort')) {
       $params["order"] = (Input::get('order') == 'desc') ? 'asc' : 'desc';
     } elseif ($default_order) {
       $params["order"] = $default_order;
