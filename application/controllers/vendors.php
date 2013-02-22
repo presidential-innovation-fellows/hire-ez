@@ -55,7 +55,7 @@ class Vendors_Controller extends Base_Controller {
   public function action_index() {
     $view = View::make('vendors.index');
     $view->projects = Project::where_not_null('released_applicants_at')->get();
-    $view->applicants = Vendor::order_by('name')->get(array('id', 'name', 'email', 'location'));
+    $view->applicants = Vendor::order_by('created_at', 'desc')->get(array('id', 'name', 'email', 'location'));
     $this->layout->content = $view;
   }
 
