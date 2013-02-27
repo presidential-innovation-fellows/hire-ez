@@ -3,7 +3,7 @@
   <div class="span7">
     <p class="main-description"><?php echo __('r.home.index_signed_out.biz_description', array('url' => route('projects'))); ?></p>
     <p>
-      <strong>The Application Period for Round 2 Closes on March 17th, 2013 at 11:59 EST.</strong>
+      <strong>The Application Period for Round 2 Closes on March 17th, 2013 at 11:59pm EST.</strong>
     </p>
   </div>
 </div>
