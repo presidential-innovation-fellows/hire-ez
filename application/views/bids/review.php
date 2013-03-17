@@ -18,6 +18,9 @@
   <li class="<?php echo e(Config::get('review_bids_filter') == 'thumbs-downed' ? 'active' : ''); ?>">
     <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'thumbs-downed')))); ?>">My <i class="icon-thumbs-down"></i> (<?php echo e($project->thumbs_downed_bids()->count()); ?>)</a>
   </li>
+  <li class="<?php echo e(Config::get('review_bids_filter') == 'interview' ? 'active' : ''); ?>">
+    <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'interview')))); ?>">Interview (<?php echo e($project->interview_bids()->count()); ?>)</a>
+  </li>
   <li class="<?php echo e(Config::get('review_bids_filter') == 'hired' ? 'active' : ''); ?>">
     <a href="<?php echo e(Helper::url_with_query_and_sort_params(route('review_bids_filtered', array($project->id, 'hired')))); ?>">Hired (<?php echo e($project->winning_bids()->count()); ?>)</a>
   </li>

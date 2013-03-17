@@ -8,6 +8,7 @@ Rfpez.Backbone.Bid = Backbone.Model.extend
   defaults: ->
     thumbs_downed: false
     starred: false
+    interview: false
 
   clear: ->
     @destroy()

@@ -36,6 +36,8 @@ class Bids_Controller extends Base_Controller {
 
     if ($filter == 'unread') {
       $q = $view->project->unread_bids();
+    } elseif ($filter == 'interview') {
+      $q = $view->project->interview_bids();
     } elseif ($filter == 'hired') {
       $q = $view->project->winning_bids();
     } elseif ($filter == 'starred') {
@@ -110,6 +112,7 @@ class Bids_Controller extends Base_Controller {
     $bid = Config::get('bid');
     $input = Input::json(true);
 
+    $bid->interview = $input["interview"];
     $bid->assign_officer_read($input["read"]);
     $bid->assign_officer_starred($input["starred"]);
     $bid->assign_officer_thumbs_downed($input["thumbs_downed"]);

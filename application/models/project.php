@@ -64,6 +64,10 @@ class Project extends Eloquent {
     return $this->submitted_bids()->where_null('dismissed_at')->where_not_null('awarded_at');
   }
 
+  public function interview_bids() {
+    return $this->submitted_bids()->where_null('dismissed_at')->where('interview', '>', 0);
+  }
+
   public function starred_bids() {
     return $this->submitted_bids()->where_null('dismissed_at')->where('bid_officer.starred', '>', 0);
   }

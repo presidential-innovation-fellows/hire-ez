@@ -99,6 +99,8 @@ Rfpez.Backbone.BidView = Backbone.View.extend
         &nbsp;
         <% if (awarded_at) { %>
           <span class="label label-success">Hired</span>
+        <% } else if (interview > 0) { %>
+          <span class="label label-success">Interview</span>
         <% } %>
         <% if (dismissed_at) { %>
           <span class="label label-important">Spam</span>
@@ -144,6 +146,12 @@ Rfpez.Backbone.BidView = Backbone.View.extend
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
+          <% if (interview > 0) { %>
+            <li class="active"><a class="toggle-interview">don't interview</a></li>
+          <% } else { %>
+            <li><a class="toggle-interview">interview</a></li>
+          <% } %>
+
           <% if (awarded_at) { %>
             <li class="active"><a class="toggle-awarded">hired!</a></li>
           <% } else { %>
@@ -165,6 +173,7 @@ Rfpez.Backbone.BidView = Backbone.View.extend
     "click .toggle-read": "toggleRead"
     "click .toggle-starred": "toggleStarred"
     "click .toggle-dismissed": "toggleDismissed"
+    "click .toggle-interview": "toggleInterview"
     "click .toggle-awarded": "toggleAwarded"
     "click .toggle-details": "toggleDetails"
     "click .toggle-thumbs-down": "toggleThumbsDown"
@@ -255,6 +264,10 @@ Rfpez.Backbone.BidView = Backbone.View.extend
   toggleAwarded: ->
     @model.save
       awarded_at: if @model.attributes.awarded_at then false else true
+
+  toggleInterview: ->
+    @model.save
+      interview: if @model.attributes.interview is "1" then "0" else "1"
 
   toggleNoVote: ->
     @$el.find(".toggle-starred.btn-primary").click()

@@ -10,7 +10,8 @@ Rfpez.Backbone.Bid = Backbone.Model.extend({
   defaults: function() {
     return {
       thumbs_downed: false,
-      starred: false
+      starred: false,
+      interview: false
     };
   },
   clear: function() {
