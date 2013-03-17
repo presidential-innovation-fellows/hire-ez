@@ -18,6 +18,8 @@ class Split_Multiple_Projects {
 		 $newOpenDataProjects = array('Energy', 'Education', 'Smithsonian', 'NSF', 'Finance', 'Interior', 'Global Development', 'Transportation', 'Agriculture', 'Data.gov');
 		 $newMyDataProjects = array('Blue Button', 'Green Button');
 
+           $farmer = User::where('email', '=', 'John_P_Farmer@ostp.eop.gov')->first()->officer;
+
      foreach ($newOpenDataProjects as $p) {
      	$newProjId = DB::table('projects')->insert_get_id(array(
      			'title' => 'Open Data: ' . $p,
@@ -35,6 +37,11 @@ class Split_Multiple_Projects {
      		DB::table('bids')->insert($cloneBid);
      	}
 
+          DB::table('project_collaborators')->insert(array(
+               'officer_id' => $farmer->id,
+               'project_id' => $newProjId,
+               'owner' => true
+          ));
      }
 
      foreach ($newMyDataProjects as $p) {
@@ -53,6 +60,12 @@ class Split_Multiple_Projects {
      		$cloneBid['project_id'] = $newProjId;
      		DB::table('bids')->insert($cloneBid);
      	}
+
+          DB::table('project_collaborators')->insert(array(
+               'officer_id' => $farmer->id,
+               'project_id' => $newProjId,
+               'owner' => true
+          ));
 
      }
 
