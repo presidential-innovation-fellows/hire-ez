@@ -1,13 +1,13 @@
 <?php Section::inject('current_page', 'new-vendor'); ?>
-<div class="row-fluid">
-  <div class="span7">
-    <p class="main-description"><?php echo __('r.home.index_signed_out.biz_description', array('url' => route('projects'))); ?></p>
-    <p>
-      <strong>The Application Period for Round 2 Closes on March 17th, 2013 at 11:59pm EST.</strong>
-    </p>
-  </div>
-</div>
 <?php if (!Config::get('application.application_period_over')): ?>
+  <div class="row-fluid">
+    <div class="span7">
+      <p class="main-description"><?php echo __('r.home.index_signed_out.biz_description', array('url' => route('projects'))); ?></p>
+    </div>
+  </div>
+  <p>
+    <strong>The Application Period for Round 2 Closes on March 17th, 2013 at 11:59pm EST.</strong>
+  </p>
   <?php Section::inject('page_title', 'Apply for Round 2') ?>
   <form id="new-vendor-form" action="<?php echo e(route('vendors')); ?>" method="POST">
     <?php $vendor = Input::old('vendor'); ?>
@@ -136,5 +136,10 @@
   </form>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&amp;async=2&amp;callback=Rfpez.initialize_google_autocomplete"></script>
 <?php else: ?>
-  <?php Section::inject('page_title', 'Sorry, the application period is now over.'); ?>
+  <?php Section::inject('page_title', 'The application period is now over.'); ?>
+  <div class="row-fluid">
+    <div class="span7">
+      <p class="main-description">The Presidential Innovation Fellows program is not currently accepting applications. For updates on current projects or future rounds of the program, please follow <a href="http://twitter.com/WhiteHouseOSTP">@WhiteHouseOSTP</a> or visit <a href="http://WhiteHouse.gov/InnovationFellows">WhiteHouse.gov/InnovationFellows</a>. Together, we can save lives, save taxpayer dollars, and fuel job growth in the private sector. Thank you for being a part of the effort to move our country forward.</p>
+    </div>
+  </div>
 <?php endif; ?>
