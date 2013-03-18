@@ -18,6 +18,9 @@ class Vendors_Controller extends Base_Controller {
   }
 
   public function action_create() {
+    if (Config::get('application.application_period_over')) {
+      return Response::json("Sorry, applications are currently closed.");
+    }
     $vendor_input = Input::get('vendor');
     $vendor = new Vendor($vendor_input);
     $vendor->hire_me_elsewhere = isset($vendor_input["hire_me_elsewhere"]) ? true : false;
