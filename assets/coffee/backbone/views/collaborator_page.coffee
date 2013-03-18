@@ -8,6 +8,7 @@ Rfpez.Backbone.CollaboratorPage = Backbone.View.extend
     @bind 'errorAdding', @showError
 
     Rfpez.Backbone.Collaborators.owner_id = @options.owner_id
+    Rfpez.Backbone.Collaborators.isSuperAdmin = $("body").hasClass('super-admin')
     Rfpez.Backbone.Collaborators.reset(@options.bootstrap)
     Rfpez.Backbone.Collaborators.url = "/projects/#{@options.project_id}/collaborators"
 

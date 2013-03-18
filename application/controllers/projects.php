@@ -312,7 +312,7 @@ Route::filter('i_am_collaborator', function() { // also allowed if user is ADMIN
 
 Route::filter('i_am_owner', function() {
   $project = Config::get('project');
-  if (!$project->i_am_owner()) return Redirect::to('/');
+  if (!$project->i_am_owner() && !Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)) return Redirect::to('/');
 });
 
 Route::filter('admin_only', function() {

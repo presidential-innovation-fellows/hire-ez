@@ -9,7 +9,11 @@ Rfpez.Backbone.CollaboratorView = Backbone.View.extend
       <% } %>
     </td>
     <td>
-      <span class="not-user-<%- user.id %> only-user only-user-<%- owner_id %>">
+      <% if (!isSuperAdmin) { %>
+        <span class="not-user-<%- user.id %> only-user only-user-<%- owner_id %>">
+      <% } else { %>
+        <span class="not-user-<%- user.id %>">
+      <% } %>
         <% if (pivot.owner !== "1") { %>
           <button class="btn btn-danger">Remove</button>
         <% } else { %>
@@ -31,7 +35,7 @@ Rfpez.Backbone.CollaboratorView = Backbone.View.extend
     @owner_id = @options.owner_id
 
   render: ->
-    @$el.html @template(_.extend(@model.toJSON(), {owner_id: Rfpez.Backbone.Collaborators.owner_id}))
+    @$el.html @template(_.extend(@model.toJSON(), {owner_id: Rfpez.Backbone.Collaborators.owner_id, isSuperAdmin: Rfpez.Backbone.Collaborators.isSuperAdmin}))
     return @
 
   clear: ->

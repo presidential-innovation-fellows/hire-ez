@@ -7,6 +7,7 @@ Rfpez.Backbone.CollaboratorPage = Backbone.View.extend({
     Rfpez.Backbone.Collaborators.bind('all', this.render, this);
     this.bind('errorAdding', this.showError);
     Rfpez.Backbone.Collaborators.owner_id = this.options.owner_id;
+    Rfpez.Backbone.Collaborators.isSuperAdmin = $("body").hasClass('super-admin');
     Rfpez.Backbone.Collaborators.reset(this.options.bootstrap);
     return Rfpez.Backbone.Collaborators.url = "/projects/" + this.options.project_id + "/collaborators";
   },
