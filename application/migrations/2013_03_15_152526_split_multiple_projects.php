@@ -18,11 +18,12 @@ class Split_Multiple_Projects {
            $myUSAProject = DB::table('projects')->where('title', '=', 'MyUSA')->first();
            $myUSAApplicants = DB::table('bids')->where('project_id', '=', $myUSAProject->id)->get();
 
-		 $newOpenDataProjects = array('Energy', 'Education', 'Smithsonian', 'NSF', 'Finance', 'Interior', 'Global Development', 'Transportation', 'Agriculture', 'Data.gov');
+		 $newOpenDataProjects = array('Energy', 'Interior', 'Education', 'Smithsonian', 'NSF', 'Treasury', 'FDA', 'Global Development', 'USDA', 'Data.gov');
 		 $newMyDataProjects = array('Blue Button', 'Green Button');
            $newMyUSAProjects = array('BusinessUSA');
 
            $farmer = User::where('email', '=', 'John_P_Farmer@ostp.eop.gov')->first()->officer;
+           $gallagher = User::where('email', '=', 'arianne_j_gallagher@ostp.eop.gov')->first()->officer;
 
      foreach ($newOpenDataProjects as $p) {
      	$newProjId = DB::table('projects')->insert_get_id(array(
@@ -42,9 +43,16 @@ class Split_Multiple_Projects {
      	}
 
           DB::table('project_collaborators')->insert(array(
+               array(
                'officer_id' => $farmer->id,
                'project_id' => $newProjId,
                'owner' => true
+               ),
+               array(
+               'officer_id' => $gallagher->id,
+               'project_id' => $newProjId,
+               'owner' => false
+               ),
           ));
      }
 
@@ -106,7 +114,11 @@ class Split_Multiple_Projects {
 	 */
 	public function down()
 	{
-		//TODO maybe?
+
+          $openDataProjects = Project::where('title', 'LIKE', 'Open Data: %')->delete();
+          $myDataProjects = Project::where('title', 'LIKE', 'MyData: %')->delete();
+          $myUSAProjects = Project::where('title', 'LIKE', 'MyUSA: %')->delete();
+
 	}
 
 }
