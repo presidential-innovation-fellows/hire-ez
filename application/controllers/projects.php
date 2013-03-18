@@ -197,7 +197,11 @@ class Projects_Controller extends Base_Controller {
   public function action_mine() {
     $view = View::make('projects.mine');
     $view->count = Auth::user()->unread_notification_count();
-    $view->projects = Auth::officer()->projects;
+    if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)) {
+      $view->projects = Project::order_by('created_at', 'asc')->get();
+    } else {
+      $view->projects = Auth::officer()->projects;
+    }
     $this->layout->content = $view;
   }
 
