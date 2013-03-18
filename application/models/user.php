@@ -149,7 +149,7 @@ class User extends Eloquent {
   }
 
   public static function new_officer_from_invite($email, $invited_by, $project) {
-    if (!preg_match('/\.gov$/', $email)) return false;
+    if (!preg_match('/\.gov|@si\.edu$/', $email)) return false;
 
     $user = new User(array('email' => $email,
                            'invited_by' => $invited_by->id));

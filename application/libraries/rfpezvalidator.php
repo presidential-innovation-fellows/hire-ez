@@ -11,7 +11,7 @@ class RfpezValidator extends Laravel\Validator {
    */
   protected function validate_dotgovonly($attribute, $value)
   {
-    return preg_match('/\.gov$/', $value);
+    return preg_match('/\.gov|@si\.edu$/', $value);
   }
 
 }
