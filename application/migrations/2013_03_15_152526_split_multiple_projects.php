@@ -15,8 +15,12 @@ class Split_Multiple_Projects {
 		 $myDataProject = DB::table('projects')->where('title', '=', 'MyData Initiatives')->first();
 		 $myDataApplicants = DB::table('bids')->where('project_id', '=', $myDataProject->id)->get();
 
+           $myUSAProject = DB::table('projects')->where('title', '=', 'MyUSA')->first();
+           $myUSAApplicants = DB::table('bids')->where('project_id', '=', $myUSAProject->id)->get();
+
 		 $newOpenDataProjects = array('Energy', 'Education', 'Smithsonian', 'NSF', 'Finance', 'Interior', 'Global Development', 'Transportation', 'Agriculture', 'Data.gov');
 		 $newMyDataProjects = array('Blue Button', 'Green Button');
+           $newMyUSAProjects = array('BusinessUSA');
 
            $farmer = User::where('email', '=', 'John_P_Farmer@ostp.eop.gov')->first()->officer;
 
@@ -67,6 +71,30 @@ class Split_Multiple_Projects {
                'owner' => true
           ));
 
+     }
+
+     foreach ($newMyUSAProjects as $p) {
+          $newProjId = DB::table('projects')->insert_get_id(array(
+                    'title' => 'MyUSA: ' . $p,
+                    'agency' => $p,
+                    'body' => $myUSAProject->body,
+                    'tagline' => $myUSAProject->tagline,
+                    'created_at' => $myUSAProject->created_at,
+                    'updated_at' => $myUSAProject->updated_at
+               ));
+
+          foreach($myUSAApplicants as $a) {
+               $cloneBid = get_object_vars($a);
+               $cloneBid['id'] = null;
+               $cloneBid['project_id'] = $newProjId;
+               DB::table('bids')->insert($cloneBid);
+          }
+
+          DB::table('project_collaborators')->insert(array(
+               'officer_id' => $farmer->id,
+               'project_id' => $newProjId,
+               'owner' => true
+          ));
      }
 
 	}
