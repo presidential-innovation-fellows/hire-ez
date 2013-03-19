@@ -4,8 +4,7 @@
   <thead>
     <tr>
       <th>id</th>
-      <th>name</th>
-      <th>title</th>
+      <th>name + title</th>
       <th>email</th>
       <th>role</th>
       <th>actions</th>

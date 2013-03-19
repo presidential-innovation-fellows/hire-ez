@@ -3,8 +3,7 @@ Rfpez.Backbone.AdminOfficerView = Backbone.View.extend
 
   template: _.template """
     <td><%- id %></td>
-    <td><%- name %></td>
-    <td><%- title %></td>
+    <td><%- name %> - <%- title %></td>
     <td><%- user.email %></td>
     <td>
       <div class="not-user-<%- user.id %>">
@@ -34,6 +33,7 @@ Rfpez.Backbone.AdminOfficerView = Backbone.View.extend
             <% } else { %>
               <a class="btn unban-button btn-mini">Un-Ban Officer</a>
             <% } %>
+              <a class="btn resetpw-button btn-mini">Reset Password</a>
           </div>
         </div>
       <% } %>
@@ -44,6 +44,7 @@ Rfpez.Backbone.AdminOfficerView = Backbone.View.extend
     "change .user_role_select": "update"
     "click .ban-button": "ban"
     "click .unban-button": "unban"
+    "click .resetpw-button": "resetpw"
 
   initialize: ->
     @model.bind "change", @render, @
@@ -61,6 +62,10 @@ Rfpez.Backbone.AdminOfficerView = Backbone.View.extend
   unban: ->
     @model.save
       command: "unban"
+
+  resetpw: ->
+    @model.save
+      command: "resetpw"
 
   update: ->
     @model.save

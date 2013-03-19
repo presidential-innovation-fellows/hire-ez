@@ -39,7 +39,7 @@ class Admin_Controller extends Base_Controller {
 
   public function action_officers() {
     $view = View::make('admin.officers');
-    $view->officers = Officer::paginate(10);
+    $view->officers = Officer::paginate(50);
     $view->officers_json = eloquent_to_json($view->officers->results);
     $this->layout->content = $view;
   }

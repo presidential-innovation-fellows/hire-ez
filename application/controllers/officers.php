@@ -21,7 +21,12 @@ class Officers_Controller extends Base_Controller {
     if (isset($json["command"])) {
       if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN) && !$officer->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)
           && Auth::officer()->id != $officer->id) {
-        if ($json["command"] == "ban") $officer->ban();
+        if ($json["command"] == "resetpw") {
+          $user = User::find($officer->user_id);
+          $user->generate_reset_password_token();
+          $tosend = array("reset_link" => route('reset_password', array($user->reset_password_token)));
+          return Response::json($tosend);
+        } else if ($json["command"] == "ban") $officer->ban();
         if ($json["command"] == "unban") $officer->unban();
         $officer->save();
         $officer = Officer::find($id);
