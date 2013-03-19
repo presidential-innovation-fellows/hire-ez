@@ -13,17 +13,17 @@ Rfpez.Backbone.BidView = Backbone.View.extend
           <div class="span8">
             <div class="bid-tab-wrapper">
               <ul class="nav nav-tabs">
-                <li class="active"><a href="#body<%- id %>" data-toggle="tab">This Project</a></li>
-                <li><a href="#general_paragraph<%- id %>" data-toggle="tab">General Paragraph</a></li>
+                <li class="active"><a href="#general_paragraph<%- id %>" data-toggle="tab">General Paragraph</a></li>
+                <li><a href="#body<%- id %>" data-toggle="tab">This Project</a></li>
                 <li><a href="#resume<%- id %>" data-toggle="tab">Resume</a></li>
                 <li><a href="#links<%- id %>" data-toggle="tab">Links & Contact Info</a></li>
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane active" id="body<%- id %>">
+                <div class="tab-pane active" id="general_paragraph<%- id %>"><%- vendor.general_paragraph %></div>
+                <div class="tab-pane" id="body<%- id %>">
                   <%= _.escape(body).replace(new RegExp('\\r?\\n', 'g'), '<br />') %>
                 </div>
-                <div class="tab-pane" id="general_paragraph<%- id %>"><%- vendor.general_paragraph %></div>
                 <div class="tab-pane" id="resume<%- id %>"><%= vendor.resume %></div>
                 <div class="tab-pane" id="links<%- id %>">
                   <dl>

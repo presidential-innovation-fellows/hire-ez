@@ -129,6 +129,18 @@ next_page = ->
 previous_page = ->
   $("#bid-review-pagination-wrapper .previous").click()
 
+next_tab = (e) ->
+  ul = $(".bid.selected .bid-tab-wrapper ul")
+  activeIndex = ul.find("li").index(ul.find("li.active"))
+  ul.find("li:eq(#{activeIndex + 1}) a").click()
+  e.preventDefault()
+
+previous_tab = (e) ->
+  ul = $(".bid.selected .bid-tab-wrapper ul")
+  activeIndex = ul.find("li").index(ul.find("li.active"))
+  ul.find("li:eq(#{activeIndex - 1}) a").click()
+  e.preventDefault()
+
 key 'k', ->
   Rfpez.move_bid_selection("up")
 
@@ -143,6 +155,8 @@ key '⌘+backspace, ctrl+backspace, ⌘+delete, ctrl+delete', mark_as_spam
 key 'a', toggle_unread_selection
 key 'right', next_page
 key 'left', previous_page
+key 'tab', next_tab
+key 'shift+tab', previous_tab
 
 
 key '/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts

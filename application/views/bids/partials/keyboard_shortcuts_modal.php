@@ -37,6 +37,14 @@
       </dt>
       <dd>open selection</dd>
       <dt>
+        <code>tab</code>
+      </dt>
+      <dd>Next application tab</dd>
+      <dt>
+        <code>shift+tab</code>
+      </dt>
+      <dd>Previous application tab</dd>
+      <dt>
         <code>cmd+del</code>
       </dt>
       <dd>mark as spam</dd>

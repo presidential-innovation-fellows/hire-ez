@@ -1,4 +1,4 @@
-var keep_bid_in_view, mark_as_spam, mouseover_select_timeout, next_page, no_vote_selection, on_mouseover_select, open_selection, previous_page, thumbs_down_selection, thumbs_up_selection, toggle_unread_selection;
+var keep_bid_in_view, mark_as_spam, mouseover_select_timeout, next_page, next_tab, no_vote_selection, on_mouseover_select, open_selection, previous_page, previous_tab, thumbs_down_selection, thumbs_up_selection, toggle_unread_selection;
 
 $(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", function(e) {
   var $wrapper, filter, forwardDirection, href, i, no_longer_visible_count, params, total, url, val;
@@ -169,6 +169,22 @@ previous_page = function() {
   return $("#bid-review-pagination-wrapper .previous").click();
 };
 
+next_tab = function(e) {
+  var activeIndex, ul;
+  ul = $(".bid.selected .bid-tab-wrapper ul");
+  activeIndex = ul.find("li").index(ul.find("li.active"));
+  ul.find("li:eq(" + (activeIndex + 1) + ") a").click();
+  return e.preventDefault();
+};
+
+previous_tab = function(e) {
+  var activeIndex, ul;
+  ul = $(".bid.selected .bid-tab-wrapper ul");
+  activeIndex = ul.find("li").index(ul.find("li.active"));
+  ul.find("li:eq(" + (activeIndex - 1) + ") a").click();
+  return e.preventDefault();
+};
+
 key('k', function() {
   return Rfpez.move_bid_selection("up");
 });
@@ -192,6 +208,10 @@ key('a', toggle_unread_selection);
 key('right', next_page);
 
 key('left', previous_page);
+
+key('tab', next_tab);
+
+key('shift+tab', previous_tab);
 
 key('/, shift+/, ⌘+/, ctrl+/', Rfpez.toggle_keyboard_shortcuts);
 
