@@ -33,6 +33,10 @@ Rfpez.Backbone.AdminOfficerView = Backbone.View.extend({
   resetpw: function() {
     return this.model.save({
       command: "resetpw"
+    }, {
+      success: function(model, res) {
+        return alert("Send this link to the officer: \r\n" + res.reset_link);
+      }
     });
   },
   update: function() {

@@ -64,8 +64,8 @@ Rfpez.Backbone.AdminOfficerView = Backbone.View.extend
       command: "unban"
 
   resetpw: ->
-    @model.save
-      command: "resetpw"
+    @model.save {command: "resetpw"}, {success: (model, res) ->
+      alert "Send this link to the officer: \r\n" + res.reset_link}
 
   update: ->
     @model.save
