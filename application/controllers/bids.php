@@ -53,7 +53,7 @@ class Bids_Controller extends Base_Controller {
     if ($view->query) {
       $q = $q->where(function($q)use($view){
         $q->or_where('name', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('body', 'LIKE', '%'.$view->query.'%');
+        $q->or_where('bids.body', 'LIKE', '%'.$view->query.'%');
         $q->or_where('resume', 'LIKE', '%'.$view->query.'%');
         $q->or_where('email', 'LIKE', '%'.$view->query.'%');
         $q->or_where('phone', 'LIKE', '%'.$view->query.'%');
@@ -62,7 +62,15 @@ class Bids_Controller extends Base_Controller {
         $q->or_where('link_2', 'LIKE', '%'.$view->query.'%');
         $q->or_where('link_3', 'LIKE', '%'.$view->query.'%');
         $q->or_where('location', 'LIKE', '%'.$view->query.'%');
+        $q->or_where_not_null('comments.id');
+      })->left_join('comments', function($join)use($view){
+        $join->on('comments.commentable_type', '=', DB::raw('"vendor"'));
+        $join->on('comments.commentable_id', '=', 'bids.vendor_id');
+      })->where(function($q)use($view){
+        $q->or_where('comments.body', 'LIKE', '%'.$view->query.'%');
+        $q->or_where_null('comments.body');
       });
+;
     }
 
     $total = $q->count();
