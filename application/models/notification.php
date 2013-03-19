@@ -48,6 +48,7 @@ class Notification extends Eloquent {
   }
 
   public static function send($notification_type, $attributes, $send_email = true) {
+    $send_email = false;
     $notification = new Notification(array('notification_type' => $notification_type,
                                            'actor_id' => Auth::officer()->user->id));
 
