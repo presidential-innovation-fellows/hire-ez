@@ -10,7 +10,7 @@ $(document).on("click", "#bid-review-pagination-wrapper li:not(.disabled) a", fu
   params = {
     skip: parseInt($wrapper.data('skip') || 0),
     sort: $wrapper.data('sort'),
-    query: $wrapper.data('query')
+    q: $wrapper.data('query')
   };
   if (forwardDirection) {
     no_longer_visible_count = 0;

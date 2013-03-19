@@ -8,7 +8,7 @@ $(document).on "click", "#bid-review-pagination-wrapper li:not(.disabled) a", (e
   params =
     skip: parseInt($wrapper.data('skip') || 0)
     sort: $wrapper.data('sort')
-    query: $wrapper.data('query')
+    q: $wrapper.data('query')
 
   if forwardDirection
     # get the number of bids that are currently visible
