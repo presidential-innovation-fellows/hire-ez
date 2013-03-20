@@ -51,7 +51,15 @@ class Bids_Controller extends Base_Controller {
     }
 
     if ($view->query) {
-      $q = $q->where(function($q)use($view){
+      $q = $q->select(array('*', 'comments.*',
+                                 'bids.id as id',
+                                 'bids.created_at as created_at',
+                                 'bids.updated_at as updated_at',
+                                 'bids.body as body',
+                                 DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')))
+
+
+           ->where(function($q)use($view){
         $q->or_where('name', 'LIKE', '%'.$view->query.'%');
         $q->or_where('bids.body', 'LIKE', '%'.$view->query.'%');
         $q->or_where('resume', 'LIKE', '%'.$view->query.'%');
