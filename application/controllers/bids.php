@@ -62,15 +62,14 @@ class Bids_Controller extends Base_Controller {
         $q->or_where('link_2', 'LIKE', '%'.$view->query.'%');
         $q->or_where('link_3', 'LIKE', '%'.$view->query.'%');
         $q->or_where('location', 'LIKE', '%'.$view->query.'%');
-        $q->or_where_not_null('comments.id');
-      })->left_join('comments', function($join)use($view){
-        $join->on('comments.commentable_type', '=', DB::raw('"vendor"'));
-        $join->on('comments.commentable_id', '=', 'bids.vendor_id');
-      })->where(function($q)use($view){
         $q->or_where('comments.body', 'LIKE', '%'.$view->query.'%');
-        $q->or_where_null('comments.body');
+      })->left_join('comments', function($join)use($view){
+        $join->on('comments.commentable_type', '=', DB::raw('\'vendor\''));
+        $join->on('comments.commentable_id', '=', 'bids.vendor_id');
+      })
+      ->where(function($q)use($view){
       });
-;
+
     }
 
     $total = $q->count();
