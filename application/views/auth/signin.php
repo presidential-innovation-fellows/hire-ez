@@ -14,14 +14,6 @@
       <a class="forgot" href="<?php echo e(route('forgot_password')); ?>">Forgot Password?</a>
     </div>
   </div>
-  <div class="control-group">
-    <div class="controls">
-      <label class="checkbox">
-        <input type="checkbox" checked="checked" name="remember" />
-        Remember Me?
-      </label>
-    </div>
-  </div>
   <div class="form-actions">
     <button class="btn btn-warning" type="submit">Sign In</button>
   </div>
