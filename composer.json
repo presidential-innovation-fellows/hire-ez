@@ -3,7 +3,7 @@
     "repositories": [
       {
         "type": "vcs",
-        "url": "git://github.com/adamjacobbecker/jade.php.git"
+        "url": "https://github.com/adamjacobbecker/jade.php.git"
       }
     ],
     "require": {
