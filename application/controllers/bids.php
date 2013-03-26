@@ -51,33 +51,61 @@ class Bids_Controller extends Base_Controller {
     }
 
     if ($view->query) {
-      $q = $q->select(array('*', 'comments.*',
-                                 'bids.id as id',
-                                 'bids.created_at as created_at',
-                                 'bids.updated_at as updated_at',
-                                 'bids.body as body',
-                                 DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')))
-
-
-           ->where(function($q)use($view){
-        $q->or_where('name', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('bids.body', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('resume', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('email', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('phone', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('general_paragraph', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('link_1', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('link_2', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('link_3', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('location', 'LIKE', '%'.$view->query.'%');
-        $q->or_where('comments.body', 'LIKE', '%'.$view->query.'%');
-      })->left_join('comments', function($join)use($view){
+      $q = $q->select(
+               array('*',
+                     'comments.*',
+                     'bids.id as id',
+                     'bids.created_at as created_at',
+                     'bids.updated_at as updated_at',
+                     'bids.body as body',
+                      DB::raw('(`bids`.`total_stars` - `bids`.`total_thumbs_down`) as `total_score`')))
+      ->left_join('comments', function($join)use($view){
         $join->on('comments.commentable_type', '=', DB::raw('\'vendor\''));
         $join->on('comments.commentable_id', '=', 'bids.vendor_id');
-      })
-      ->where(function($q)use($view){
       });
 
+
+      function addWhereClause($q, $str, $or_where = false) {
+
+        $and_pieces = explode("AND", $str);
+
+        if (count($and_pieces) > 1) {
+          foreach ($and_pieces as $and_piece) {
+            addWhereClause($q, trim($and_piece), false);
+          }
+          return;
+        }
+
+        $or_pieces = explode("OR", $str);
+
+        if (count($or_pieces) > 1) {
+          foreach ($or_pieces as $or_piece) {
+            addWhereClause($q, trim($or_piece), true);
+          }
+          return;
+        }
+
+
+        $method_name = $or_where ? "or_where" : "where";
+
+        $q = $q->$method_name(function($q)use($str){
+          $q->or_where('name', 'LIKE', '%'.$str.'%');
+          $q->or_where('bids.body', 'LIKE', '%'.$str.'%');
+          $q->or_where('resume', 'LIKE', '%'.$str.'%');
+          $q->or_where('email', 'LIKE', '%'.$str.'%');
+          $q->or_where('phone', 'LIKE', '%'.$str.'%');
+          $q->or_where('general_paragraph', 'LIKE', '%'.$str.'%');
+          $q->or_where('link_1', 'LIKE', '%'.$str.'%');
+          $q->or_where('link_2', 'LIKE', '%'.$str.'%');
+          $q->or_where('link_3', 'LIKE', '%'.$str.'%');
+          $q->or_where('location', 'LIKE', '%'.$str.'%');
+          $q->or_where('comments.body', 'LIKE', '%'.$str.'%');
+        });
+      }
+
+      $q = $q->where(function($q)use($view){
+        addWhereClause($q, $view->query);
+      });
     }
 
     $total = $q->count();
